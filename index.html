@@ -272,13 +272,15 @@
             style="display:inline; font-size:inherit; letter-spacing:inherit;">61.4818° N, 30.2179° E</span><br />
           Последние километры — грунтовая дорога. Проедет любая машина.
         </p>
-        <div class="map-full fade-in delay-3">
-          <div class="map-full-bg"></div>
-          <div class="map-full-pin">
-            <div class="map-ping"></div>
-            <div class="map-full-dot"></div>
+        <div class="yandex-map-section fade-in delay-3">
+          <iframe
+            src="https://yandex.com/map-widget/v1/?ll=30.216941%2C61.495148&mode=search&sll=30.217900%2C61.481800&text=61.481800%2C30.217900&z=13.41"
+            class="yandex-map-iframe" allowfullscreen="true" loading="lazy"></iframe>
+          <div class="map-custom-pin">
+            <div class="map-custom-ping"></div>
+            <div class="map-custom-dot"></div>
           </div>
-          <div class="map-coords-label coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
+          <div class="map-coords-overlay coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
             61.4818° N, 30.2179° E</div>
         </div>
       </div>

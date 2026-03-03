@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>САМ — Глэмпинг Карелия | Отдых на природе у Ладоги</title>
+  <meta name="description"
+    content="Глэмпинг САМ — отдых в Карелии у Ладожского озера. Рыбалка, баня, скалы, SUP. 7 000 ₽/ночь. Забронируйте прямо сейчас.">
+  <meta property="og:title" content="САМ — Глэмпинг Карелия">
+  <meta property="og:description" content="Вспомни как это — делать всё самому. Рыбалка на Ладоге, баня, скалы.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#080808">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#C17B2F",
+            "background-dark": "#080808",
+            "grey-custom": "#888888",
+          },
+          fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
+          borderRadius: { "none": "0" },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- Загрузка -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-text">САМ</div>
+  </div>
+
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#mesto" onclick="closeMobile()">МЕСТО</a>
+    <a href="#ustrojstvo" onclick="closeMobile()">УСТРОЙСТВО</a>
+    <a href="#chto-delat" onclick="closeMobile()">ЧТО ДЕЛАТЬ</a>
+    <a href="#priehat" onclick="closeMobile()">ПРИЕХАТЬ</a>
+    <a href="#bronirovat" onclick="closeMobile()">БРОНИРОВАТЬ</a>
+  </div>
+
+  <!-- Навигация -->
+  <header class="nav-fixed" id="navbar">
+    <a href="#glavnaya" class="nav-logo">САМ</a>
+    <div class="nav-links">
+      <a href="#mesto" class="nav-link">МЕСТО</a>
+      <a href="#ustrojstvo" class="nav-link">УСТРОЙСТВО</a>
+      <a href="#chto-delat" class="nav-link">ЧТО ДЕЛАТЬ</a>
+      <a href="#priehat" class="nav-link">ПРИЕХАТЬ</a>
+      <a href="#bronirovat" class="nav-link">БРОНИРОВАТЬ</a>
+      <button class="btn-amber" style="font-size:11px; padding: 12px 24px;"
+        onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
+        ЗАБРОНИРОВАТЬ
+      </button>
+    </div>
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
+  <section class="page" id="glavnaya">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div style="max-width: 700px;">
+        <h1 class="hero-title">Вспомни как это —<br />делать всё самому.</h1>
+        <div class="hero-line"></div>
+        <div class="hero-sub">
+          <p style="color:#888; font-size:16px; line-height:1.8;">Рыбалка на Ладоге.</p>
+          <p style="color:#888; font-size:16px; line-height:1.8;">Баня которую ты топишь сам.</p>
+          <p style="color:#888; font-size:16px; line-height:1.8;">Скала в пяти минутах.</p>
+        </div>
+        <div class="hero-btn" style="margin-top: 40px;">
+          <button class="btn-main" style="font-size:18px; padding: 20px 48px;"
+            onclick="document.getElementById('priehat').scrollIntoView({behavior:'smooth'})">
+            ПРИЕХАТЬ →
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-footer">
+      <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
+      <p style="color:rgba(255,255,255,0.2); font-size:10px; letter-spacing:4px; text-transform:uppercase;">Карелия.
+        Россия</p>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 2: МЕСТО ===== -->
+  <section class="page" id="mesto">
+    <div class="mesto-photo">
+      <div class="mesto-photo-bg" id="mestoBg"></div>
+      <div style="position:absolute; bottom:40px; left:40px; z-index:10;">
+        <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
+      </div>
+    </div>
+    <div class="mesto-content">
+      <span class="fade-in"
+        style="color:#C17B2F; font-size:11px; font-weight:700; letter-spacing:6px; text-transform:uppercase; margin-bottom:16px; display:block;">ЗДЕСЬ</span>
+      <h2 class="fade-in delay-1"
+        style="font-size: clamp(60px, 8vw, 96px); font-weight:900; line-height:1; letter-spacing:-3px; margin-bottom:32px;">
+        МЕСТ<br />О</h2>
+      <p class="fade-in delay-2" style="color:#888; font-size:16px; line-height:2; margin-bottom:48px;">
+        Карелия, Лахденпохья, Змеиная скала.<br /><br />
+        До Петербурга 300 километров.<br />
+        Ладога здесь без горизонта.<br />
+        Скала отвесная. Тропа есть.<br />
+        Вид с вершины — на всю жизнь.
+      </p>
+      <div class="fade-in delay-3">
+        <div class="map-wrapper">
+          <div class="map-bg"></div>
+          <div class="map-pin">
+            <div class="map-label">SAM GLAMPING</div>
+            <div class="map-pin-dot"></div>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=61.4817662,30.2178948" target="_blank"
+          style="display:inline-flex; align-items:center; gap:12px; margin-top:24px; color:white; text-decoration:none; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; transition: color 0.3s ease;"
+          onmouseover="this.style.color='#C17B2F'" onmouseout="this.style.color='white'">
+          ОТКРЫТЬ КАРТЫ ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 3: КАК УСТРОЕНО ===== -->
+  <section class="page" id="ustrojstvo">
+    <div style="margin-bottom:64px;">
+      <h2 class="fade-in"
+        style="font-size: clamp(40px, 5vw, 64px); font-weight:700; letter-spacing:-1px; text-transform:uppercase;">Как
+        устроено</h2>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px;">
+      <div class="card fade-in delay-1">
+        <div class="card-icon"><span class="material-symbols-outlined">bed</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Сон</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Хорошая кровать. Тепло даже в октябре. Окно на лес и
+          скалу.</p>
+      </div>
+      <div class="card fade-in delay-2">
+        <div class="card-icon"><span class="material-symbols-outlined">local_fire_department</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Огонь</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Дровяная баня. Топите сами. Рядом Ладога.</p>
+      </div>
+      <div class="card fade-in delay-3">
+        <div class="card-icon"><span class="material-symbols-outlined">construction</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Быт</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Удочки. Корзина. САП. Дрова. Всё есть — никто не
+          объясняет как.</p>
+      </div>
+      <div class="card fade-in delay-4">
+        <div class="card-icon"><span class="material-symbols-outlined">landscape</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Горы</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Змеиная скала. Пять минут по тропе. Дальше сами.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== -->
+  <section class="page" id="chto-delat">
+    <div style="margin-bottom:64px;">
+      <h2 class="fade-in"
+        style="font-size: clamp(40px, 5vw, 64px); font-weight:300; letter-spacing:-1px; text-transform:uppercase;">Что
+        делать</h2>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:48px 48px;">
+      <div class="card-item fade-in delay-1" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img" style="background-image: url('img/fishing.png');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">РЫБАЛКА</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Удочки у воды. Ладога не обещает улов.
+            Но утро на воде — уже достаточно.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-2" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img" style="background-image: url('img/rock.png');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">СКАЛА</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Вид на Ладогу с которым не поспоришь.
+          </p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-3" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img" style="background-image: url('img/banya.png');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">БАНЯ</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Топите сами. Потом Ладога. Потом снова
+            баня.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-1" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img" style="background-image: url('img/forest.png');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">ЛЕС</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Корзина у входа. Август — грибы.
+            Просто идите.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-2" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img" style="background-image: url('img/sup.png');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">САП</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Доска у берега. Ладога тихая утром.
+            Выходите до завтрака.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== -->
+  <section class="page" id="priehat">
+    <div class="priehat-inner">
+      <div class="fade-in delay-1">
+        <h3
+          style="font-size:24px; font-weight:700; text-transform:uppercase; border-bottom: 2px solid #C17B2F; display:inline-block; padding-bottom:4px; margin-bottom:24px;">
+          СТОИМОСТЬ</h3>
+        <p style="color:#888; font-size:16px; line-height:1.8;">7,000 рублей за ночь. Двое. Домик, баня, удочки, САП,
+          дрова — всё включено. Минимум две ночи.</p>
+      </div>
+      <div class="fade-in delay-2">
+        <h3
+          style="font-size:24px; font-weight:700; text-transform:uppercase; border-bottom: 2px solid #C17B2F; display:inline-block; padding-bottom:4px; margin-bottom:24px;">
+          КАК ДОБРАТЬСЯ</h3>
+        <p style="color:#888; font-size:16px; line-height:1.8; margin-bottom:32px;">
+          4 часа от Петербурга по трассе А-121.<br />
+          Координаты: <span class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать"
+            style="display:inline; font-size:inherit; letter-spacing:inherit;">61.4818° N, 30.2179° E</span><br />
+          Последние километры — грунтовая дорога. Проедет любая машина.
+        </p>
+        <div class="map-full fade-in delay-3">
+          <div class="map-full-bg"></div>
+          <div class="map-full-pin">
+            <div class="map-ping"></div>
+            <div class="map-full-dot"></div>
+          </div>
+          <div class="map-coords-label coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
+            61.4818° N, 30.2179° E</div>
+        </div>
+      </div>
+      <div class="fade-in delay-4" style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <a href="https://t.me/Maksimenko_Dmitry" target="_blank" style="text-decoration:none;">
+          <button class="btn-main" style="font-size:14px; padding:24px 56px;">
+            НАПИСАТЬ В TELEGRAM →
+          </button>
+        </a>
+        <p style="color:#888; font-size:12px; letter-spacing:4px; text-transform:uppercase; opacity:0.5;">Отвечаем в
+          течение часа.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== -->
+  <section class="page" id="bronirovat"
+    style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 80px 80px;">
+    <div style="width:100%; max-width:960px;">
+      <p class="fade-in"
+        style="font-size:11px; font-weight:700; letter-spacing:6px; color:#C17B2F; text-transform:uppercase; margin-bottom:12px;">
+        БРОНИРОВАНИЕ</p>
+      <h2 class="fade-in delay-1"
+        style="font-size:clamp(40px,5vw,64px); font-weight:900; letter-spacing:-2px; line-height:1; margin-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:40px;">
+        ЗАБРОНИРОВАТЬ</h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;" class="bk-grid">
+
+        <!-- Календарь -->
+        <div class="fade-in delay-2">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+            <button class="cal-arrow" id="bkPrev">←</button>
+            <div id="bkMonth" style="font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">—
+            </div>
+            <button class="cal-arrow" id="bkNext">→</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:4px;">
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Пн</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Вт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Ср</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Чт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Пт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Сб</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Вс</div>
+          </div>
+          <div id="bkGrid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px;"></div>
+          <p id="bkMinNote"
+            style="margin-top:12px; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,0.25); text-transform:uppercase; transition:color 0.3s ease;">
+            Минимум 2 ночи</p>
+
+          <!-- Выбранные даты -->
+          <div id="bkDatesBlock"
+            style="display:none; margin-top:24px; padding:16px 20px; border:1px solid rgba(193,123,47,0.3); background:rgba(193,123,47,0.05);">
+            <div
+              style="font-size:10px; letter-spacing:3px; color:#C17B2F; text-transform:uppercase; margin-bottom:8px;">
+              Ваши даты</div>
+            <div id="bkDatesValue" style="font-size:18px; font-weight:700;">—</div>
+            <div id="bkNightsValue"
+              style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">
+              —</div>
+          </div>
+        </div>
+
+        <!-- Форма -->
+        <div class="fade-in delay-3">
+          <div id="bkForm" style="display:flex; flex-direction:column; gap:24px;">
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Имя</label>
+              <input id="bkName" type="text" placeholder="Ваше имя"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Телефон</label>
+              <input id="bkPhone" type="tel" placeholder="+7 (___) ___-__-__"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Количество
+                гостей</label>
+              <select id="bkGuests"
+                style="background:#080808; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; -webkit-appearance:none; appearance:none; cursor:pointer; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                <option value="1">1 человек</option>
+                <option value="2" selected>2 человека</option>
+              </select>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Комментарий</label>
+              <input id="bkComment" type="text" placeholder="Необязательно"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <!-- Цена -->
+            <div id="bkPrice"
+              style="display:none; padding:20px; border:1px solid rgba(255,255,255,0.05); background:rgba(255,255,255,0.02);">
+              <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                <span style="font-size:12px; color:rgba(255,255,255,0.35);">За ночь</span>
+                <span style="font-size:14px; font-weight:500;">7 000 ₽</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                <span id="bkNightsLbl" style="font-size:12px; color:rgba(255,255,255,0.35);">Ночей</span>
+                <span id="bkNightsVal" style="font-size:14px; font-weight:500;">—</span>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,0.05); margin:8px 0;"></div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span
+                  style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;">Итого</span>
+                <span id="bkTotal" style="font-size:22px; font-weight:900; color:#C17B2F;">—</span>
+              </div>
+            </div>
+
+            <button id="bkSubmit" disabled onclick="bkSubmitBooking()"
+              style="background:#C17B2F; color:white; border:none; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:20px 40px; cursor:pointer; width:100%; transition:background 0.3s ease, transform 0.2s ease;"
+              onmouseover="if(!this.disabled)this.style.background='#8B5A1F'"
+              onmouseout="if(!this.disabled)this.style.background='#C17B2F'">
+              ОТПРАВИТЬ ЗАЯВКУ
+            </button>
+
+            <p
+              style="font-size:11px; color:rgba(255,255,255,0.2); letter-spacing:2px; text-transform:uppercase; text-align:center;">
+              Ответим в течение часа</p>
+          </div>
+
+          <!-- Успех -->
+          <div id="bkSuccess"
+            style="display:none; text-align:center; padding:48px 32px; border:1px solid rgba(193,123,47,0.3); background:rgba(193,123,47,0.05);">
+            <div style="font-size:40px; margin-bottom:16px;">✓</div>
+            <div style="font-size:24px; font-weight:900; margin-bottom:8px;">Заявка отправлена</div>
+            <div style="font-size:14px; color:rgba(255,255,255,0.4); line-height:1.6;">Свяжемся с вами в течение
+              часа<br />для подтверждения бронирования.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer class="site-footer">
+    <div style="display:flex; gap:32px;">
+      <a href="#priehat"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">Контакты</a>
+      <a href="https://t.me/Maksimenko_Dmitry" target="_blank"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">Telegram</a>
+      <a href="https://vk.com/sam_glamping" target="_blank"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">ВКонтакте</a>
+    </div>
+    <p style="color:rgba(136,136,136,0.2); font-size:10px; letter-spacing:4px; text-transform:uppercase;">© 2025 САМ.
+      КАРЕЛИЯ. РОССИЯ.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

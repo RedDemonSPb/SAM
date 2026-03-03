@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html class="dark" lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>САМ — Глэмпинг Карелия | Отдых на природе у Ладоги</title>
+  <meta name="description"
+    content="Глэмпинг САМ — отдых в Карелии у Ладожского озера. Рыбалка, баня, скалы, SUP. 7 000 ₽/ночь. Забронируйте прямо сейчас.">
+  <meta property="og:title" content="САМ — Глэмпинг Карелия">
+  <meta property="og:description" content="Вспомни как это — делать всё самому. Рыбалка на Ладоге, баня, скалы.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#080808">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#C17B2F",
+            "background-dark": "#080808",
+            "grey-custom": "#888888",
+          },
+          fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
+          borderRadius: { "none": "0" },
+        },
+      },
+    }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #080808;
+      color: #f8f7f5;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Секции */
+    section.page {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Навигация */
+    .nav-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 80px;
+      background: rgba(8, 8, 8, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: padding 0.3s ease;
+    }
+
+    .nav-fixed.scrolled {
+      padding: 16px 80px;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-link {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #C17B2F;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #C17B2F;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      color: #C17B2F;
+    }
+
+    /* Кнопки */
+    .btn-amber {
+      background: #C17B2F;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-amber:hover {
+      background: #8B5A1F;
+    }
+
+    .btn-main {
+      background: #C17B2F;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-family: 'Space Grotesk', sans-serif;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-main:hover {
+      background: #8B5A1F;
+      transform: translateY(-2px);
+    }
+
+    .btn-main:hover::before {
+      left: 100%;
+    }
+
+    .btn-main:active {
+      transform: scale(0.98);
+    }
+
+    /* Fade in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    .delay-5 {
+      transition-delay: 0.5s;
+    }
+
+    /* ===== СТРАНИЦА 1: ГЛАВНАЯ ===== */
+    #glavnaya {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-KUbvn74962tYSbSTePW5YrpX4KpiwacGxgcRFGUheIPVknY9lius1lGP3hVBOGzx5rCw9atDLpnGi2b08knj072Oflg1X7Lkqu2VpOyZ-Kdp3SJyhrcDNeTlCaQx42EUICYcpDghXn7K6pGzngQvL9vcjGQuYFguYR70eggunld-t7IBzonMllMLf8QByat8HBes4SNv86HqBL3k_7Z3JJVvBhNzYSPCLMqUzWDr-kSBzj78xpKjzjeipj3fEJbmpU6Z-qO6Ig');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(1);
+      opacity: 0.6;
+      will-change: transform;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, black, rgba(0, 0, 0, 0.4), transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 120px 80px 60px;
+    }
+
+    .hero-title {
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: white;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroIn 1s ease 0.3s forwards;
+    }
+
+    .hero-line {
+      width: 0;
+      height: 4px;
+      background: #C17B2F;
+      margin: 24px 0;
+      animation: lineGrow 0.8s ease 1s forwards;
+    }
+
+    .hero-sub {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroIn 0.8s ease 1.2s forwards;
+    }
+
+    .hero-btn {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroIn 0.8s ease 1.5s forwards;
+    }
+
+    @keyframes heroIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes lineGrow {
+      to {
+        width: 80px;
+      }
+    }
+
+    .hero-footer {
+      position: relative;
+      z-index: 10;
+      padding: 24px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .coordinates {
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: rgba(255, 255, 255, 0.4);
+      animation: coordPulse 4s ease-in-out infinite;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .coordinates:hover {
+      color: rgba(193, 123, 47, 0.8);
+    }
+
+    .coordinates.copied {
+      color: #C17B2F;
+    }
+
+    .coordinates.copied::after {
+      content: 'Скопировано!';
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #C17B2F;
+      white-space: nowrap;
+      animation: copiedFade 1.5s ease forwards;
+    }
+
+    @keyframes copiedFade {
+      0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+      }
+    }
+
+    @keyframes coordPulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    /* ===== СТРАНИЦА 2: МЕСТО ===== */
+    #mesto {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .mesto-photo {
+      width: 60%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mesto-photo-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC04BH7W3kbMhJCJ_0efaHOP0Psymd53v3ypVJiAHJAdSpCK0PJPH7-teFSrn9CQ_MdwLc4ioXymWkmhIu0q5Lchat2xJNw6pLNqP98u2Qc0zHu5EFEYQNWjktqhjrFmj9A-aQV_WDEksJCt6Kg7RCLe8ycfhDDtHWE0vJAFiGWQvEDXw1bRxPWuEoMsmVC26BlsMj4-JvKeUY7ola1epWqY5x3lR6B18GH3sYyWLvaxJG1f9mXyhcouj3eYOm-ayVHfRn5KQn2Dw');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(1) contrast(1.2) brightness(0.5);
+      will-change: transform;
+    }
+
+    .mesto-content {
+      width: 40%;
+      background: #080808;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 80px 60px;
+    }
+
+    .amber-underline {
+      border-bottom: 2px solid #C17B2F;
+      display: inline-block;
+      padding-bottom: 2px;
+    }
+
+    .map-wrapper {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1;
+      background: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .map-wrapper:hover {
+      border-color: rgba(193, 123, 47, 0.4);
+    }
+
+    .map-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDEaFKKA7cDS6R3Z-1H4aFmrc12PxeH0I0F2D1IZX8AdRi524ElCpVagLjsGzSHndEnz8EQWoNO99KFFTM902rdNqfI3P_UI7TQmFJivHIq3jQYpY7sEB1TKSvaiXVoLsL-MPNpm35dag4E5mhvBAlwZVk5j7r7EYt-WVM92I-qlYHp56KPyCrsjcXTeQl6s7E5Qb7CDXxldtOTxfcYNa0f83glVUkYFSVwZoS7PeTPc8HpSbinr60QyM7BpJ3v_d-ey5MiuHUTlg');
+      background-size: cover;
+      opacity: 0.4;
+      filter: grayscale(1);
+    }
+
+    .map-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .map-pin-dot {
+      width: 16px;
+      height: 16px;
+      background: #C17B2F;
+      transform: rotate(45deg);
+      border: 2px solid white;
+      animation: pinGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes pinGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 10px rgba(193, 123, 47, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 25px rgba(193, 123, 47, 0.9);
+      }
+    }
+
+    .map-label {
+      position: absolute;
+      top: -36px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-45deg);
+      background: white;
+      color: black;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 6px;
+      white-space: nowrap;
+    }
+
+    /* ===== СТРАНИЦА 3: УСТРОЙСТВО ===== */
+    #ustrojstvo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 80px 80px;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid transparent;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(193, 123, 47, 0.2);
+      transform: translateY(-6px);
+    }
+
+    .card-icon {
+      color: #C17B2F;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .card-line {
+      width: 0;
+      height: 1px;
+      background: #C17B2F;
+      transition: width 0.4s ease;
+      margin: 8px 0;
+    }
+
+    .card:hover .card-line {
+      width: 40px;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      font-size: 40px !important;
+    }
+
+    /* ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== */
+    #chto-delat {
+      padding: 120px 80px 80px;
+    }
+
+    .photo-card {
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/5;
+      width: 100%;
+    }
+
+    .photo-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(1);
+      transition: transform 0.6s ease, filter 0.4s ease;
+    }
+
+    .photo-card:hover .photo-img {
+      transform: scale(1.05);
+      filter: grayscale(0.5);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .photo-card:hover .photo-overlay {
+      opacity: 1;
+    }
+
+    .card-title-line {
+      display: block;
+      width: 0;
+      height: 1px;
+      background: #C17B2F;
+      transition: width 0.4s ease;
+      margin-top: 4px;
+    }
+
+    .card-item:hover .card-title-line {
+      width: 30px;
+    }
+
+    /* ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== */
+    #priehat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 120px 40px 80px;
+    }
+
+    .priehat-inner {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .map-full {
+      width: 100%;
+      height: 400px;
+      background: #121212;
+      border: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease;
+    }
+
+    .map-full:hover {
+      border-color: rgba(193, 123, 47, 0.3);
+    }
+
+    .map-full-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBayOoFwwufV7aLMIlJugGLJCwbugiMg4XLLZWkxU-p0f8Oi6Wt23bgJfzvV4WqdhBH-r99y-4PbJ1j0G6QI8jIPAX_whj7h799BuxWzPt0DHyshEAfIOjXNdLmtOCEoK4woAEO-7HnnPZ-ukVQdzfU9PK5csKro5GCgbWsstoNMZNWuCMZFyo0AjjKA7mN5wxs3yVQfiZye2p5ECZIcp1xPBSxVgnMFyQ7vIuajOeraQ8Z7Ai0jYYISAqqplFKYhpp-UMpXX0YHA');
+      background-size: cover;
+      opacity: 0.3;
+      filter: grayscale(1) contrast(1.2);
+    }
+
+    .map-full-pin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .map-full-dot {
+      width: 16px;
+      height: 16px;
+      background: #C17B2F;
+      border-radius: 50%;
+      animation: pinGlow 2s ease-in-out infinite;
+    }
+
+    .map-ping {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #C17B2F;
+      border-radius: 50%;
+      animation: ping 1.5s ease-in-out infinite;
+      opacity: 0.25;
+    }
+
+    @keyframes ping {
+      0% {
+        transform: scale(1);
+        opacity: 0.25;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    .map-coords-label {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      font-size: 10px;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      animation: coordPulse 4s ease-in-out infinite;
+    }
+
+    /* Футер */
+    .site-footer {
+      padding: 40px 80px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Индикатор прогресса */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: #C17B2F;
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* Hamburger menu */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 110;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: white;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .burger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile overlay menu */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 8, 8, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 105;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu a {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: #C17B2F;
+    }
+
+    /* Calendar arrows */
+    .cal-arrow {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .cal-arrow:hover {
+      border-color: #C17B2F;
+      background: rgba(193, 123, 47, 0.1);
+    }
+
+    /* Booking grid */
+    .bk-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Loading screen */
+    .page-loader {
+      position: fixed;
+      inset: 0;
+      background: #080808;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+
+    .page-loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-text {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 12px;
+      color: white;
+      text-transform: uppercase;
+      animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+
+      .hero-title {
+        opacity: 1;
+        transform: none;
+      }
+
+      .hero-sub {
+        opacity: 1;
+        transform: none;
+      }
+
+      .hero-btn {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+      .nav-fixed {
+        padding: 16px 24px;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .hero-content {
+        padding: 100px 24px 40px;
+      }
+
+      .hero-footer {
+        padding: 16px 24px;
+      }
+
+      #mesto {
+        flex-direction: column;
+      }
+
+      .mesto-photo {
+        width: 100%;
+        height: 50vh;
+      }
+
+      .mesto-content {
+        width: 100%;
+        padding: 40px 24px;
+      }
+
+      #ustrojstvo {
+        padding: 100px 24px 60px;
+      }
+
+      #ustrojstvo>div:last-child {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
+      #chto-delat {
+        padding: 100px 24px 60px;
+      }
+
+      #chto-delat>div:last-child {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+      }
+
+      #priehat {
+        padding: 100px 24px 60px;
+      }
+
+      .bk-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .site-footer {
+        padding: 24px;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #ustrojstvo>div:last-child {
+        grid-template-columns: 1fr !important;
+      }
+
+      #chto-delat>div:last-child {
+        grid-template-columns: 1fr !important;
+      }
+
+      .hero-title {
+        letter-spacing: -1px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Загрузка -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-text">САМ</div>
+  </div>
+
+  <!-- Прогресс-бар -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#mesto" onclick="closeMobile()">МЕСТО</a>
+    <a href="#ustrojstvo" onclick="closeMobile()">УСТРОЙСТВО</a>
+    <a href="#chto-delat" onclick="closeMobile()">ЧТО ДЕЛАТЬ</a>
+    <a href="#priehat" onclick="closeMobile()">ПРИЕХАТЬ</a>
+    <a href="#bronirovat" onclick="closeMobile()">БРОНИРОВАТЬ</a>
+  </div>
+
+  <!-- Навигация -->
+  <header class="nav-fixed" id="navbar">
+    <a href="#glavnaya" class="nav-logo">САМ</a>
+    <div class="nav-links">
+      <a href="#mesto" class="nav-link">МЕСТО</a>
+      <a href="#ustrojstvo" class="nav-link">УСТРОЙСТВО</a>
+      <a href="#chto-delat" class="nav-link">ЧТО ДЕЛАТЬ</a>
+      <a href="#priehat" class="nav-link">ПРИЕХАТЬ</a>
+      <a href="#bronirovat" class="nav-link">БРОНИРОВАТЬ</a>
+      <button class="btn-amber" style="font-size:11px; padding: 12px 24px;"
+        onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
+        ЗАБРОНИРОВАТЬ
+      </button>
+    </div>
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
+  <section class="page" id="glavnaya">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div style="max-width: 700px;">
+        <h1 class="hero-title">Вспомни как это —<br />делать всё самому.</h1>
+        <div class="hero-line"></div>
+        <div class="hero-sub">
+          <p style="color:#888; font-size:16px; line-height:1.8;">Рыбалка на Ладоге.</p>
+          <p style="color:#888; font-size:16px; line-height:1.8;">Баня которую ты топишь сам.</p>
+          <p style="color:#888; font-size:16px; line-height:1.8;">Скала в пяти минутах.</p>
+        </div>
+        <div class="hero-btn" style="margin-top: 40px;">
+          <button class="btn-main" style="font-size:18px; padding: 20px 48px;"
+            onclick="document.getElementById('priehat').scrollIntoView({behavior:'smooth'})">
+            ПРИЕХАТЬ →
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-footer">
+      <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
+      <p style="color:rgba(255,255,255,0.2); font-size:10px; letter-spacing:4px; text-transform:uppercase;">Карелия.
+        Россия</p>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 2: МЕСТО ===== -->
+  <section class="page" id="mesto">
+    <div class="mesto-photo">
+      <div class="mesto-photo-bg" id="mestoBg"></div>
+      <div style="position:absolute; bottom:40px; left:40px; z-index:10;">
+        <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
+      </div>
+    </div>
+    <div class="mesto-content">
+      <span class="fade-in"
+        style="color:#C17B2F; font-size:11px; font-weight:700; letter-spacing:6px; text-transform:uppercase; margin-bottom:16px; display:block;">ЗДЕСЬ</span>
+      <h2 class="fade-in delay-1"
+        style="font-size: clamp(60px, 8vw, 96px); font-weight:900; line-height:1; letter-spacing:-3px; margin-bottom:32px;">
+        МЕСТ<br />О</h2>
+      <p class="fade-in delay-2" style="color:#888; font-size:16px; line-height:2; margin-bottom:48px;">
+        Карелия, Лахденпохья, Змеиная скала.<br /><br />
+        До Петербурга 300 километров.<br />
+        Ладога здесь без горизонта.<br />
+        Скала отвесная. Тропа есть.<br />
+        Вид с вершины — на всю жизнь.
+      </p>
+      <div class="fade-in delay-3">
+        <div class="map-wrapper">
+          <div class="map-bg"></div>
+          <div class="map-pin">
+            <div class="map-label">SAM GLAMPING</div>
+            <div class="map-pin-dot"></div>
+          </div>
+        </div>
+        <a href="https://maps.google.com/?q=61.4817662,30.2178948" target="_blank"
+          style="display:inline-flex; align-items:center; gap:12px; margin-top:24px; color:white; text-decoration:none; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; transition: color 0.3s ease;"
+          onmouseover="this.style.color='#C17B2F'" onmouseout="this.style.color='white'">
+          ОТКРЫТЬ КАРТЫ ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 3: КАК УСТРОЕНО ===== -->
+  <section class="page" id="ustrojstvo">
+    <div style="margin-bottom:64px;">
+      <h2 class="fade-in"
+        style="font-size: clamp(40px, 5vw, 64px); font-weight:700; letter-spacing:-1px; text-transform:uppercase;">Как
+        устроено</h2>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:16px;">
+      <div class="card fade-in delay-1">
+        <div class="card-icon"><span class="material-symbols-outlined">bed</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Сон</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Хорошая кровать. Тепло даже в октябре. Окно на лес и
+          скалу.</p>
+      </div>
+      <div class="card fade-in delay-2">
+        <div class="card-icon"><span class="material-symbols-outlined">local_fire_department</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Огонь</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Дровяная баня. Топите сами. Рядом Ладога.</p>
+      </div>
+      <div class="card fade-in delay-3">
+        <div class="card-icon"><span class="material-symbols-outlined">construction</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Быт</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Удочки. Корзина. САП. Дрова. Всё есть — никто не
+          объясняет как.</p>
+      </div>
+      <div class="card fade-in delay-4">
+        <div class="card-icon"><span class="material-symbols-outlined">landscape</span></div>
+        <div class="card-line"></div>
+        <h3 style="font-size:22px; font-weight:700; text-transform:uppercase; margin-bottom:12px;">Горы</h3>
+        <p style="color:#888; font-size:15px; line-height:1.8;">Змеиная скала. Пять минут по тропе. Дальше сами.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== -->
+  <section class="page" id="chto-delat">
+    <div style="margin-bottom:64px;">
+      <h2 class="fade-in"
+        style="font-size: clamp(40px, 5vw, 64px); font-weight:300; letter-spacing:-1px; text-transform:uppercase;">Что
+        делать</h2>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:48px 48px;">
+      <div class="card-item fade-in delay-1" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB4f6oWZbyaSZadQMoqxwG0AiFCjCbrd_n6N5yDyuIfrz2UUxF2P7Sfcs_X762AJ6Zf89eNlLwLWmH0zZaPz4xxIp1vEviD2CLnZAh5oPTrnYRvyAuv8T1p_MT44bmagHk-UyHO7wzsR1pC7MK7GbRqKbMR1VoaH5rPA05ETYZM6YfU08oK6TjDKIVPUYa0B3ZstJpxUzjIVnfbN1nOxAY2iIkLmupIt22L2B45MICKaQEMB-6HvemieGI6w0Rb6DDDQ83zvkDrbQ');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">РЫБАЛКА</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Удочки у воды. Ладога не обещает улов.
+            Но утро на воде — уже достаточно.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-2" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDoILmB7kM_N-PWcxQ7dS-B4zmSYDroUKesZxyMSFzw8cBL7eN926FWhK4wZJpSVrYfIE7cG7qDYoXdi_MknZ4tzcp2UOkKdFZircEZ2VaGoBqFG3nPHnUOaY2ePOdNwFco_sxArleO1Iam1ou7myNrAdB9Tg22e0RuFU2PLjCws1Laz8DTjUZ68YT1BG-N8_4SZpalIMr6tuEAN8kjgXulZBs2QbXQ08LvZXNHKgMkpyMAYZCX0piJsI5aQDiLqQWPQGVGmuR8Cg');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">СКАЛА</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Вид на Ладогу с которым не поспоришь.
+          </p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-3" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC7rOKmaw4zhM5smMjYLvi-VOWHAGT6-VD5jIKReVGuLmlnzDj5DVXw8PFzM1S-fIWfM3FyF69d18X0UQ19POKp_lVtvcFnRtoGQwiTqW7TOouUgnq6FHoWD_0S7cJ58YKr6rTI7D-tKfADtpKqEVdWfwCMDjeU_mhRAhiZG7HxgnR-DaAerU9F3avFzLAadKvf-gmVEQ4-a0RFTwyaZbJdzbdKuyO4U_DRFuKCMCEKDqtbYtd4tIJj7tEjj5i-cSjri7ocpW4J-Q');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">БАНЯ</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Топите сами. Потом Ладога. Потом снова
+            баня.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-1" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD2hIgkoBihKBYwi2BYL_00RRXGv0jtOidbwFvbo7BXhANmj10wx2kw18gEMbHA23OknOe30U0IXLUq0frHRT9BaaZP1fUCm0y5vgcgoVzdwdN48SgvJ_W986j11S-eLZCxajivCdlHo2g7_1e0tAHZLDCbxV30xFfi41Ar5spPBKDdC2Z2JS0TtTSJdjyn1JE68A-u70sdPWMK0lJtr06sApbbmctRhPPTkD6qbOqY4YYadKH066tF3GCukRn0aNMgw42xsZsJ5A');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">ЛЕС</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Корзина у входа. Август — грибы.
+            Просто идите.</p>
+        </div>
+      </div>
+      <div class="card-item fade-in delay-2" style="display:flex; flex-direction:column; gap:20px;">
+        <div class="photo-card">
+          <div class="photo-img"
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBdhbFW7coxh4dqpxMGlR2iFXhWkJPGV4-nFDiI0HIb_UTDdsLMEKqwVNRnVWpb44whDAjW4hMmmnG2yc96koGG9RJufTTVU113Z_1kEB_6Cw-VK_6dIo_gPZOiJCjaaFRaQbjtCvEg-8eRMg_lTaLjyA2R4baDceAQTqda1JYCoHvCHH2Fbb8Yhf8ezAVk6i3q5AQZMQ472qFz2FxxcOlhsyeVMjxu1B75JhCbyfY2rlzmKSsCAeg7hLHUslYfFipUR2oJHexGTQ');">
+          </div>
+          <div class="photo-overlay"></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; text-transform:uppercase;">САП</h3>
+          <span class="card-title-line"></span>
+          <p style="color:#888; font-size:14px; line-height:1.8; margin-top:8px;">Доска у берега. Ладога тихая утром.
+            Выходите до завтрака.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== -->
+  <section class="page" id="priehat">
+    <div class="priehat-inner">
+      <div class="fade-in delay-1">
+        <h3
+          style="font-size:24px; font-weight:700; text-transform:uppercase; border-bottom: 2px solid #C17B2F; display:inline-block; padding-bottom:4px; margin-bottom:24px;">
+          СТОИМОСТЬ</h3>
+        <p style="color:#888; font-size:16px; line-height:1.8;">7,000 рублей за ночь. Двое. Домик, баня, удочки, САП,
+          дрова — всё включено. Минимум две ночи.</p>
+      </div>
+      <div class="fade-in delay-2">
+        <h3
+          style="font-size:24px; font-weight:700; text-transform:uppercase; border-bottom: 2px solid #C17B2F; display:inline-block; padding-bottom:4px; margin-bottom:24px;">
+          КАК ДОБРАТЬСЯ</h3>
+        <p style="color:#888; font-size:16px; line-height:1.8; margin-bottom:32px;">
+          4 часа от Петербурга по трассе А-121.<br />
+          Координаты: <span class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать"
+            style="display:inline; font-size:inherit; letter-spacing:inherit;">61.4818° N, 30.2179° E</span><br />
+          Последние километры — грунтовая дорога. Проедет любая машина.
+        </p>
+        <div class="map-full fade-in delay-3">
+          <div class="map-full-bg"></div>
+          <div class="map-full-pin">
+            <div class="map-ping"></div>
+            <div class="map-full-dot"></div>
+          </div>
+          <div class="map-coords-label coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
+            61.4818° N, 30.2179° E</div>
+        </div>
+      </div>
+      <div class="fade-in delay-4" style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <a href="https://t.me/Maksimenko_Dmitry" target="_blank" style="text-decoration:none;">
+          <button class="btn-main" style="font-size:14px; padding:24px 56px;">
+            НАПИСАТЬ В TELEGRAM →
+          </button>
+        </a>
+        <p style="color:#888; font-size:12px; letter-spacing:4px; text-transform:uppercase; opacity:0.5;">Отвечаем в
+          течение часа.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== -->
+  <section class="page" id="bronirovat"
+    style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 80px 80px;">
+    <div style="width:100%; max-width:960px;">
+      <p class="fade-in"
+        style="font-size:11px; font-weight:700; letter-spacing:6px; color:#C17B2F; text-transform:uppercase; margin-bottom:12px;">
+        БРОНИРОВАНИЕ</p>
+      <h2 class="fade-in delay-1"
+        style="font-size:clamp(40px,5vw,64px); font-weight:900; letter-spacing:-2px; line-height:1; margin-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:40px;">
+        ЗАБРОНИРОВАТЬ</h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;" class="bk-grid">
+
+        <!-- Календарь -->
+        <div class="fade-in delay-2">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px;">
+            <button class="cal-arrow" id="bkPrev">←</button>
+            <div id="bkMonth" style="font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">—
+            </div>
+            <button class="cal-arrow" id="bkNext">→</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:4px;">
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Пн</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Вт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Ср</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Чт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Пт</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Сб</div>
+            <div
+              style="text-align:center; font-size:10px; color:rgba(255,255,255,0.25); letter-spacing:2px; padding:8px 0; text-transform:uppercase;">
+              Вс</div>
+          </div>
+          <div id="bkGrid" style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px;"></div>
+          <p id="bkMinNote"
+            style="margin-top:12px; font-size:10px; letter-spacing:2px; color:rgba(255,255,255,0.25); text-transform:uppercase; transition:color 0.3s ease;">
+            Минимум 2 ночи</p>
+
+          <!-- Выбранные даты -->
+          <div id="bkDatesBlock"
+            style="display:none; margin-top:24px; padding:16px 20px; border:1px solid rgba(193,123,47,0.3); background:rgba(193,123,47,0.05);">
+            <div
+              style="font-size:10px; letter-spacing:3px; color:#C17B2F; text-transform:uppercase; margin-bottom:8px;">
+              Ваши даты</div>
+            <div id="bkDatesValue" style="font-size:18px; font-weight:700;">—</div>
+            <div id="bkNightsValue"
+              style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:4px; letter-spacing:2px; text-transform:uppercase;">
+              —</div>
+          </div>
+        </div>
+
+        <!-- Форма -->
+        <div class="fade-in delay-3">
+          <div id="bkForm" style="display:flex; flex-direction:column; gap:24px;">
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Имя</label>
+              <input id="bkName" type="text" placeholder="Ваше имя"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Телефон</label>
+              <input id="bkPhone" type="tel" placeholder="+7 (___) ___-__-__"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Количество
+                гостей</label>
+              <select id="bkGuests"
+                style="background:#080808; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; -webkit-appearance:none; appearance:none; cursor:pointer; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+                <option value="1">1 человек</option>
+                <option value="2" selected>2 человека</option>
+              </select>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label
+                style="font-size:10px; font-weight:700; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase;">Комментарий</label>
+              <input id="bkComment" type="text" placeholder="Необязательно"
+                style="background:transparent; border:none; border-bottom:1px solid rgba(255,255,255,0.1); color:white; font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:300; padding:12px 0; outline:none; width:100%; transition:border-color 0.3s ease;"
+                onfocus="this.style.borderColor='#C17B2F'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'" />
+            </div>
+
+            <!-- Цена -->
+            <div id="bkPrice"
+              style="display:none; padding:20px; border:1px solid rgba(255,255,255,0.05); background:rgba(255,255,255,0.02);">
+              <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                <span style="font-size:12px; color:rgba(255,255,255,0.35);">За ночь</span>
+                <span style="font-size:14px; font-weight:500;">7 000 ₽</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                <span id="bkNightsLbl" style="font-size:12px; color:rgba(255,255,255,0.35);">Ночей</span>
+                <span id="bkNightsVal" style="font-size:14px; font-weight:500;">—</span>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,0.05); margin:8px 0;"></div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span
+                  style="font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;">Итого</span>
+                <span id="bkTotal" style="font-size:22px; font-weight:900; color:#C17B2F;">—</span>
+              </div>
+            </div>
+
+            <button id="bkSubmit" disabled onclick="bkSubmitBooking()"
+              style="background:#C17B2F; color:white; border:none; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:20px 40px; cursor:pointer; width:100%; transition:background 0.3s ease, transform 0.2s ease;"
+              onmouseover="if(!this.disabled)this.style.background='#8B5A1F'"
+              onmouseout="if(!this.disabled)this.style.background='#C17B2F'">
+              ОТПРАВИТЬ ЗАЯВКУ
+            </button>
+
+            <p
+              style="font-size:11px; color:rgba(255,255,255,0.2); letter-spacing:2px; text-transform:uppercase; text-align:center;">
+              Ответим в течение часа</p>
+          </div>
+
+          <!-- Успех -->
+          <div id="bkSuccess"
+            style="display:none; text-align:center; padding:48px 32px; border:1px solid rgba(193,123,47,0.3); background:rgba(193,123,47,0.05);">
+            <div style="font-size:40px; margin-bottom:16px;">✓</div>
+            <div style="font-size:24px; font-weight:900; margin-bottom:8px;">Заявка отправлена</div>
+            <div style="font-size:14px; color:rgba(255,255,255,0.4); line-height:1.6;">Свяжемся с вами в течение
+              часа<br />для подтверждения бронирования.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Футер -->
+  <footer class="site-footer">
+    <div style="display:flex; gap:32px;">
+      <a href="#priehat"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">Контакты</a>
+      <a href="https://t.me/Maksimenko_Dmitry" target="_blank"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">Telegram</a>
+      <a href="https://vk.com/sam_glamping" target="_blank"
+        style="color:#555; font-size:10px; letter-spacing:3px; text-transform:uppercase; text-decoration:none; transition:color 0.3s;"
+        onmouseover="this.style.color='white'" onmouseout="this.style.color='#555'">ВКонтакте</a>
+    </div>
+    <p style="color:rgba(136,136,136,0.2); font-size:10px; letter-spacing:4px; text-transform:uppercase;">© 2025 САМ.
+      КАРЕЛИЯ. РОССИЯ.</p>
+  </footer>
+
+  <script>
+    // Прогресс-бар
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / total) * 100;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Навигация — compact при скролле
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Параллакс на главной
+    const heroBg = document.getElementById('heroBg');
+    const mestoBg = document.getElementById('mestoBg');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (heroBg) heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+      const mestoSection = document.getElementById('mesto');
+      if (mestoBg && mestoSection) {
+        const mestoTop = mestoSection.offsetTop;
+        const relScroll = scrolled - mestoTop;
+        if (relScroll > -window.innerHeight && relScroll < window.innerHeight) {
+          mestoBg.style.transform = `translateY(${relScroll * 0.2}px)`;
+        }
+      }
+    });
+
+    // Активная ссылка в навигации
+    const sections = document.querySelectorAll('section.page');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+    sections.forEach(s => observer.observe(s));
+
+    // ===== БРОНИРОВАНИЕ =====
+    const bkState = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      start: null,
+      end: null,
+      picking: 'start'
+    };
+    const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+    function bkRender() {
+      const { year, month, start, end } = bkState;
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      document.getElementById('bkMonth').textContent = `${MONTHS[month]} ${year}`;
+      const grid = document.getElementById('bkGrid');
+      grid.innerHTML = '';
+      let firstDay = new Date(year, month, 1).getDay() - 1;
+      if (firstDay < 0) firstDay = 6;
+      const days = new Date(year, month + 1, 0).getDate();
+      for (let i = 0; i < firstDay; i++) {
+        const e = document.createElement('div');
+        e.style.cssText = 'aspect-ratio:1;';
+        grid.appendChild(e);
+      }
+      for (let d = 1; d <= days; d++) {
+        const date = new Date(year, month, d); date.setHours(0, 0, 0, 0);
+        const cell = document.createElement('div');
+        cell.textContent = d;
+        cell.style.cssText = 'aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:13px; cursor:pointer; position:relative; user-select:none; transition:background 0.2s, color 0.2s;';
+        const isPast = date < today;
+        if (isPast) {
+          cell.style.color = 'rgba(255,255,255,0.15)';
+          cell.style.cursor = 'not-allowed';
+        } else {
+          if (start && date.getTime() === start.getTime()) {
+            cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+          } else if (end && date.getTime() === end.getTime()) {
+            cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+          } else if (start && end && date > start && date < end) {
+            cell.style.background = 'rgba(193,123,47,0.15)';
+          } else if (date.getTime() === today.getTime()) {
+            cell.style.color = '#C17B2F'; cell.style.fontWeight = '700';
+          }
+          cell.addEventListener('mouseover', function () {
+            if (!this.style.background || this.style.background === 'rgba(193, 123, 47, 0.15)') {
+              this.style.background = 'rgba(193,123,47,0.2)'; this.style.color = '#C17B2F';
+            }
+          });
+          cell.addEventListener('mouseout', function () {
+            bkRender();
+          });
+          cell.addEventListener('click', () => bkSelectDate(date));
+        }
+        grid.appendChild(cell);
+      }
+    }
+
+    function bkSelectDate(date) {
+      if (bkState.picking === 'start') {
+        bkState.start = date; bkState.end = null; bkState.picking = 'end';
+      } else {
+        if (date <= bkState.start) {
+          bkState.start = date; bkState.end = null; bkState.picking = 'end';
+        } else {
+          const n = Math.round((date - bkState.start) / 86400000);
+          if (n < 2) {
+            const note = document.getElementById('bkMinNote');
+            note.style.color = '#C17B2F';
+            setTimeout(() => { note.style.color = 'rgba(255,255,255,0.25)'; }, 1500);
+            return;
+          }
+          bkState.end = date; bkState.picking = 'start';
+        }
+      }
+      bkRender(); bkUpdateUI();
+    }
+
+    function bkUpdateUI() {
+      const { start, end } = bkState;
+      const datesBlock = document.getElementById('bkDatesBlock');
+      const priceBlock = document.getElementById('bkPrice');
+      const submitBtn = document.getElementById('bkSubmit');
+      if (start && !end) {
+        datesBlock.style.display = 'block';
+        document.getElementById('bkDatesValue').textContent = bkFmtDate(start) + ' → ...';
+        document.getElementById('bkNightsValue').textContent = 'Выберите дату выезда';
+        priceBlock.style.display = 'none';
+        submitBtn.disabled = true;
+        submitBtn.style.background = 'rgba(255,255,255,0.05)';
+        submitBtn.style.color = 'rgba(255,255,255,0.2)';
+        submitBtn.style.cursor = 'not-allowed';
+      } else if (start && end) {
+        const n = Math.round((end - start) / 86400000);
+        const total = n * 7000;
+        datesBlock.style.display = 'block';
+        document.getElementById('bkDatesValue').textContent = `${bkFmtDate(start)} → ${bkFmtDate(end)}`;
+        document.getElementById('bkNightsValue').textContent = `${n} ${bkNightWord(n)}`;
+        priceBlock.style.display = 'block';
+        document.getElementById('bkNightsLbl').textContent = `${n} ${bkNightWord(n)}`;
+        document.getElementById('bkNightsVal').textContent = bkFmtPrice(n * 7000) + ' ₽';
+        document.getElementById('bkTotal').textContent = bkFmtPrice(total) + ' ₽';
+        submitBtn.disabled = false;
+        submitBtn.style.background = '#C17B2F';
+        submitBtn.style.color = 'white';
+        submitBtn.style.cursor = 'pointer';
+      }
+    }
+
+    document.getElementById('bkPrev').addEventListener('click', () => {
+      const today = new Date();
+      if (bkState.month === today.getMonth() && bkState.year === today.getFullYear()) return;
+      bkState.month--; if (bkState.month < 0) { bkState.month = 11; bkState.year--; }
+      bkRender();
+    });
+    document.getElementById('bkNext').addEventListener('click', () => {
+      bkState.month++; if (bkState.month > 11) { bkState.month = 0; bkState.year++; }
+      bkRender();
+    });
+
+    function bkSubmitBooking() {
+      const name = document.getElementById('bkName').value.trim();
+      const phone = document.getElementById('bkPhone').value.trim();
+      if (!name) { document.getElementById('bkName').style.borderColor = '#C17B2F'; return; }
+      if (!phone) { document.getElementById('bkPhone').style.borderColor = '#C17B2F'; return; }
+      const { start, end } = bkState;
+      const n = Math.round((end - start) / 86400000);
+      const guests = document.getElementById('bkGuests').value;
+      const comment = document.getElementById('bkComment').value;
+      const msg = encodeURIComponent(
+        `Новая заявка!\n\nИмя: ${name}\nТелефон: ${phone}\nЗаезд: ${bkFmtDate(start)}\nВыезд: ${bkFmtDate(end)}\nНочей: ${n}\nГостей: ${guests}\nСумма: ${bkFmtPrice(n * 7000)} ₽` +
+        (comment ? `\nКомментарий: ${comment}` : '')
+      );
+      // ЗАМЕНИТЕ sam_glamping на ваш Telegram username
+      window.open(`https://t.me/sam_glamping?text=${msg}`, '_blank');
+      document.getElementById('bkForm').style.display = 'none';
+      document.getElementById('bkSuccess').style.display = 'block';
+    }
+
+    function bkFmtDate(d) {
+      return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
+    }
+    function bkFmtPrice(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+    function bkNightWord(n) {
+      if (n >= 11 && n <= 14) return 'ночей';
+      const l = n % 10;
+      if (l === 1) return 'ночь';
+      if (l >= 2 && l <= 4) return 'ночи';
+      return 'ночей';
+    }
+
+    bkRender();
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => fadeObserver.observe(el));
+
+    // === HAMBURGER MENU ===
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burgerBtn.addEventListener('click', () => {
+      burgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      burgerBtn.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // === PHONE MASK ===
+    const phoneInput = document.getElementById('bkPhone');
+    phoneInput.addEventListener('input', function (e) {
+      let val = this.value.replace(/\D/g, '');
+      if (val.length === 0) { this.value = ''; return; }
+      if (val[0] === '8') val = '7' + val.slice(1);
+      if (val[0] !== '7') val = '7' + val;
+      let formatted = '+7';
+      if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+      if (val.length > 4) formatted += ') ' + val.slice(4, 7);
+      if (val.length > 7) formatted += '-' + val.slice(7, 9);
+      if (val.length > 9) formatted += '-' + val.slice(9, 11);
+      this.value = formatted;
+    });
+
+    // === LOADING SCREEN ===
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('pageLoader').classList.add('hidden');
+      }, 800);
+    });
+
+    // === COPY COORDINATES ===
+    function copyCoords(el) {
+      const text = '61.4818, 30.2179';
+      navigator.clipboard.writeText(text).then(() => {
+        el.classList.add('copied');
+        setTimeout(() => el.classList.remove('copied'), 1500);
+      });
+    }
+  </script>
+</body>
+
+</html>

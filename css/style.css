@@ -688,7 +688,24 @@ section.page {
   filter: grayscale(0.5);
 }
 
-/* ===== СТРАНИЦА ДОМИК ===== */
+/* ===== ЗАПИСКА ===== */
+.note-block {
+  margin-top: 80px;
+  padding: 40px 60px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid #C17B2F;
+  max-width: 800px;
+}
+
+.note-text {
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #E4E4E7;
+  font-style: italic;
+}
+
+/* ===== СТРАНИЦА: ДОМИК ===== */
 #domik {
   padding: 120px 80px 80px;
   background-color: #080808;
@@ -1464,6 +1481,15 @@ section.page {
   .interior-photo {
     flex: 0 0 75%;
     scroll-snap-align: center;
+  }
+
+  .note-block {
+    margin-top: 48px;
+    padding: 32px 24px;
+  }
+
+  .note-text {
+    font-size: 18px;
   }
 
   #domik {

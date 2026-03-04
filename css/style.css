@@ -690,19 +690,18 @@ section.page {
 
 /* ===== ЗАПИСКА ===== */
 .note-block {
-  margin-top: 80px;
-  padding: 40px 60px;
-  background: rgba(255, 255, 255, 0.02);
+  margin-top: 48px;
+  padding: 32px 40px;
   border-left: 2px solid #C17B2F;
-  max-width: 800px;
+  max-width: 480px;
 }
 
 .note-text {
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 300;
-  line-height: 1.6;
-  color: #E4E4E7;
-  font-style: italic;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
 }
 
 /* ===== СТРАНИЦА: ДОМИК ===== */

@@ -226,6 +226,9 @@ section.page {
 .btn-main--tg {
   font-size: 14px;
   padding: 24px 56px;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn-submit {
@@ -355,6 +358,14 @@ section.page {
 
 .hero-btn--spaced {
   margin-top: 40px;
+}
+
+.hero-price {
+  margin-top: 16px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: rgba(193, 123, 47, 0.7);
+  text-transform: none;
 }
 
 @keyframes heroIn {
@@ -622,9 +633,10 @@ section.page {
   margin-bottom: 12px;
 }
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
-  font-size: 40px !important;
+.card-icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
 }
 
 /* ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== */

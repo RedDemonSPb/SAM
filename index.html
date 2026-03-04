@@ -18,6 +18,27 @@
     rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "САМ",
+    "description": "Glamping",
+    "address": "Карелия Лахденпохья Россия",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 61.4818,
+      "longitude": 30.2179
+    },
+    "priceRange": "от 7000 RUB за ночь",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "ratingCount": "1"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -166,6 +187,14 @@
         <h3 class="card-heading">Горы</h3>
         <p class="text-muted text-small">Змеиная скала. Пять минут по тропе. Дальше сами.</p>
       </div>
+    </div>
+
+    <!-- Галерея интерьера -->
+    <div class="interior-gallery fade-in delay-5">
+      <div class="interior-photo"><img src="img/interior1.webp" alt="Интерьер 1" loading="lazy"></div>
+      <div class="interior-photo"><img src="img/interior2.webp" alt="Интерьер 2" loading="lazy"></div>
+      <div class="interior-photo"><img src="img/interior3.webp" alt="Интерьер 3" loading="lazy"></div>
+      <div class="interior-photo"><img src="img/interior1.webp" alt="Интерьер 4" loading="lazy"></div>
     </div>
   </section>
 
@@ -413,6 +442,10 @@
             <button id="bkSubmit" disabled onclick="bkSubmitBooking()" class="btn-submit">
               ОТПРАВИТЬ ЗАЯВКУ
             </button>
+            <div id="bkError" class="bk-error-msg">
+              Не удалось отправить заявку. Попробуйте позже или напишите нам в <a href="https://t.me/Maksimenko_Dmitry"
+                target="_blank">Telegram</a>.
+            </div>
 
             <p class="text-micro text-center">Ответим в течение часа</p>
           </div>

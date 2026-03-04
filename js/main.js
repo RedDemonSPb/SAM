@@ -176,9 +176,24 @@ function bkSubmitBooking() {
     `Новая заявка!\n\nИмя: ${name}\nТелефон: ${phone}\nЗаезд: ${bkFmtDate(start)}\nВыезд: ${bkFmtDate(end)}\nНочей: ${n}\nГостей: ${guests}\nСумма: ${bkFmtPrice(n * 7000)} ₽` +
     (comment ? `\nКомментарий: ${comment}` : '')
   );
-  window.open(`https://t.me/Maksimenko_Dmitry?text=${msg}`, '_blank');
-  document.getElementById('bkForm').style.display = 'none';
-  document.getElementById('bkSuccess').style.display = 'block';
+
+  const errorEl = document.getElementById('bkError');
+  if (errorEl) errorEl.style.display = 'none';
+
+  try {
+    // Если в будущем появится fetch-запрос, его можно поместить сюда
+    const newWin = window.open(`https://t.me/Maksimenko_Dmitry?text=${msg}`, '_blank');
+
+    // Блокировка всплывающего окна (например, AdBlock'ом) также считается ошибкой
+    if (!newWin) throw new Error('Окно Telegram было заблокировано браузером');
+
+    document.getElementById('bkForm').style.display = 'none';
+    document.getElementById('bkSuccess').style.display = 'block';
+  } catch (error) {
+    if (errorEl) {
+      errorEl.style.display = 'block';
+    }
+  }
 }
 
 function bkFmtDate(d) {

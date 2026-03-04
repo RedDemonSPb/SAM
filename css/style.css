@@ -849,6 +849,41 @@ section.page {
   animation: coordPulse 4s ease-in-out infinite;
 }
 
+/* ===== ПОЛЕЗНОЕ ===== */
+#info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 80px 80px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.info-icon {
+  color: #C17B2F;
+  flex-shrink: 0;
+}
+
+.info-icon svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.info-item .text-body {
+  margin-bottom: 0;
+}
+
 /* ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== */
 .bk-section {
   display: flex;
@@ -1330,6 +1365,14 @@ section.page {
 
   #priehat {
     padding: 100px 24px 60px;
+  }
+
+  #info {
+    padding: 100px 24px 60px;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 
   .yandex-map-iframe {

@@ -762,6 +762,40 @@ section.page {
   width: 30px;
 }
 
+/* ===== ОТЗЫВЫ ===== */
+#otzyvy {
+  padding: 120px 80px 80px;
+  background-color: #080808;
+}
+
+.reviews-minimal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.review-minimal-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.review-minimal-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.review-minimal-author {
+  color: #666666;
+  font-size: 14px;
+}
+
 /* ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== */
 #priehat {
   display: flex;
@@ -1433,6 +1467,18 @@ section.page {
 
   .activities-grid>.card-item:last-child:nth-child(3n - 1) {
     grid-column: auto;
+  }
+
+  #otzyvy {
+    padding: 100px 24px 60px;
+  }
+
+  .reviews-minimal {
+    gap: 56px;
+  }
+
+  .review-minimal-text {
+    font-size: 1.25rem;
   }
 
   #priehat {

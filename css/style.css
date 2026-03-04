@@ -15,13 +15,82 @@ body {
   overflow-x: hidden;
 }
 
-/* Секции */
+/* ===== УТИЛИТЫ ===== */
+.text-muted {
+  color: #888;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.text-body {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.text-small {
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.text-card {
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 8px;
+}
+
+.text-micro {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ===== СЕКЦИИ ===== */
 section.page {
   min-height: 100vh;
   position: relative;
 }
 
-/* Навигация */
+.section-label {
+  color: #C17B2F;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.section-heading {
+  font-size: clamp(60px, 8vw, 96px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 32px;
+}
+
+.section-header {
+  margin-bottom: 64px;
+}
+
+.section-title {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.section-title--light {
+  font-weight: 300;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
 .nav-fixed {
   position: fixed;
   top: 0;
@@ -91,7 +160,7 @@ section.page {
   color: #C17B2F;
 }
 
-/* Кнопки */
+/* ===== КНОПКИ ===== */
 .btn-amber {
   background: #C17B2F;
   color: white;
@@ -105,6 +174,11 @@ section.page {
 
 .btn-amber:hover {
   background: #8B5A1F;
+}
+
+.btn-amber--nav {
+  font-size: 11px;
+  padding: 12px 24px;
 }
 
 .btn-main {
@@ -144,7 +218,42 @@ section.page {
   transform: scale(0.98);
 }
 
-/* Fade in */
+.btn-main--hero {
+  font-size: 18px;
+  padding: 20px 48px;
+}
+
+.btn-main--tg {
+  font-size: 14px;
+  padding: 24px 56px;
+}
+
+.btn-submit {
+  background: #C17B2F;
+  color: white;
+  border: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 20px 40px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #8B5A1F;
+}
+
+.btn-submit:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.2);
+  cursor: not-allowed;
+}
+
+/* ===== FADE IN ===== */
 .fade-in {
   opacity: 0;
   transform: translateY(30px);
@@ -186,7 +295,7 @@ section.page {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../img/hero.png');
+  background-image: url('../img/hero.webp');
   background-size: cover;
   background-position: center;
   filter: grayscale(1);
@@ -207,6 +316,10 @@ section.page {
   display: flex;
   align-items: center;
   padding: 120px 80px 60px;
+}
+
+.hero-inner {
+  max-width: 700px;
 }
 
 .hero-title {
@@ -240,6 +353,10 @@ section.page {
   animation: heroIn 0.8s ease 1.5s forwards;
 }
 
+.hero-btn--spaced {
+  margin-top: 40px;
+}
+
 @keyframes heroIn {
   to {
     opacity: 1;
@@ -260,6 +377,13 @@ section.page {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.hero-location {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
 }
 
 .coordinates {
@@ -291,6 +415,12 @@ section.page {
   color: #C17B2F;
   white-space: nowrap;
   animation: copiedFade 1.5s ease forwards;
+}
+
+.coordinates--inline {
+  display: inline;
+  font-size: inherit;
+  letter-spacing: inherit;
 }
 
 @keyframes copiedFade {
@@ -332,11 +462,18 @@ section.page {
 .mesto-photo-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../img/ladoga.png');
+  background-image: url('../img/ladoga.webp');
   background-size: cover;
   background-position: center;
   filter: grayscale(1) contrast(1.2) brightness(0.5);
   will-change: transform;
+}
+
+.mesto-coords {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  z-index: 10;
 }
 
 .mesto-content {
@@ -346,12 +483,6 @@ section.page {
   flex-direction: column;
   justify-content: center;
   padding: 120px 80px 60px;
-}
-
-.amber-underline {
-  border-bottom: 2px solid #C17B2F;
-  display: inline-block;
-  padding-bottom: 2px;
 }
 
 .map-wrapper {
@@ -373,7 +504,7 @@ section.page {
 .map-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../img/map-small.png');
+  background-image: url('../img/map-small.webp');
   background-size: cover;
   opacity: 0.4;
   filter: grayscale(1);
@@ -420,12 +551,36 @@ section.page {
   white-space: nowrap;
 }
 
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  color: white;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.link-arrow:hover {
+  color: #C17B2F;
+}
+
 /* ===== СТРАНИЦА 3: УСТРОЙСТВО ===== */
 #ustrojstvo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 120px 80px 80px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 
 .card {
@@ -460,6 +615,13 @@ section.page {
   width: 40px;
 }
 
+.card-heading {
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
   font-size: 40px !important;
@@ -468,6 +630,29 @@ section.page {
 /* ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== */
 #chto-delat {
   padding: 120px 80px 80px;
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+
+/* Центрируем последний ряд если нечётное число элементов */
+.activities-grid>.card-item:last-child:nth-child(3n - 1) {
+  grid-column: 2 / 3;
+}
+
+.card-item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-item-heading {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .photo-card {
@@ -532,6 +717,31 @@ section.page {
   gap: 80px;
 }
 
+.priehat-heading {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 2px solid #C17B2F;
+  display: inline-block;
+  padding-bottom: 4px;
+  margin-bottom: 24px;
+}
+
+.priehat-directions {
+  margin-bottom: 32px;
+}
+
+.priehat-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.priehat-tg-link {
+  text-decoration: none;
+}
+
 /* Yandex Map */
 .yandex-map-section {
   width: 100%;
@@ -558,7 +768,6 @@ section.page {
   filter: invert(1) hue-rotate(180deg) grayscale(0.4) brightness(0.45) contrast(1.3);
 }
 
-/* Dark overlay tint */
 .yandex-map-section::before {
   content: '';
   position: absolute;
@@ -573,7 +782,6 @@ section.page {
   background: rgba(8, 8, 8, 0.15);
 }
 
-/* Custom map pin (#C17B2F) */
 .map-custom-pin {
   position: absolute;
   top: 50%;
@@ -629,7 +837,250 @@ section.page {
   animation: coordPulse 4s ease-in-out infinite;
 }
 
-/* Футер */
+/* ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== */
+.bk-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 80px 80px;
+}
+
+.bk-container {
+  width: 100%;
+  max-width: 960px;
+}
+
+.bk-heading {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 40px;
+}
+
+.bk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Календарь */
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.cal-month {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 2px;
+  padding: 8px 0;
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-note {
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.cal-arrow {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.cal-arrow:hover {
+  border-color: #C17B2F;
+  background: rgba(193, 123, 47, 0.1);
+}
+
+/* Даты бронирования */
+.bk-dates-block {
+  display: none;
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid rgba(193, 123, 47, 0.3);
+  background: rgba(193, 123, 47, 0.05);
+}
+
+.bk-dates-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #C17B2F;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.bk-dates-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.bk-nights-value {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 4px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Форма */
+.bk-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+}
+
+.form-input,
+.form-select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 12px 0;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: #C17B2F;
+}
+
+.form-select {
+  background: #080808;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Цена */
+.bk-price-block {
+  display: none;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.bk-price-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.bk-price-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.bk-price-value {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.bk-price-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin: 8px 0;
+}
+
+.bk-price-total-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.bk-price-total {
+  font-size: 22px;
+  font-weight: 900;
+  color: #C17B2F;
+}
+
+/* Успех */
+.bk-success {
+  display: none;
+  text-align: center;
+  padding: 48px 32px;
+  border: 1px solid rgba(193, 123, 47, 0.3);
+  background: rgba(193, 123, 47, 0.05);
+}
+
+.bk-success-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.bk-success-title {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.bk-success-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.6;
+}
+
+/* ===== ФУТЕР ===== */
 .site-footer {
   padding: 40px 80px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -638,7 +1089,32 @@ section.page {
   align-items: center;
 }
 
-/* Индикатор прогресса */
+.footer-links {
+  display: flex;
+  gap: 32px;
+}
+
+.footer-link {
+  color: #555;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.footer-copy {
+  color: rgba(136, 136, 136, 0.2);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* ===== ПРОГРЕСС-БАР ===== */
 .progress-bar {
   position: fixed;
   top: 0;
@@ -649,7 +1125,7 @@ section.page {
   transition: width 0.1s linear;
 }
 
-/* Hamburger menu */
+/* ===== HAMBURGER MENU ===== */
 .burger {
   display: none;
   flex-direction: column;
@@ -717,33 +1193,7 @@ section.page {
   color: #C17B2F;
 }
 
-/* Calendar arrows */
-.cal-arrow {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: 'Space Grotesk', sans-serif;
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-
-.cal-arrow:hover {
-  border-color: #C17B2F;
-  background: rgba(193, 123, 47, 0.1);
-}
-
-/* Booking grid */
-.bk-grid {
-  grid-template-columns: 1fr 1fr;
-}
-
-/* Loading screen */
+/* ===== LOADING SCREEN ===== */
 .page-loader {
   position: fixed;
   inset: 0;
@@ -781,7 +1231,7 @@ section.page {
   }
 }
 
-/* Reduced motion */
+/* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -813,7 +1263,7 @@ section.page {
   }
 }
 
-/* Мобильная адаптация */
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
 @media (max-width: 768px) {
   .nav-fixed {
     padding: 16px 24px;
@@ -849,7 +1299,7 @@ section.page {
     padding: 100px 24px 60px;
   }
 
-  #ustrojstvo>div:last-child {
+  .cards-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
@@ -857,9 +1307,13 @@ section.page {
     padding: 100px 24px 60px;
   }
 
-  #chto-delat>div:last-child {
+  .activities-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 24px !important;
+  }
+
+  .activities-grid>.card-item:last-child:nth-child(3n - 1) {
+    grid-column: auto;
   }
 
   #priehat {
@@ -872,6 +1326,10 @@ section.page {
 
   .bk-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  .bk-section {
+    padding: 100px 24px 60px;
   }
 
   .site-footer {
@@ -887,11 +1345,11 @@ section.page {
 }
 
 @media (max-width: 480px) {
-  #ustrojstvo>div:last-child {
+  .cards-grid {
     grid-template-columns: 1fr !important;
   }
 
-  #chto-delat>div:last-child {
+  .activities-grid {
     grid-template-columns: 1fr !important;
   }
 

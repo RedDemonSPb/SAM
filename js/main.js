@@ -45,14 +45,64 @@ const observer = new IntersectionObserver((entries) => {
 sections.forEach(s => observer.observe(s));
 
 // ===== БРОНИРОВАНИЕ =====
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybP9jAOEc-Bl2WiC6Zalo7ZWV8utYptw43AdEA5yrQT22_rHKNq3KUGDs9yXt_jZF9dg/exec';
+
 const bkState = {
   year: new Date().getFullYear(),
   month: new Date().getMonth(),
   start: null,
   end: null,
-  picking: 'start'
+  picking: 'start',
+  bookedDates: [] // Храним загруженные занятые даты
 };
 const MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+// Получение занятых дат из таблицы
+async function bkFetchBookedDates() {
+  if (!GOOGLE_SCRIPT_URL) return;
+  try {
+    const res = await fetch(GOOGLE_SCRIPT_URL);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.dates && data.dates.length > 0) {
+        bkState.bookedDates = data.dates;
+        bkRender(); // Перерисовываем календарь с учетом занятых дат
+      }
+    }
+  } catch (e) {
+    console.error('Ошибка загрузки дат:', e);
+  }
+}
+
+// Проверка: является ли дата занятой
+function isDateBooked(dateObj) {
+  if (bkState.bookedDates.length === 0) return false;
+
+  const dFormat = bkFmtDate(dateObj); // формат DD.MM.YYYY
+  const time = dateObj.getTime();
+
+  for (const item of bkState.bookedDates) {
+    if (item.includes('-')) {
+      // Это диапазон
+      const parts = item.split('-');
+      const startStr = parts[0].trim();
+      const endStr = parts[1].trim();
+
+      const pStart = startStr.split('.');
+      const pEnd = endStr.split('.');
+      if (pStart.length === 3 && pEnd.length === 3) {
+        const dStart = new Date(pStart[2], pStart[1] - 1, pStart[0]).getTime();
+        const dEnd = new Date(pEnd[2], pEnd[1] - 1, pEnd[0]).getTime();
+        // Включаем границы
+        if (time >= dStart && time <= dEnd) return true;
+      }
+    } else {
+      // Это одиночная дата
+      if (item.trim() === dFormat) return true;
+    }
+  }
+  return false;
+}
 
 function bkRender() {
   const { year, month, start, end } = bkState;
@@ -74,9 +124,15 @@ function bkRender() {
     cell.textContent = d;
     cell.style.cssText = 'aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:13px; cursor:pointer; position:relative; user-select:none; transition:background 0.2s, color 0.2s;';
     const isPast = date < today;
-    if (isPast) {
+    const isBooked = isDateBooked(date);
+
+    if (isPast || isBooked) {
       cell.style.color = 'rgba(255,255,255,0.15)';
       cell.style.cursor = 'not-allowed';
+      if (isBooked) {
+        // Можно заштриховать или визуально выделить занятые даты
+        cell.style.background = 'repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.03) 5px, rgba(255,255,255,0.03) 10px)';
+      }
     } else {
       if (start && date.getTime() === start.getTime()) {
         cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
@@ -109,6 +165,29 @@ function bkSelectDate(date) {
       bkState.start = date; bkState.end = null; bkState.picking = 'end';
     } else {
       const n = Math.round((date - bkState.start) / 86400000);
+
+      // Проверяем, нет ли занятых дат внутри выбранного диапазона
+      let hasBookedInside = false;
+      for (let i = 1; i <= n; i++) {
+        let checkDate = new Date(bkState.start.getTime() + i * 86400000);
+        if (isDateBooked(checkDate)) {
+          hasBookedInside = true;
+          break;
+        }
+      }
+
+      if (hasBookedInside) {
+        const note = document.getElementById('bkMinNote');
+        const oldText = note.textContent;
+        note.textContent = 'В этом диапазоне есть занятые даты';
+        note.style.color = '#C17B2F';
+        setTimeout(() => {
+          note.textContent = oldText;
+          note.style.color = 'rgba(255,255,255,0.25)';
+        }, 2000);
+        return;
+      }
+
       if (n < 2) {
         const note = document.getElementById('bkMinNote');
         note.style.color = '#C17B2F';
@@ -164,6 +243,11 @@ document.getElementById('bkNext').addEventListener('click', () => {
 });
 
 function bkSubmitBooking() {
+  if (!GOOGLE_SCRIPT_URL) {
+    alert("К сожалению, бронирование временно недоступно (не настроен URL интеграции). Напишите нам в Telegram.");
+    return;
+  }
+
   const name = document.getElementById('bkName').value.trim();
   const phone = document.getElementById('bkPhone').value.trim();
   if (!name) { document.getElementById('bkName').style.borderColor = '#C17B2F'; return; }
@@ -172,28 +256,51 @@ function bkSubmitBooking() {
   const n = Math.round((end - start) / 86400000);
   const guests = document.getElementById('bkGuests').value;
   const comment = document.getElementById('bkComment').value;
-  const msg = encodeURIComponent(
-    `Новая заявка!\n\nИмя: ${name}\nТелефон: ${phone}\nЗаезд: ${bkFmtDate(start)}\nВыезд: ${bkFmtDate(end)}\nНочей: ${n}\nГостей: ${guests}\nСумма: ${bkFmtPrice(n * 7000)} ₽` +
-    (comment ? `\nКомментарий: ${comment}` : '')
-  );
 
+  const submitBtn = document.getElementById('bkSubmit');
   const errorEl = document.getElementById('bkError');
   if (errorEl) errorEl.style.display = 'none';
 
-  try {
-    // Если в будущем появится fetch-запрос, его можно поместить сюда
-    const newWin = window.open(`https://t.me/Maksimenko_Dmitry?text=${msg}`, '_blank');
+  // Меняем состояние кнопки
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'ОТПРАВКА...';
+  submitBtn.style.background = 'rgba(193, 123, 47, 0.5)';
+  submitBtn.style.cursor = 'wait';
 
-    // Блокировка всплывающего окна (например, AdBlock'ом) также считается ошибкой
-    if (!newWin) throw new Error('Окно Telegram было заблокировано браузером');
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('phone', phone);
+  formData.append('start', bkFmtDate(start));
+  formData.append('end', bkFmtDate(end));
+  formData.append('nights', n);
+  formData.append('guests', guests);
+  formData.append('price', bkFmtPrice(n * 7000) + ' ₽');
+  formData.append('comment', comment);
 
-    document.getElementById('bkForm').style.display = 'none';
-    document.getElementById('bkSuccess').style.display = 'block';
-  } catch (error) {
-    if (errorEl) {
-      errorEl.style.display = 'block';
-    }
-  }
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    body: formData
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Сетевая ошибка');
+      return res.json();
+    })
+    .then(data => {
+      if (data.result === 'success') {
+        document.getElementById('bkForm').style.display = 'none';
+        document.getElementById('bkSuccess').style.display = 'block';
+      } else {
+        throw new Error(data.error || 'Ошибка на сервере');
+      }
+    })
+    .catch(error => {
+      console.error('Ошибка отправки:', error);
+      if (errorEl) errorEl.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
+      submitBtn.style.background = '#C17B2F';
+      submitBtn.style.cursor = 'pointer';
+    });
 }
 
 function bkFmtDate(d) {
@@ -209,6 +316,13 @@ function bkNightWord(n) {
 }
 
 bkRender();
+
+// При загрузке страницы пробуем загрузить занятые даты
+window.addEventListener('DOMContentLoaded', () => {
+  if (GOOGLE_SCRIPT_URL) {
+    bkFetchBookedDates();
+  }
+});
 const fadeElements = document.querySelectorAll('.fade-in');
 const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {

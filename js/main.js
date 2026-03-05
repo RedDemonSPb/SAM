@@ -410,7 +410,7 @@ function initMap() {
         <div style="color: #000; padding: 15px; font-family: 'Space Grotesk', sans-serif; min-width: 280px; box-sizing: border-box;">
             <strong style="font-size: 16px; margin-bottom: 16px; display: block; font-weight: 700;">САМ. Змеиная гора</strong>
             <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank"
-               style="display: block; background: #C17B2F; color: #fff; padding: 12px 10px; text-decoration: none; border-radius: 6px; font-size: 14px; text-align: center; font-weight: 600; text-transform: uppercase; margin: 0; width: 100%; box-sizing: border-box;">
+               style="display: block; background: #C17B2F; color: #fff; padding: 12px 10px; text-decoration: none; border-radius: 6px; font-size: 14px; text-align: left; font-weight: 600; text-transform: uppercase; margin: 0; width: 100%; box-sizing: border-box;">
                Приехать
             </a>
         </div>

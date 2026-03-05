@@ -50,7 +50,7 @@ function doPost(e) {
     // Порядок здесь: Дата создания, Имя, Телефон, Заезд, Выезд, Даты, Ночи, Гости, Сумма, Комментарий
     const timestamp = Utilities.formatDate(new Date(), "GMT+3", "dd.MM.yyyy HH:mm:ss");
     sheet.appendRow([
-      timestamp, name, phone, start, end, dateRange, nights, guests, price, comment
+      timestamp, name, "'" + phone, start, end, dateRange, nights, guests, price, comment
     ]);
     
     // 3. Отправляем уведомление в Telegram (если указан токен)

@@ -337,12 +337,15 @@ const mobileMenu = document.getElementById('mobileMenu');
 burgerBtn.addEventListener('click', () => {
   burgerBtn.classList.toggle('active');
   mobileMenu.classList.toggle('open');
-  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  const isOpen = mobileMenu.classList.contains('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  burgerBtn.setAttribute('aria-expanded', isOpen);
 });
 window.closeMobile = function () {
   burgerBtn.classList.remove('active');
   mobileMenu.classList.remove('open');
   document.body.style.overflow = '';
+  burgerBtn.setAttribute('aria-expanded', 'false');
 };
 
 // === PHONE MASK ===
@@ -375,56 +378,3 @@ window.copyCoords = function (el) {
     setTimeout(() => el.classList.remove('copied'), 1500);
   });
 };
-
-// === YANDEX MAP API ===
-if (typeof ymaps !== 'undefined') {
-  ymaps.ready(initMap);
-}
-
-function initMap() {
-  const mapElement = document.getElementById('yandexMap');
-  if (!mapElement) return;
-
-  const myMap = new ymaps.Map("yandexMap", {
-    center: [61.481800, 30.217900],
-    zoom: 14,
-    controls: ['zoomControl']
-  });
-
-  myMap.behaviors.disable('scrollZoom');
-
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    myMap.behaviors.disable('drag');
-  }
-
-  const customMarkerLayout = ymaps.templateLayoutFactory.createClass(
-    '<div class="map-marker-layout">' +
-    '<div class="map-custom-ping"></div>' +
-    '<div class="map-custom-dot"></div>' +
-    '</div>'
-  );
-
-  const customPlacemark = new ymaps.Placemark([61.481800, 30.217900], {
-    hintContent: 'САМ. Змеиная гора',
-    balloonContent: `
-        <div style="color: #000; padding: 15px; font-family: 'Space Grotesk', sans-serif; min-width: 280px; box-sizing: border-box;">
-            <strong style="font-size: 16px; margin-bottom: 16px; display: block; font-weight: 700;">САМ. Змеиная гора</strong>
-            <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank"
-               style="display: block; background: #C17B2F; color: #fff; padding: 12px 10px; text-decoration: none; border-radius: 6px; font-size: 14px; text-align: left; font-weight: 600; text-transform: uppercase; margin: 0; width: 100%; box-sizing: border-box;">
-               Приехать
-            </a>
-        </div>
-    `
-  }, {
-    iconLayout: customMarkerLayout,
-    iconShape: {
-      type: 'Circle',
-      coordinates: [0, 0],
-      radius: 20
-    },
-    hideIconOnBalloonOpen: false, /* чтобы красивый маркер не исчезал при клике */
-    balloonOffset: [0, -20]
-  });
-
-  myMap.geoObjects.add(customPlacemark);
-}

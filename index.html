@@ -12,8 +12,13 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#080808">
   <meta property="og:image" content="img/og-image.webp">
-  <!-- TODO: добавить og:url и canonical когда будет домен -->
+  <!-- TODO: раскомментировать когда будет домен
+  <meta property="og:url" content="https://ВАШ-ДОМЕН.ru/">
+  <link rel="canonical" href="https://ВАШ-ДОМЕН.ru/">
+  -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
@@ -57,7 +62,6 @@
     });
   </script>
   <!-- /Yandex.Metrika counter -->
-  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=" type="text/javascript"></script>
 </head>
 
 <body>
@@ -87,7 +91,7 @@
   <!-- Навигация -->
   <header class="nav-fixed" id="navbar">
     <a href="#glavnaya" class="nav-logo">САМ</a>
-    <div class="nav-links">
+    <nav class="nav-links">
       <a href="#mesto" class="nav-link">МЕСТО</a>
       <a href="#domik" class="nav-link">СПАТЬ</a>
       <a href="#chto-delat" class="nav-link">ЧТО ЗДЕСЬ</a>
@@ -97,373 +101,376 @@
         onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
         ЗАБРОНИРОВАТЬ
       </button>
-    </div>
-    <button class="burger" id="burgerBtn" aria-label="Меню">
+    </nav>
+    <button class="burger" id="burgerBtn" aria-label="Меню" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </header>
 
-  <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
-  <section class="page" id="glavnaya">
-    <div class="hero-bg" id="heroBg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <div class="hero-inner">
-        <h1 class="hero-title">Вспомни как это —<br />делать всё самому.</h1>
-        <div class="hero-line"></div>
-        <div class="hero-sub">
-          <p class="text-muted">Рыбалка на Ладоге.</p>
-          <p class="text-muted">Баня которую ты топишь сам.</p>
-          <p class="text-muted">Скала в пяти минутах.</p>
-        </div>
-        <div class="hero-btn hero-btn--spaced">
-          <button class="btn-main btn-main--hero"
-            onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
-            ЗАБРОНИРОВАТЬ →
-          </button>
-          <p class="hero-price">от 7 000 ₽ / ночь</p>
-        </div>
-      </div>
-    </div>
-    <div class="hero-footer">
-      <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
-      <p class="hero-location">Карелия. Россия</p>
-    </div>
-  </section>
-
-  <!-- ===== СТРАНИЦА 2: МЕСТО ===== -->
-  <section class="page" id="mesto">
-    <div class="mesto-photo">
-      <div class="mesto-photo-bg" id="mestoBg"></div>
-      <div class="mesto-coords">
-        <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
-      </div>
-    </div>
-    <div class="mesto-content">
-      <span class="section-label fade-in">ЗДЕСЬ</span>
-      <h2 class="section-heading fade-in delay-1">МЕСТ<br />О</h2>
-      <p class="text-muted text-body fade-in delay-2">
-        Карелия, Лахденпохья, Змеиная скала.<br /><br />
-        До Петербурга 300 километров.<br />
-        Ладога здесь без горизонта.<br />
-        Скала отвесная. Тропа есть.<br />
-        Вид с вершины — на всю жизнь.
-      </p>
-      <div class="fade-in delay-3">
-        <div class="map-wrapper">
-          <div class="map-bg"></div>
-          <div class="map-pin">
-            <div class="map-label">SAM GLAMPING</div>
-            <div class="map-pin-dot"></div>
+  <main>
+    <!-- ===== СТРАНИЦА 1: ГЛАВНАЯ ===== -->
+    <section class="page" id="glavnaya">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-inner">
+          <h1 class="hero-title">Вспомни как это —<br />делать всё самому.</h1>
+          <div class="hero-line"></div>
+          <div class="hero-sub">
+            <p class="text-muted">Рыбалка на Ладоге.</p>
+            <p class="text-muted">Баня которую ты топишь сам.</p>
+            <p class="text-muted">Скала в пяти минутах.</p>
           </div>
-        </div>
-        <a href="https://maps.google.com/?q=61.4817662,30.2178948" target="_blank" rel="noopener noreferrer"
-          class="link-arrow">
-          ОТКРЫТЬ КАРТЫ ↗
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== СТРАНИЦА 3: КАК УСТРОЕНО ===== -->
-  <section class="page" id="ustrojstvo">
-    <div class="section-header">
-      <h2 class="section-title fade-in">Как устроено</h2>
-    </div>
-    <div class="cards-grid">
-      <div class="card fade-in delay-1">
-        <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path
-              d="M80-200v-300q0-18.86 6-36.43Q92-554 106-568l74-74v-158q0-33 23.5-56.5T260-880h440q33 0 56.5 23.5T780-800v158l74 74q14 14 20 31.57 6 17.57 6 36.43v300h-80v-80H160v80H80Zm440-360h200v-120H520v120Zm-280 0h200v-120H240v120Zm-80 200h640v-140q0-8.5-3-16.25T788-530l-88-88v-2H170l-88 88q-6 5.75-9 13.5-3 7.75-3 16.25v142Zm640 0H160h640Z" />
-          </svg></div>
-        <div class="card-line"></div>
-        <h3 class="card-heading">Сон</h3>
-        <p class="text-muted text-small">Хорошая кровать. Тепло даже в октябре. Окно на лес и скалу.</p>
-      </div>
-      <div class="card fade-in delay-2">
-        <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path
-              d="M240-400q0 52 21 98.5t60 81.5q-1-5-1-9v-9q0-32 12-60t35-51l113-111 113 111q23 23 35 51t12 60v9q0 4-1 9 39-35 60-81.5t21-98.5q0-50-18.5-94.5T648-538q-21 12-45 20t-49 8q-55 0-96.5-34T410-634q-72 42-121 116.5T240-400Zm240 52-57 56q-11 11-17 25t-6 29q0 32 23.5 55t56.5 23q33 0 56.5-23t23.5-55q0-16-6-29.5T537-292l-57-56Zm0-492v132q0 34 23.5 57t57.5 23q18 0 33.5-7.5T622-658l18-22q74 42 117 117t43 163q0 134-93 227T480-80q-134 0-227-93t-93-227q0-121 79.5-222T480-840Z" />
-          </svg></div>
-        <div class="card-line"></div>
-        <h3 class="card-heading">Огонь</h3>
-        <p class="text-muted text-small">Дровяная баня. Топите сами. Рядом Ладога.</p>
-      </div>
-      <div class="card fade-in delay-3">
-        <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path
-              d="m676-236 47-47-191-191-47 47 191 191Zm-452 0 191-191-47-47-191 191 47 47Zm416-368 47-47-105-106q-23-23-57-22.5T469-757l-33 33 90 90-174 174-90-90-34 34q-23 23-23 56.5t23 56.5l104 104 47-47-90-90 126-126 90 90 104-104q22-23 23-56.5T609-694L504-798l-24 24 57 57-57 57 57 56h103Zm-320 24-47-47 90-90-90-90 47-47 137 137-137 137ZM226-148q-28 28-68.5 28T89-148q-28-28-28-68.5T89-285l185-185 137 137-185 185Zm508 0L549-333l137-137 185 185q28 28 28 68.5T871-148q-28 28-68 28t-69-28Z" />
-          </svg></div>
-        <div class="card-line"></div>
-        <h3 class="card-heading">Быт</h3>
-        <p class="text-muted text-small">Удочки. Корзина. САП. Дрова. Всё есть — никто не объясняет как.</p>
-      </div>
-      <div class="card fade-in delay-4">
-        <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-            viewBox="0 -960 960 960" fill="currentColor">
-            <path
-              d="M80-160l240-320 181 240h118L480-420 360-268l-36-48L80-160Zm560 0 160-213 160 213H640Zm-354-34-46-62-160 96h372L280-194ZM800-244l-93-124-93 124h186Z" />
-          </svg></div>
-        <div class="card-line"></div>
-        <h3 class="card-heading">Горы</h3>
-        <p class="text-muted text-small">Змеиная скала. Пять минут по тропе. Дальше сами.</p>
-      </div>
-    </div>
-
-
-    <div class="note-block fade-in delay-5">
-      <p class="note-text">
-        При заезде вас ждёт записка.<br />
-        Удочки у воды. Корзина у двери.<br />
-        Дрова наколоты. Баня ждёт.<br />
-        Дальше — сами.
-      </p>
-    </div>
-  </section>
-
-  <!-- ===== СТРАНИЦА: ДОМИК ===== -->
-  <section class="page" id="domik">
-    <div class="section-header">
-      <h2 class="section-title fade-in">Спать</h2>
-    </div>
-    <div class="domik-container fade-in delay-1">
-      <p class="text-muted text-body domik-desc">
-        Дикий снаружи, тёплый внутри. Кровать, постельное, отопление. Просыпаешься отдохнувшим — и сразу на скалу.
-      </p>
-      <div class="domik-gallery">
-        <div class="domik-photo"><img class="domik-img" src="img/tent1.webp" loading="lazy" alt="Дикий Дом снаружи">
-        </div>
-        <div class="domik-photo"><img class="domik-img" src="img/tent2.webp" loading="lazy" alt="Дикий Дом веранда">
-        </div>
-        <div class="domik-photo"><img class="domik-img" src="img/tent3.webp" loading="lazy" alt="Дикий Дом внутри">
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== -->
-  <section class="page" id="chto-delat">
-    <div class="section-header">
-      <h2 class="section-title section-title--light fade-in">Что здесь</h2>
-    </div>
-    <div class="activities-grid">
-      <div class="card-item fade-in delay-1">
-        <div class="photo-card">
-          <img class="photo-img" src="img/Fishing.webp" alt="Рыбалка на Ладоге">
-          <div class="photo-overlay"></div>
-        </div>
-        <div>
-          <h3 class="card-item-heading">РЫБАЛКА</h3>
-          <span class="card-title-line"></span>
-          <p class="text-muted text-card">Удочки у воды. Ладога не обещает улов. Но утро на воде — уже достаточно.</p>
-        </div>
-      </div>
-      <div class="card-item fade-in delay-2">
-        <div class="photo-card">
-          <img class="photo-img" src="img/Rock.webp" alt="Змеиная скала">
-          <div class="photo-overlay"></div>
-        </div>
-        <div>
-          <h3 class="card-item-heading">СКАЛА</h3>
-          <span class="card-title-line"></span>
-          <p class="text-muted text-card">Вид на Ладогу с которым не поспоришь.</p>
-        </div>
-      </div>
-      <div class="card-item fade-in delay-3">
-        <div class="photo-card">
-          <img class="photo-img" src="img/banya.webp" alt="Баня у озера">
-          <div class="photo-overlay"></div>
-        </div>
-        <div>
-          <h3 class="card-item-heading">БАНЯ</h3>
-          <span class="card-title-line"></span>
-          <p class="text-muted text-card">Топите сами. Потом Ладога. Потом снова баня.</p>
-        </div>
-      </div>
-      <div class="card-item fade-in delay-1">
-        <div class="photo-card">
-          <img class="photo-img" src="img/forest.webp" alt="Карельский лес">
-          <div class="photo-overlay"></div>
-        </div>
-        <div>
-          <h3 class="card-item-heading">ЛЕС</h3>
-          <span class="card-title-line"></span>
-          <p class="text-muted text-card">Корзина у входа. Август — грибы. Просто идите.</p>
-        </div>
-      </div>
-      <div class="card-item fade-in delay-2">
-        <div class="photo-card">
-          <img class="photo-img" src="img/SUP.webp" alt="SUP на Ладоге">
-          <div class="photo-overlay"></div>
-        </div>
-        <div>
-          <h3 class="card-item-heading">САП</h3>
-          <span class="card-title-line"></span>
-          <p class="text-muted text-card">Доска у берега. Ладога тихая утром. Выходите до завтрака.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== -->
-  <section class="page" id="priehat">
-    <div class="priehat-inner">
-      <div class="fade-in delay-1">
-        <h3 class="priehat-heading">СТОИМОСТЬ</h3>
-        <p class="text-muted text-body">7,000 рублей за ночь. Двое. Домик, баня, удочки, САП, дрова — всё включено.
-          Минимум две ночи.</p>
-      </div>
-      <div class="fade-in delay-2">
-        <h3 class="priehat-heading">КАК ДОБРАТЬСЯ</h3>
-        <p class="text-muted text-body priehat-directions">
-          4 часа от Петербурга по трассе А-121.<br />
-          Координаты: <span class="coordinates coordinates--inline" onclick="copyCoords(this)"
-            title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</span><br />
-          Последние километры — грунтовая дорога. Проедет любая машина.
-        </p>
-        <div class="yandex-map-section fade-in delay-3">
-          <div id="yandexMap" class="yandex-map-container" title="Карта расположения глэмпинга САМ в Карелии"></div>
-          <div class="map-coords-overlay coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
-            61.4818° N, 30.2179° E</div>
-        </div>
-      </div>
-      <div class="fade-in delay-4 priehat-cta">
-        <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
-          class="btn-main btn-main--tg">
-          НАПИСАТЬ В TELEGRAM →
-        </a>
-        <p class="text-micro">Отвечаем в течение часа.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== -->
-  <section class="page bk-section" id="bronirovat">
-    <div class="bk-container">
-      <p class="section-label fade-in">БРОНИРОВАНИЕ</p>
-      <h2 class="bk-heading fade-in delay-1">ЗАБРОНИРОВАТЬ</h2>
-
-      <div class="bk-info-row fade-in delay-1">
-        <div>Заезд — с утра</div>
-        <div>Выезд — можно вечером</div>
-        <div>Сезон — май–октябрь</div>
-        <div>Гости — можно с детьми</div>
-      </div>
-
-      <div class="bk-grid">
-
-        <!-- Календарь -->
-        <div class="fade-in delay-2">
-          <div class="cal-header">
-            <button class="cal-arrow" id="bkPrev">←</button>
-            <div id="bkMonth" class="cal-month">—</div>
-            <button class="cal-arrow" id="bkNext">→</button>
-          </div>
-          <div class="cal-weekdays">
-            <div class="cal-weekday">Пн</div>
-            <div class="cal-weekday">Вт</div>
-            <div class="cal-weekday">Ср</div>
-            <div class="cal-weekday">Чт</div>
-            <div class="cal-weekday">Пт</div>
-            <div class="cal-weekday">Сб</div>
-            <div class="cal-weekday">Вс</div>
-          </div>
-          <div id="bkGrid" class="cal-grid"></div>
-          <p id="bkMinNote" class="cal-note">Минимум 2 ночи</p>
-
-          <!-- Выбранные даты -->
-          <div id="bkDatesBlock" class="bk-dates-block">
-            <div class="bk-dates-label">Ваши даты</div>
-            <div id="bkDatesValue" class="bk-dates-value">—</div>
-            <div id="bkNightsValue" class="bk-nights-value">—</div>
-          </div>
-        </div>
-
-        <!-- Форма -->
-        <div class="fade-in delay-3">
-          <div id="bkForm" class="bk-form">
-
-            <div class="form-group">
-              <label class="form-label" for="bkName">Имя</label>
-              <input id="bkName" type="text" placeholder="Ваше имя" class="form-input" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="bkPhone">Телефон</label>
-              <input id="bkPhone" type="tel" placeholder="+7 (___) ___-__-__" class="form-input" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="bkGuests">Количество гостей</label>
-              <select id="bkGuests" class="form-select">
-                <option value="1">1 человек</option>
-                <option value="2" selected>2 человека</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="bkComment">Комментарий</label>
-              <input id="bkComment" type="text" placeholder="Необязательно" class="form-input" />
-            </div>
-
-            <!-- Цена -->
-            <div id="bkPrice" class="bk-price-block">
-              <div class="bk-price-row">
-                <span class="bk-price-label">За ночь</span>
-                <span class="bk-price-value">7 000 ₽</span>
-              </div>
-              <div class="bk-price-row">
-                <span id="bkNightsLbl" class="bk-price-label">Ночей</span>
-                <span id="bkNightsVal" class="bk-price-value">—</span>
-              </div>
-              <div class="bk-price-divider"></div>
-              <div class="bk-price-row">
-                <span class="bk-price-total-label">Итого</span>
-                <span id="bkTotal" class="bk-price-total">—</span>
-              </div>
-            </div>
-
-            <button id="bkSubmit" disabled onclick="bkSubmitBooking()" class="btn-submit">
-              ОТПРАВИТЬ ЗАЯВКУ
+          <div class="hero-btn hero-btn--spaced">
+            <button class="btn-main btn-main--hero"
+              onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
+              ЗАБРОНИРОВАТЬ →
             </button>
-            <div id="bkError" class="bk-error-msg">
-              Не удалось отправить заявку. Попробуйте позже или напишите нам в <a href="https://t.me/Maksimenko_Dmitry"
-                target="_blank">Telegram</a>.
-            </div>
-
-            <p class="text-micro text-center">Ответим в течение часа</p>
-          </div>
-
-          <!-- Успех -->
-          <div id="bkSuccess" class="bk-success">
-            <div class="bk-success-icon">✓</div>
-            <div class="bk-success-title">Заявка отправлена</div>
-            <div class="bk-success-text">Свяжемся с вами в течение часа<br />для подтверждения бронирования.</div>
+            <p class="hero-price">от 7 000 ₽ / ночь</p>
           </div>
         </div>
-
       </div>
-    </div>
-  </section>
+      <div class="hero-footer">
+        <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</p>
+        <p class="hero-location">Карелия. Россия</p>
+      </div>
+    </section>
 
-  <!-- Футер -->
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="#priehat" class="footer-link">Контакты</a>
-      <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
-        class="footer-link">Telegram</a>
-      <a href="https://vk.com/sam_glamping" target="_blank" rel="noopener noreferrer" class="footer-link">ВКонтакте</a>
-    </div>
-    <p class="footer-copy">© 2026 САМ. КАРЕЛИЯ. РОССИЯ.</p>
-  </footer>
+    <!-- ===== СТРАНИЦА 2: МЕСТО ===== -->
+    <section class="page" id="mesto">
+      <div class="mesto-photo">
+        <div class="mesto-photo-bg" id="mestoBg"></div>
+        <div class="mesto-coords">
+          <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E
+          </p>
+        </div>
+      </div>
+      <div class="mesto-content">
+        <span class="section-label fade-in">ЗДЕСЬ</span>
+        <h2 class="section-heading fade-in delay-1">МЕСТ<br />О</h2>
+        <p class="text-muted text-body fade-in delay-2">
+          Карелия, Лахденпохья, Змеиная скала.<br /><br />
+          До Петербурга 300 километров.<br />
+          Ладога здесь без горизонта.<br />
+          Скала отвесная. Тропа есть.<br />
+          Вид с вершины — на всю жизнь.
+        </p>
+        <div class="fade-in delay-3">
+          <div class="map-wrapper">
+            <div class="map-bg"></div>
+            <div class="map-pin">
+              <div class="map-label">SAM GLAMPING</div>
+              <div class="map-pin-dot"></div>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=61.4817662,30.2178948" target="_blank" rel="noopener noreferrer"
+            class="link-arrow">
+            ОТКРЫТЬ КАРТЫ ↗
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <script src="js/main.js"></script>
+    <!-- ===== СТРАНИЦА 3: КАК УСТРОЕНО ===== -->
+    <section class="page" id="ustrojstvo">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Как устроено</h2>
+      </div>
+      <div class="cards-grid">
+        <div class="card fade-in delay-1">
+          <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 -960 960 960" fill="currentColor">
+              <path
+                d="M80-200v-300q0-18.86 6-36.43Q92-554 106-568l74-74v-158q0-33 23.5-56.5T260-880h440q33 0 56.5 23.5T780-800v158l74 74q14 14 20 31.57 6 17.57 6 36.43v300h-80v-80H160v80H80Zm440-360h200v-120H520v120Zm-280 0h200v-120H240v120Zm-80 200h640v-140q0-8.5-3-16.25T788-530l-88-88v-2H170l-88 88q-6 5.75-9 13.5-3 7.75-3 16.25v142Zm640 0H160h640Z" />
+            </svg></div>
+          <div class="card-line"></div>
+          <h3 class="card-heading">Сон</h3>
+          <p class="text-muted text-small">Хорошая кровать. Тепло даже в октябре. Окно на лес и скалу.</p>
+        </div>
+        <div class="card fade-in delay-2">
+          <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 -960 960 960" fill="currentColor">
+              <path
+                d="M240-400q0 52 21 98.5t60 81.5q-1-5-1-9v-9q0-32 12-60t35-51l113-111 113 111q23 23 35 51t12 60v9q0 4-1 9 39-35 60-81.5t21-98.5q0-50-18.5-94.5T648-538q-21 12-45 20t-49 8q-55 0-96.5-34T410-634q-72 42-121 116.5T240-400Zm240 52-57 56q-11 11-17 25t-6 29q0 32 23.5 55t56.5 23q33 0 56.5-23t23.5-55q0-16-6-29.5T537-292l-57-56Zm0-492v132q0 34 23.5 57t57.5 23q18 0 33.5-7.5T622-658l18-22q74 42 117 117t43 163q0 134-93 227T480-80q-134 0-227-93t-93-227q0-121 79.5-222T480-840Z" />
+            </svg></div>
+          <div class="card-line"></div>
+          <h3 class="card-heading">Огонь</h3>
+          <p class="text-muted text-small">Дровяная баня. Топите сами. Рядом Ладога.</p>
+        </div>
+        <div class="card fade-in delay-3">
+          <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 -960 960 960" fill="currentColor">
+              <path
+                d="m676-236 47-47-191-191-47 47 191 191Zm-452 0 191-191-47-47-191 191 47 47Zm416-368 47-47-105-106q-23-23-57-22.5T469-757l-33 33 90 90-174 174-90-90-34 34q-23 23-23 56.5t23 56.5l104 104 47-47-90-90 126-126 90 90 104-104q22-23 23-56.5T609-694L504-798l-24 24 57 57-57 57 57 56h103Zm-320 24-47-47 90-90-90-90 47-47 137 137-137 137ZM226-148q-28 28-68.5 28T89-148q-28-28-28-68.5T89-285l185-185 137 137-185 185Zm508 0L549-333l137-137 185 185q28 28 28 68.5T871-148q-28 28-68 28t-69-28Z" />
+            </svg></div>
+          <div class="card-line"></div>
+          <h3 class="card-heading">Быт</h3>
+          <p class="text-muted text-small">Удочки. Корзина. САП. Дрова. Всё есть — никто не объясняет как.</p>
+        </div>
+        <div class="card fade-in delay-4">
+          <div class="card-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+              viewBox="0 -960 960 960" fill="currentColor">
+              <path
+                d="M80-160l240-320 181 240h118L480-420 360-268l-36-48L80-160Zm560 0 160-213 160 213H640Zm-354-34-46-62-160 96h372L280-194ZM800-244l-93-124-93 124h186Z" />
+            </svg></div>
+          <div class="card-line"></div>
+          <h3 class="card-heading">Горы</h3>
+          <p class="text-muted text-small">Змеиная скала. Пять минут по тропе. Дальше сами.</p>
+        </div>
+      </div>
+
+
+      <div class="note-block fade-in delay-5">
+        <p class="note-text">
+          При заезде вас ждёт записка.<br />
+          Удочки у воды. Корзина у двери.<br />
+          Дрова наколоты. Баня ждёт.<br />
+          Дальше — сами.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== СТРАНИЦА: ДОМИК ===== -->
+    <section class="page" id="domik">
+      <div class="section-header">
+        <h2 class="section-title fade-in">Спать</h2>
+      </div>
+      <div class="domik-container fade-in delay-1">
+        <p class="text-muted text-body domik-desc">
+          Дикий снаружи, тёплый внутри. Кровать, постельное, отопление. Просыпаешься отдохнувшим — и сразу на скалу.
+        </p>
+        <div class="domik-gallery">
+          <div class="domik-photo"><img class="domik-img" src="img/tent1.webp" loading="lazy" alt="Дикий Дом снаружи">
+          </div>
+          <div class="domik-photo"><img class="domik-img" src="img/tent2.webp" loading="lazy" alt="Дикий Дом веранда">
+          </div>
+          <div class="domik-photo"><img class="domik-img" src="img/tent3.webp" loading="lazy" alt="Дикий Дом внутри">
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== -->
+    <section class="page" id="chto-delat">
+      <div class="section-header">
+        <h2 class="section-title section-title--light fade-in">Что здесь</h2>
+      </div>
+      <div class="activities-grid">
+        <div class="card-item fade-in delay-1">
+          <div class="photo-card">
+            <img class="photo-img" src="img/Fishing.webp" alt="Рыбалка на Ладоге">
+            <div class="photo-overlay"></div>
+          </div>
+          <div>
+            <h3 class="card-item-heading">РЫБАЛКА</h3>
+            <span class="card-title-line"></span>
+            <p class="text-muted text-card">Удочки у воды. Ладога не обещает улов. Но утро на воде — уже достаточно.</p>
+          </div>
+        </div>
+        <div class="card-item fade-in delay-2">
+          <div class="photo-card">
+            <img class="photo-img" src="img/Rock.webp" alt="Змеиная скала">
+            <div class="photo-overlay"></div>
+          </div>
+          <div>
+            <h3 class="card-item-heading">СКАЛА</h3>
+            <span class="card-title-line"></span>
+            <p class="text-muted text-card">Вид на Ладогу с которым не поспоришь.</p>
+          </div>
+        </div>
+        <div class="card-item fade-in delay-3">
+          <div class="photo-card">
+            <img class="photo-img" src="img/banya.webp" alt="Баня у озера">
+            <div class="photo-overlay"></div>
+          </div>
+          <div>
+            <h3 class="card-item-heading">БАНЯ</h3>
+            <span class="card-title-line"></span>
+            <p class="text-muted text-card">Топите сами. Потом Ладога. Потом снова баня.</p>
+          </div>
+        </div>
+        <div class="card-item fade-in delay-1">
+          <div class="photo-card">
+            <img class="photo-img" src="img/forest.webp" alt="Карельский лес">
+            <div class="photo-overlay"></div>
+          </div>
+          <div>
+            <h3 class="card-item-heading">ЛЕС</h3>
+            <span class="card-title-line"></span>
+            <p class="text-muted text-card">Корзина у входа. Август — грибы. Просто идите.</p>
+          </div>
+        </div>
+        <div class="card-item fade-in delay-2">
+          <div class="photo-card">
+            <img class="photo-img" src="img/SUP.webp" alt="SUP на Ладоге">
+            <div class="photo-overlay"></div>
+          </div>
+          <div>
+            <h3 class="card-item-heading">САП</h3>
+            <span class="card-title-line"></span>
+            <p class="text-muted text-card">Доска у берега. Ладога тихая утром. Выходите до завтрака.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== -->
+    <section class="page" id="priehat">
+      <div class="priehat-inner">
+        <div class="fade-in delay-1">
+          <h3 class="priehat-heading">СТОИМОСТЬ</h3>
+          <p class="text-muted text-body">7,000 рублей за ночь. Двое. Домик, баня, удочки, САП, дрова — всё включено.
+            Минимум две ночи.</p>
+        </div>
+        <div class="fade-in delay-2">
+          <h3 class="priehat-heading">КАК ДОБРАТЬСЯ</h3>
+          <p class="text-muted text-body priehat-directions">
+            4 часа от Петербурга по трассе А-121.<br />
+            Координаты: <span class="coordinates coordinates--inline" onclick="copyCoords(this)"
+              title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</span><br />
+            Последние километры — грунтовая дорога. Проедет любая машина.
+          </p>
+          <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank" rel="noopener noreferrer"
+            class="link-arrow">
+            ОТКРЫТЬ В ЯНДЕКС.КАРТАХ ↗
+          </a>
+        </div>
+        <div class="fade-in delay-4 priehat-cta">
+          <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
+            class="btn-main btn-main--tg">
+            НАПИСАТЬ В TELEGRAM →
+          </a>
+          <p class="text-micro">Отвечаем в течение часа.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== СТРАНИЦА 6: БРОНИРОВАНИЕ ===== -->
+    <section class="page bk-section" id="bronirovat">
+      <div class="bk-container">
+        <p class="section-label fade-in">БРОНИРОВАНИЕ</p>
+        <h2 class="bk-heading fade-in delay-1">ЗАБРОНИРОВАТЬ</h2>
+
+        <div class="bk-info-row fade-in delay-1">
+          <div>Заезд — с утра</div>
+          <div>Выезд — можно вечером</div>
+          <div>Сезон — май–октябрь</div>
+          <div>Гости — можно с детьми</div>
+        </div>
+
+        <div class="bk-grid">
+
+          <!-- Календарь -->
+          <div class="fade-in delay-2">
+            <div class="cal-header">
+              <button class="cal-arrow" id="bkPrev">←</button>
+              <div id="bkMonth" class="cal-month">—</div>
+              <button class="cal-arrow" id="bkNext">→</button>
+            </div>
+            <div class="cal-weekdays">
+              <div class="cal-weekday">Пн</div>
+              <div class="cal-weekday">Вт</div>
+              <div class="cal-weekday">Ср</div>
+              <div class="cal-weekday">Чт</div>
+              <div class="cal-weekday">Пт</div>
+              <div class="cal-weekday">Сб</div>
+              <div class="cal-weekday">Вс</div>
+            </div>
+            <div id="bkGrid" class="cal-grid"></div>
+            <p id="bkMinNote" class="cal-note">Минимум 2 ночи</p>
+
+            <!-- Выбранные даты -->
+            <div id="bkDatesBlock" class="bk-dates-block">
+              <div class="bk-dates-label">Ваши даты</div>
+              <div id="bkDatesValue" class="bk-dates-value">—</div>
+              <div id="bkNightsValue" class="bk-nights-value">—</div>
+            </div>
+          </div>
+
+          <!-- Форма -->
+          <div class="fade-in delay-3">
+            <div id="bkForm" class="bk-form">
+
+              <div class="form-group">
+                <label class="form-label" for="bkName">Имя</label>
+                <input id="bkName" type="text" placeholder="Ваше имя" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="bkPhone">Телефон</label>
+                <input id="bkPhone" type="tel" placeholder="+7 (___) ___-__-__" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="bkGuests">Количество гостей</label>
+                <select id="bkGuests" class="form-select">
+                  <option value="1">1 человек</option>
+                  <option value="2" selected>2 человека</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="bkComment">Комментарий</label>
+                <input id="bkComment" type="text" placeholder="Необязательно" class="form-input" />
+              </div>
+
+              <!-- Цена -->
+              <div id="bkPrice" class="bk-price-block">
+                <div class="bk-price-row">
+                  <span class="bk-price-label">За ночь</span>
+                  <span class="bk-price-value">7 000 ₽</span>
+                </div>
+                <div class="bk-price-row">
+                  <span id="bkNightsLbl" class="bk-price-label">Ночей</span>
+                  <span id="bkNightsVal" class="bk-price-value">—</span>
+                </div>
+                <div class="bk-price-divider"></div>
+                <div class="bk-price-row">
+                  <span class="bk-price-total-label">Итого</span>
+                  <span id="bkTotal" class="bk-price-total">—</span>
+                </div>
+              </div>
+
+              <button id="bkSubmit" disabled onclick="bkSubmitBooking()" class="btn-submit">
+                ОТПРАВИТЬ ЗАЯВКУ
+              </button>
+              <div id="bkError" class="bk-error-msg">
+                Не удалось отправить заявку. Попробуйте позже или напишите нам в <a
+                  href="https://t.me/Maksimenko_Dmitry" target="_blank">Telegram</a>.
+              </div>
+
+              <p class="text-micro text-center">Ответим в течение часа</p>
+            </div>
+
+            <!-- Успех -->
+            <div id="bkSuccess" class="bk-success">
+              <div class="bk-success-icon">✓</div>
+              <div class="bk-success-title">Заявка отправлена</div>
+              <div class="bk-success-text">Свяжемся с вами в течение часа<br />для подтверждения бронирования.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="#priehat" class="footer-link">Контакты</a>
+        <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
+          class="footer-link">Telegram</a>
+        <a href="https://vk.com/sam_glamping" target="_blank" rel="noopener noreferrer"
+          class="footer-link">ВКонтакте</a>
+      </div>
+      <p class="footer-copy">© 2026 САМ. КАРЕЛИЯ. РОССИЯ.</p>
+    </footer>
+  </main>
+
+  <script src="js/main.js" defer></script>
 </body>
 
 </html>

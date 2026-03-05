@@ -375,3 +375,45 @@ window.copyCoords = function (el) {
     setTimeout(() => el.classList.remove('copied'), 1500);
   });
 };
+
+// === YANDEX MAP API ===
+if (typeof ymaps !== 'undefined') {
+  ymaps.ready(initMap);
+}
+
+function initMap() {
+  const mapElement = document.getElementById('yandexMap');
+  if (!mapElement) return;
+
+  const myMap = new ymaps.Map("yandexMap", {
+    center: [61.481800, 30.217900],
+    zoom: 14,
+    controls: ['zoomControl']
+  });
+
+  myMap.behaviors.disable('scrollZoom');
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    myMap.behaviors.disable('drag');
+  }
+
+  const customMarkerLayout = ymaps.templateLayoutFactory.createClass(
+    '<div class="map-marker-layout">' +
+    '<div class="map-custom-ping"></div>' +
+    '<div class="map-custom-dot"></div>' +
+    '</div>'
+  );
+
+  const customPlacemark = new ymaps.Placemark([61.481800, 30.217900], {
+    hintContent: 'САМ Глэмпинг',
+  }, {
+    iconLayout: customMarkerLayout,
+    iconShape: {
+      type: 'Circle',
+      coordinates: [0, 0],
+      radius: 20
+    }
+  });
+
+  myMap.geoObjects.add(customPlacemark);
+}

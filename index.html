@@ -57,6 +57,7 @@
     });
   </script>
   <!-- /Yandex.Metrika counter -->
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=" type="text/javascript"></script>
 </head>
 
 <body>
@@ -327,14 +328,7 @@
           Последние километры — грунтовая дорога. Проедет любая машина.
         </p>
         <div class="yandex-map-section fade-in delay-3">
-          <iframe
-            src="https://yandex.com/map-widget/v1/?ll=30.216941%2C61.495148&mode=search&sll=30.217900%2C61.481800&text=61.481800%2C30.217900&z=13.41"
-            class="yandex-map-iframe" allowfullscreen="true" loading="lazy"
-            title="Карта расположения глэмпинга САМ в Карелии"></iframe>
-          <div class="map-custom-pin">
-            <div class="map-custom-ping"></div>
-            <div class="map-custom-dot"></div>
-          </div>
+          <div id="yandexMap" class="yandex-map-container" title="Карта расположения глэмпинга САМ в Карелии"></div>
           <div class="map-coords-overlay coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
             61.4818° N, 30.2179° E</div>
         </div>

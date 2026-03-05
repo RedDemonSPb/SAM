@@ -406,13 +406,24 @@ function initMap() {
 
   const customPlacemark = new ymaps.Placemark([61.481800, 30.217900], {
     hintContent: 'САМ Глэмпинг',
+    balloonContent: `
+        <div style="color: #000; padding: 12px 35px 12px 15px; font-family: 'Space Grotesk', sans-serif; min-width: 240px; box-sizing: border-box;">
+            <strong style="font-size: 16px; margin-bottom: 12px; display: block; font-weight: 700;">САМ Глэмпинг</strong>
+            <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank"
+               style="display: block; background: #C17B2F; color: #fff; padding: 10px 16px; text-decoration: none; border-radius: 4px; font-size: 14px; text-align: center; font-weight: 600; text-transform: uppercase;">
+               Навигатор
+            </a>
+        </div>
+    `
   }, {
     iconLayout: customMarkerLayout,
     iconShape: {
       type: 'Circle',
       coordinates: [0, 0],
       radius: 20
-    }
+    },
+    hideIconOnBalloonOpen: false, /* чтобы красивый маркер не исчезал при клике */
+    balloonOffset: [0, -20]
   });
 
   myMap.geoObjects.add(customPlacemark);

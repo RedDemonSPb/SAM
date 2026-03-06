@@ -1,4 +1,5 @@
 // === ЕДИНЫЙ SCROLL-ОБРАБОТЧИК ===
+document.querySelector('.page-loader').classList.add('visible');
 const progressBar = document.getElementById('progressBar');
 const navbar = document.getElementById('navbar');
 const heroBg = document.getElementById('heroBg');
@@ -391,15 +392,15 @@ window.addEventListener('load', () => {
   hideLoader();
 });
 
-// Защита от бесконечной загрузки (таймаут 3.5 секунды)
+// Защита от бесконечной загрузки (таймаут 3 секунды)
 const loaderTimeout = setTimeout(() => {
   hideLoader();
-}, 3500);
+}, 3000);
 
 function hideLoader() {
   const loader = document.getElementById('pageLoader');
-  if (loader && !loader.classList.contains('hidden')) {
-    loader.classList.add('hidden');
+  if (loader && loader.classList.contains('visible')) {
+    loader.classList.remove('visible');
     if (typeof loaderTimeout !== 'undefined') clearTimeout(loaderTimeout);
 
     // Анимация логотипа после скрытия лоадера

@@ -81,18 +81,18 @@
   <!-- /Yandex.Metrika counter -->
 
   <!-- Загрузка -->
-  <div class="page-loader" id="pageLoader">
+  <div class="page-loader" id="pageLoader" style="display:none">
     <div class="loader-text">САМ</div>
   </div>
   <script>
-    // Fail-safe: hide loader after 4s regardless of scripts loading
+    // Fail-safe: hide loader after 3s regardless of scripts loading
     setTimeout(function () {
       var l = document.getElementById('pageLoader');
-      if (l && !l.classList.contains('hidden')) {
-        l.classList.add('hidden');
+      if (l && l.classList.contains('visible')) {
+        l.classList.remove('visible');
         console.log('Loader hidden by fail-safe');
       }
-    }, 4000);
+    }, 3000);
   </script>
 
   <!-- Прогресс-бар -->

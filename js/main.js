@@ -15,15 +15,17 @@ window.addEventListener('scroll', () => {
       const bodyHeight = document.body.scrollHeight;
       const viewHeight = window.innerHeight;
       const total = bodyHeight - viewHeight;
-      if (total > 0) {
+      if (total > 0 && progressBar) {
         progressBar.style.width = (scrolled / total) * 100 + '%';
       }
 
       // Навигация — compact при скролле
-      if (scrolled > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
+      if (navbar) {
+        if (scrolled > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
       }
 
       // Параллакс на главной (только для десктопов для производительности)
@@ -281,10 +283,12 @@ function bkSubmitBooking() {
   if (errorEl) errorEl.style.display = 'none';
 
   // Меняем состояние кнопки
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'ОТПРАВКА...';
-  submitBtn.style.background = 'rgba(193, 123, 47, 0.5)';
-  submitBtn.style.cursor = 'wait';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'ОТПРАВКА...';
+    submitBtn.style.background = 'rgba(193, 123, 47, 0.5)';
+    submitBtn.style.cursor = 'wait';
+  }
 
   const formData = new FormData();
   formData.append('name', name);
@@ -396,7 +400,7 @@ function hideLoader() {
   const loader = document.getElementById('pageLoader');
   if (loader && !loader.classList.contains('hidden')) {
     loader.classList.add('hidden');
-    clearTimeout(loaderTimeout);
+    if (typeof loaderTimeout !== 'undefined') clearTimeout(loaderTimeout);
 
     // Анимация логотипа после скрытия лоадера
     const logoImg = document.querySelector('.nav-logo-img');

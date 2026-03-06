@@ -5,28 +5,41 @@ const heroBg = document.getElementById('heroBg');
 const mestoBg = document.getElementById('mestoBg');
 const mestoSection = document.getElementById('mesto');
 
+let isScrolling = false;
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      const scrolled = window.scrollY;
 
-  // Прогресс-бар
-  const total = document.body.scrollHeight - window.innerHeight;
-  progressBar.style.width = (scrolled / total) * 100 + '%';
+      // Прогресс-бар
+      const bodyHeight = document.body.scrollHeight;
+      const viewHeight = window.innerHeight;
+      const total = bodyHeight - viewHeight;
+      if (total > 0) {
+        progressBar.style.width = (scrolled / total) * 100 + '%';
+      }
 
-  // Навигация — compact при скролле
-  if (scrolled > 50) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
+      // Навигация — compact при скролле
+      if (scrolled > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
 
-  // Параллакс на главной
-  if (heroBg) heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-  if (mestoBg && mestoSection) {
-    const mestoTop = mestoSection.offsetTop;
-    const relScroll = scrolled - mestoTop;
-    if (relScroll > -window.innerHeight && relScroll < window.innerHeight) {
-      mestoBg.style.transform = `translateY(${relScroll * 0.2}px)`;
-    }
+      // Параллакс на главной (только для десктопов для производительности)
+      if (window.innerWidth > 768) {
+        if (heroBg) heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        if (mestoBg && mestoSection) {
+          const mestoTop = mestoSection.offsetTop;
+          const relScroll = scrolled - mestoTop;
+          if (relScroll > -viewHeight && relScroll < viewHeight) {
+            mestoBg.style.transform = `translateY(${relScroll * 0.2}px)`;
+          }
+        }
+      }
+      isScrolling = false;
+    });
+    isScrolling = true;
   }
 });
 
@@ -148,8 +161,14 @@ function bkRender() {
           this.style.background = 'rgba(193,123,47,0.2)'; this.style.color = '#C17B2F';
         }
       });
+      // Оптимизация: убираем лишний рендер на mouseout
       cell.addEventListener('mouseout', function () {
-        bkRender();
+        if (this.style.background === 'rgba(193, 123, 47, 0.2)') {
+          this.style.background = '';
+          this.style.color = '';
+          // Восстанавливаем стили если это текущий диапазон
+          bkUpdateCellHighlight(this, date);
+        }
       });
       cell.addEventListener('click', () => bkSelectDate(date));
     }
@@ -365,21 +384,49 @@ phoneInput.addEventListener('input', function (e) {
 
 // === LOADING SCREEN ===
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('pageLoader').classList.add('hidden');
-    // Trigger logo animation after loader is gone
+  hideLoader();
+});
+
+// Защита от бесконечной загрузки (таймаут 3.5 секунды)
+const loaderTimeout = setTimeout(() => {
+  hideLoader();
+}, 3500);
+
+function hideLoader() {
+  const loader = document.getElementById('pageLoader');
+  if (loader && !loader.classList.contains('hidden')) {
+    loader.classList.add('hidden');
+    clearTimeout(loaderTimeout);
+
+    // Анимация логотипа после скрытия лоадера
     const logoImg = document.querySelector('.nav-logo-img');
     if (logoImg) {
       setTimeout(() => logoImg.classList.add('logo-animated'), 100);
     }
-  }, 800);
-});
+  }
+}
 
 // === COPY COORDINATES ===
 window.copyCoords = function (el) {
   const text = '61.4818, 30.2179';
-  navigator.clipboard.writeText(text).then(() => {
-    el.classList.add('copied');
-    setTimeout(() => el.classList.remove('copied'), 1500);
-  });
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 1500);
+    });
+  } else {
+    // Fallback для старых браузеров или небезопасных соединений
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 1500);
+    } catch (err) {
+      console.error('Fallback copy failed', err);
+    }
+    document.body.removeChild(textArea);
+  }
 };

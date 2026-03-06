@@ -102,9 +102,16 @@ section.page {
   justify-content: space-between;
   padding: 12px 80px;
   background: rgba(8, 8, 8, 0.95);
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: padding 0.3s ease;
+}
+
+/* Эффект блюра только для мощных устройств (десктопов) */
+@media (min-width: 769px) {
+  .nav-fixed {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 }
 
 .nav-fixed.scrolled {
@@ -1238,7 +1245,6 @@ section.page {
   position: fixed;
   inset: 0;
   background: rgba(8, 8, 8, 0.98);
-  backdrop-filter: blur(20px);
   z-index: 105;
   display: flex;
   flex-direction: column;
@@ -1248,6 +1254,13 @@ section.page {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
+}
+
+@media (min-width: 769px) {
+  .mobile-menu {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 }
 
 .mobile-menu.open {

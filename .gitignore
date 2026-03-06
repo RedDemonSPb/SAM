@@ -12,3 +12,7 @@ node_modules/
 
 # Gemini artifacts
 .gemini/
+
+# Non-deployable files
+SETUP_INSTRUCTIONS.md
+favicon.zip

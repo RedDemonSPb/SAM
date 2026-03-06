@@ -1269,13 +1269,16 @@ section.page {
 }
 
 .mobile-menu a {
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 300;
   letter-spacing: 4px;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
   transition: color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .mobile-menu a:hover {
@@ -1355,7 +1358,20 @@ section.page {
 /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
 @media (max-width: 768px) {
   .nav-fixed {
-    padding: 16px 24px;
+    padding: 12px 24px;
+  }
+
+  .nav-fixed.scrolled {
+    padding: 8px 16px;
+  }
+
+  .nav-logo-img {
+    height: 48px;
+    /* Slightly larger on mobile than inherited scaled-down version */
+  }
+
+  .nav-fixed.scrolled .nav-logo-img {
+    height: 36px;
   }
 
   .burger {

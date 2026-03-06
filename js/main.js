@@ -367,6 +367,11 @@ phoneInput.addEventListener('input', function (e) {
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('pageLoader').classList.add('hidden');
+    // Trigger logo animation after loader is gone
+    const logoImg = document.querySelector('.nav-logo-img');
+    if (logoImg) {
+      setTimeout(() => logoImg.classList.add('logo-animated'), 100);
+    }
   }, 800);
 });
 

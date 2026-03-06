@@ -93,7 +93,7 @@ section.page {
 /* ===== НАВИГАЦИЯ ===== */
 .nav-fixed {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top, 0);
   left: 0;
   right: 0;
   z-index: 100;
@@ -101,6 +101,7 @@ section.page {
   align-items: center;
   justify-content: space-between;
   padding: 12px 80px;
+  padding-top: calc(12px + env(safe-area-inset-top));
   background: rgba(8, 8, 8, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   transition: padding 0.3s ease;
@@ -409,6 +410,7 @@ section.page {
   display: flex;
   align-items: center;
   padding: 120px 80px 60px;
+  padding-top: calc(120px + env(safe-area-inset-top));
 }
 
 .hero-inner {
@@ -1251,6 +1253,7 @@ section.page {
   align-items: center;
   justify-content: center;
   gap: 32px;
+  padding-top: env(safe-area-inset-top);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -1294,6 +1297,7 @@ section.page {
   display: none;
   align-items: center;
   justify-content: center;
+  padding-top: env(safe-area-inset-top);
 }
 
 .page-loader.visible {
@@ -1371,6 +1375,7 @@ section.page {
 @media (max-width: 768px) {
   .nav-fixed {
     padding: 12px 24px;
+    padding-top: calc(12px + env(safe-area-inset-top));
   }
 
   .nav-fixed.scrolled {
@@ -1392,6 +1397,7 @@ section.page {
 
   .hero-content {
     padding: 140px 24px 40px;
+    padding-top: calc(140px + env(safe-area-inset-top));
   }
 
   .hero-footer {

@@ -100,7 +100,7 @@ section.page {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 80px;
+  padding: 12px 80px;
   background: rgba(8, 8, 8, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -108,16 +108,23 @@ section.page {
 }
 
 .nav-fixed.scrolled {
-  padding: 16px 80px;
+  padding: 8px 80px;
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
   font-size: 22px;
   font-weight: 300;
   letter-spacing: 4px;
   color: white;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.nav-logo-img {
+  height: 64px;
+  width: auto;
 }
 
 .nav-links {

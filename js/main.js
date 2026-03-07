@@ -258,8 +258,23 @@
       submitBtn.style.background = '#C17B2F';
       submitBtn.style.color = 'white';
       submitBtn.style.cursor = 'pointer';
+    } else {
+      datesBlock.style.display = 'none';
+      priceBlock.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.style.background = 'rgba(255,255,255,0.05)';
+      submitBtn.style.color = 'rgba(255,255,255,0.2)';
+      submitBtn.style.cursor = 'not-allowed';
     }
   }
+
+  document.getElementById('bkClearDates').addEventListener('click', () => {
+    bkState.start = null;
+    bkState.end = null;
+    bkState.picking = 'start';
+    bkRender();
+    bkUpdateUI();
+  });
 
   document.getElementById('bkPrev').addEventListener('click', () => {
     const today = new Date();

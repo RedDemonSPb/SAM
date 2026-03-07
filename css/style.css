@@ -675,6 +675,40 @@ section.page {
   color: #C17B2F;
 }
 
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+}
+
+.btn-map:hover {
+  background: #C17B2F;
+  border-color: #C17B2F;
+  transform: translateY(-2px);
+}
+
+.btn-map svg {
+  transition: transform 0.3s ease;
+  color: #C17B2F;
+}
+
+.btn-map:hover svg {
+  color: white;
+  transform: scale(1.1);
+}
+
 /* ===== СТРАНИЦА 3: УСТРОЙСТВО ===== */
 #ustrojstvo {
   display: flex;
@@ -1030,12 +1064,36 @@ section.page {
   background: rgba(193, 123, 47, 0.05);
 }
 
+.bk-dates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
 .bk-dates-label {
   font-size: 10px;
   letter-spacing: 3px;
   color: #C17B2F;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+}
+
+.bk-clear-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: inherit;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.bk-clear-btn:hover {
+  color: #ff4444;
 }
 
 .bk-dates-value {
@@ -1492,6 +1550,11 @@ section.page {
 
   .nav-links {
     display: none;
+  }
+
+  .btn-map {
+    width: 100%;
+    padding: 18px 20px;
   }
 
   .btn-main--hero {

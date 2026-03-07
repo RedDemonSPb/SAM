@@ -195,8 +195,9 @@
       let touchStartTime = 0;
 
       grid.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
+        const touch = e.touches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
         touchStartTime = Date.now();
         bkState.isSwiping = false; // Сбрасываем флаг при начале касания
       }, { passive: true });
@@ -242,34 +243,48 @@
       }, { passive: false });
 
       grid.addEventListener('touchend', (e) => {
-        if (!bkState.isSwiping) return; // Если не было свайпа, пусть работает стандартный click
+        const duration = Date.now() - touchStartTime;
+        const touch = e.changedTouches[0];
+        const dx = Math.abs(touch.clientX - touchStartX);
+        const dy = Math.abs(touch.clientY - touchStartY);
 
-        bkState.isSwiping = false;
-        if (bkState.start && bkState.end) {
-          const n = Math.round((bkState.end - bkState.start) / 86400000);
-
-          let hasBookedInside = false;
-          for (let i = 1; i <= n; i++) {
-            let checkDate = new Date(bkState.start.getTime() + i * 86400000);
-            if (isDateBooked(checkDate)) { hasBookedInside = true; break; }
-          }
-
-          if (hasBookedInside || n < 2) {
-            bkState.end = null;
-            if (hasBookedInside) {
-              const note = document.getElementById('bkMinNote');
-              const oldText = note.textContent;
-              note.textContent = 'В диапазоне есть занятые даты';
-              note.style.color = '#C17B2F';
-              setTimeout(() => { note.textContent = oldText; note.style.color = ''; }, 2000);
+        if (bkState.isSwiping) {
+          bkState.isSwiping = false;
+          if (bkState.start && bkState.end) {
+            const n = Math.round((bkState.end - bkState.start) / 86400000);
+            let hasBookedInside = false;
+            for (let i = 1; i <= n; i++) {
+              let checkDate = new Date(bkState.start.getTime() + i * 86400000);
+              if (isDateBooked(checkDate)) { hasBookedInside = true; break; }
             }
-          } else {
-            bkState.picking = 'start';
+            if (hasBookedInside || n < 2) {
+              bkState.end = null;
+              if (hasBookedInside) {
+                const note = document.getElementById('bkMinNote');
+                const oldText = note.textContent;
+                note.textContent = 'В диапазоне есть занятые даты';
+                note.style.color = '#C17B2F';
+                setTimeout(() => { note.textContent = oldText; note.style.color = ''; }, 2000);
+              }
+            } else {
+              bkState.picking = 'start';
+            }
+          }
+          bkRender();
+          bkUpdateUI();
+          if (e.cancelable) e.preventDefault();
+        } else if (duration < 300 && dx < 10 && dy < 10) {
+          // Это был быстрый тап. Обрабатываем его принудительно для Telegram.
+          const cell = getCellFromTouch(touch);
+          if (cell) {
+            const date = new Date(parseInt(cell.getAttribute('data-date')));
+            if (!isDateBooked(date) && date >= new Date().setHours(0, 0, 0, 0)) {
+              bkSelectDate(date);
+              if (e.cancelable) e.preventDefault();
+            }
           }
         }
-        bkRender();
-        bkUpdateUI();
-      }, { passive: true });
+      }, { passive: false });
 
       grid.dataset.touchInited = 'true';
     }

@@ -1025,13 +1025,16 @@ section.page {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
-  touch-action: pan-y pinch-zoom;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .cal-grid div {
   min-height: 48px;
   /* Larger tap targets for mobile */
   transition: background 0.2s, color 0.2s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cal-grid div:active:not(:empty) {

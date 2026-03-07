@@ -1025,6 +1025,8 @@ section.page {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
+  touch-action: none;
+  /* Предотвращаем скролл браузером при свайпе по сетке */
 }
 
 .cal-note {

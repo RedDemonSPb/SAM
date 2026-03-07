@@ -190,9 +190,87 @@
 
     // Добавляем Touch-события для свайпа (делегирование через сетку)
     if (!grid.dataset.touchInited) {
-      grid.addEventListener('touchstart', handleTouchStart, { passive: false });
-      grid.addEventListener('touchmove', handleTouchMove, { passive: false });
-      grid.addEventListener('touchend', handleTouchEnd, { passive: false });
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
+
+      grid.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        bkState.isSwiping = false; // Сбрасываем флаг при начале касания
+      }, { passive: true });
+
+      grid.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        const dx = Math.abs(touch.clientX - touchStartX);
+        const dy = Math.abs(touch.clientY - touchStartY);
+
+        // Если движение больше 10px — считаем это свайпом по календарю
+        if (dx > 10 || dy > 10) {
+          if (!bkState.isSwiping) {
+            // Если мы только начали свайп, определяем стартовую ячейку
+            const cell = getCellFromTouch(touch);
+            if (cell) {
+              const date = new Date(parseInt(cell.getAttribute('data-date')));
+              if (!isDateBooked(date) && date >= new Date().setHours(0, 0, 0, 0)) {
+                bkState.isSwiping = true;
+                bkState.start = date;
+                bkState.end = null;
+                bkState.picking = 'end';
+              }
+            }
+          }
+
+          if (bkState.isSwiping) {
+            // Блокируем скролл страницы только если мы активно свайпаем по календарю
+            if (e.cancelable) e.preventDefault();
+
+            const cell = getCellFromTouch(touch);
+            if (cell) {
+              const date = new Date(parseInt(cell.getAttribute('data-date')));
+              if (!isDateBooked(date) && date > bkState.start) {
+                if (!bkState.end || date.getTime() !== bkState.end.getTime()) {
+                  bkState.end = date;
+                  bkRender();
+                  bkUpdateUI();
+                }
+              }
+            }
+          }
+        }
+      }, { passive: false });
+
+      grid.addEventListener('touchend', (e) => {
+        if (!bkState.isSwiping) return; // Если не было свайпа, пусть работает стандартный click
+
+        bkState.isSwiping = false;
+        if (bkState.start && bkState.end) {
+          const n = Math.round((bkState.end - bkState.start) / 86400000);
+
+          let hasBookedInside = false;
+          for (let i = 1; i <= n; i++) {
+            let checkDate = new Date(bkState.start.getTime() + i * 86400000);
+            if (isDateBooked(checkDate)) { hasBookedInside = true; break; }
+          }
+
+          if (hasBookedInside || n < 2) {
+            bkState.end = null;
+            if (hasBookedInside) {
+              const note = document.getElementById('bkMinNote');
+              const oldText = note.textContent;
+              note.textContent = 'В диапазоне есть занятые даты';
+              note.style.color = '#C17B2F';
+              setTimeout(() => { note.textContent = oldText; note.style.color = ''; }, 2000);
+            }
+          } else {
+            bkState.picking = 'start';
+          }
+        }
+        bkRender();
+        bkUpdateUI();
+      }, { passive: true });
+
       grid.dataset.touchInited = 'true';
     }
   }
@@ -201,83 +279,6 @@
     const el = document.elementFromPoint(touch.clientX, touch.clientY);
     if (el && el.hasAttribute('data-date')) return el;
     return null;
-  }
-
-  function handleTouchStart(e) {
-    const cell = getCellFromTouch(e.touches[0]);
-    if (!cell) return;
-
-    const date = new Date(parseInt(cell.getAttribute('data-date')));
-    if (isDateBooked(date) || date < new Date().setHours(0, 0, 0, 0)) return;
-
-    // Начинаем свайп
-    bkState.isSwiping = true;
-    bkState.start = date;
-    bkState.end = null;
-    bkState.picking = 'end';
-    bkRender();
-    bkUpdateUI();
-
-    // Предотвращаем системные жесты Telegram (например, "назад" или контекстное меню)
-    if (e.cancelable) e.preventDefault();
-  }
-
-  function handleTouchMove(e) {
-    if (!bkState.isSwiping) return;
-    e.preventDefault(); // Блокируем скролл во время свайпа по календарю
-
-    const cell = getCellFromTouch(e.touches[0]);
-    if (!cell) return;
-
-    const date = new Date(parseInt(cell.getAttribute('data-date')));
-    if (isDateBooked(date) || date < new Date().setHours(0, 0, 0, 0)) return;
-
-    if (date.getTime() !== (bkState.end ? bkState.end.getTime() : 0) && date > bkState.start) {
-      bkState.end = date;
-      bkRender();
-      bkUpdateUI();
-    }
-  }
-
-  function handleTouchEnd(e) {
-    if (!bkState.isSwiping) return;
-    bkState.isSwiping = false;
-
-    if (bkState.start && bkState.end) {
-      const n = Math.round((bkState.end - bkState.start) / 86400000);
-
-      // Проверка на занятые даты внутри диапазона
-      let hasBookedInside = false;
-      for (let i = 1; i <= n; i++) {
-        let checkDate = new Date(bkState.start.getTime() + i * 86400000);
-        if (isDateBooked(checkDate)) {
-          hasBookedInside = true;
-          break;
-        }
-      }
-
-      if (hasBookedInside || n < 2) {
-        // Если диапазон невалиден — сбрасываем выбор
-        bkState.end = null;
-        bkState.picking = 'end';
-
-        if (hasBookedInside) {
-          const note = document.getElementById('bkMinNote');
-          const oldText = note.textContent;
-          note.textContent = 'В диапазоне есть занятые даты';
-          note.style.color = '#C17B2F';
-          setTimeout(() => { note.textContent = oldText; note.style.color = ''; }, 2000);
-        } else if (n < 2) {
-          const note = document.getElementById('bkMinNote');
-          note.style.color = '#C17B2F';
-          setTimeout(() => { note.style.color = ''; }, 1500);
-        }
-      } else {
-        bkState.picking = 'start'; // Готовы к новому выбору (или сбросу)
-      }
-    }
-    bkRender();
-    bkUpdateUI();
   }
 
   function bkSelectDate(date) {

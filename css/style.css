@@ -1025,8 +1025,17 @@ section.page {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
-  touch-action: none;
-  /* Предотвращаем скролл браузером при свайпе по сетке */
+  touch-action: pan-y pinch-zoom;
+}
+
+.cal-grid div {
+  min-height: 48px;
+  /* Larger tap targets for mobile */
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+.cal-grid div:active:not(:empty) {
+  transform: scale(0.95);
 }
 
 .cal-note {

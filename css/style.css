@@ -1082,19 +1082,22 @@ section.page {
 
 .bk-clear-btn {
   background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
   font-family: inherit;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: color 0.3s ease;
-  padding: 0;
+  transition: all 0.3s ease;
+  padding: 6px 12px;
+  border-radius: 2px;
 }
 
 .bk-clear-btn:hover {
   color: #ff4444;
+  border-color: rgba(255, 68, 68, 0.4);
+  background: rgba(255, 68, 68, 0.05);
 }
 
 .bk-dates-value {

@@ -261,6 +261,10 @@
     } else {
       datesBlock.style.display = 'none';
       priceBlock.style.display = 'none';
+      document.getElementById('bkDatesValue').textContent = '—';
+      document.getElementById('bkNightsValue').textContent = '—';
+      document.getElementById('bkNightsVal').textContent = '—';
+      document.getElementById('bkTotal').textContent = '—';
       submitBtn.disabled = true;
       submitBtn.style.background = 'rgba(255,255,255,0.05)';
       submitBtn.style.color = 'rgba(255,255,255,0.2)';
@@ -272,6 +276,24 @@
     bkState.start = null;
     bkState.end = null;
     bkState.picking = 'start';
+
+    // Сбрасываем значения полей формы
+    const nameInput = document.getElementById('bkName');
+    const phoneInput = document.getElementById('bkPhone');
+    const commentInput = document.getElementById('bkComment');
+    const guestsSelect = document.getElementById('bkGuests');
+
+    if (nameInput) {
+      nameInput.value = '';
+      nameInput.style.borderColor = ''; // Сброс подсветки ошибки
+    }
+    if (phoneInput) {
+      phoneInput.value = '';
+      phoneInput.style.borderColor = ''; // Сброс подсветки ошибки
+    }
+    if (commentInput) commentInput.value = '';
+    if (guestsSelect) guestsSelect.value = '2'; // Возвращаем количество гостей по умолчанию
+
     bkRender();
     bkUpdateUI();
   });
@@ -352,6 +374,26 @@
 
   function bkFmtDate(d) {
     return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
+  }
+
+  function bkUpdateCellHighlight(cell, date) {
+    const { start, end } = bkState;
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+
+    // Reset styles to default
+    cell.style.background = '';
+    cell.style.color = '';
+    cell.style.fontWeight = '';
+
+    if (start && date.getTime() === start.getTime()) {
+      cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+    } else if (end && date.getTime() === end.getTime()) {
+      cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+    } else if (start && end && date > start && date < end) {
+      cell.style.background = 'rgba(193,123,47,0.15)';
+    } else if (date.getTime() === today.getTime()) {
+      cell.style.color = '#C17B2F'; cell.style.fontWeight = '700';
+    }
   }
   function bkFmtPrice(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
   function bkNightWord(n) {

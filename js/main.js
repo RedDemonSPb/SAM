@@ -6,6 +6,9 @@
   const heroBg = document.getElementById('heroBg');
   const mestoBg = document.getElementById('mestoBg');
   const mestoSection = document.getElementById('mesto');
+  const stickyCta = document.getElementById('stickyCta');
+  const bronSection = document.getElementById('bronirovat');
+  const heroSection = document.getElementById('glavnaya');
 
   let isScrolling = false;
   window.addEventListener('scroll', () => {
@@ -39,6 +42,18 @@
             if (relScroll > -viewHeight && relScroll < viewHeight) {
               mestoBg.style.transform = `translateY(${relScroll * 0.2}px)`;
             }
+          }
+        }
+
+        // Sticky CTA visibility (only mobile)
+        if (window.innerWidth <= 768 && stickyCta && heroSection && bronSection) {
+          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+          const bronTop = bronSection.offsetTop;
+
+          if (scrolled > heroBottom - 200 && scrolled + viewHeight < bronTop + 100) {
+            stickyCta.classList.add('visible');
+          } else {
+            stickyCta.classList.remove('visible');
           }
         }
         isScrolling = false;

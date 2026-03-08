@@ -348,8 +348,8 @@
     <section class="page" id="priehat">
       <div class="priehat-inner">
         <div class="priehat-grid">
-          <!-- Card 1: Стоимость -->
-          <div class="priehat-card fade-in delay-1">
+          <!-- Card 1: Стоимость (Large) -->
+          <div class="priehat-card priehat-card--large fade-in delay-1">
             <h3 class="priehat-card-heading">СТОИМОСТЬ</h3>
             <div class="priehat-price">7 000 ₽ <span class="text-micro">/ ночь</span></div>
             <ul class="priehat-list">
@@ -360,7 +360,8 @@
             </ul>
             <p class="text-muted text-small">Минимум две ночи. Всё включено в стоимость.</p>
             <button class="btn-pay"
-              onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">ОПЛАТИТЬ →</button>
+              onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">ВЫБРАТЬ ДАТЫ
+              →</button>
           </div>
 
           <!-- Card 2: Как добраться -->
@@ -382,6 +383,9 @@
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
               <p class="text-muted">Последние километры — грунтовка. Проедет любая машина.</p>
+            </div>
+            <div class="text-tip">
+              💡 Совет: Заправьтесь и купите продукты в Лахденпохья — это последний город на пути.
             </div>
             <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank" rel="noopener noreferrer"
               class="btn-map btn-map--card">
@@ -549,6 +553,12 @@
       <p class="footer-copy">© 2026 САМ. КАРЕЛИЯ. РОССИЯ.</p>
     </footer>
   </main>
+
+  <div class="sticky-cta" id="stickyCta">
+    <button class="btn-submit" onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
+      ЗАБРОНИРОВАТЬ
+    </button>
+  </div>
 
   <script src="js/main.js?v=1.4" defer></script>
 </body>

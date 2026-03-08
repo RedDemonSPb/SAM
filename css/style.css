@@ -22,7 +22,8 @@ body {
 .text-muted {
   color: #A1A1AA;
   font-size: 16px;
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .text-body {
@@ -32,13 +33,17 @@ body {
 }
 
 .text-small {
-  font-size: 15px;
-  line-height: 1.8;
+  color: #A1A1AA;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 .text-card {
-  font-size: 14px;
-  line-height: 1.8;
+  color: #A1A1AA;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
   margin-top: 8px;
 }
 

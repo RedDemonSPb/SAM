@@ -911,41 +911,129 @@ section.page {
 #priehat {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 120px 40px 80px;
+  padding: 120px 80px 80px;
+  background-color: #080808;
 }
 
 .priehat-inner {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
+  margin: 0 auto;
 }
 
-.priehat-heading {
-  font-size: 24px;
+.priehat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.priehat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.priehat-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(193, 123, 47, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.priehat-card-heading {
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 4px;
+  color: #C17B2F;
   text-transform: uppercase;
-  border-bottom: 2px solid #C17B2F;
-  display: inline-block;
-  padding-bottom: 4px;
   margin-bottom: 24px;
 }
 
-.priehat-directions {
+.priehat-price {
+  font-size: 40px;
+  font-weight: 900;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+.priehat-list {
+  list-style: none;
   margin-bottom: 32px;
 }
 
-.priehat-cta {
+.priehat-list li {
+  font-size: 15px;
+  color: #f8f7f5;
+  margin-bottom: 12px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
 }
 
-.priehat-tg-link {
-  text-decoration: none;
+.icon-check {
+  color: #C17B2F;
+  font-weight: 900;
+}
+
+.priehat-info-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.priehat-icon {
+  width: 24px;
+  height: 24px;
+  color: #C17B2F;
+  flex-shrink: 0;
+}
+
+.btn-pay {
+  background: transparent;
+  border: 1px solid #C17B2F;
+  color: #C17B2F;
+  padding: 16px 32px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.3s ease;
+}
+
+.btn-pay:hover {
+  background: #C17B2F;
+  color: white;
+}
+
+.btn-map--card {
+  margin-top: auto;
+  width: 100%;
+}
+
+.priehat-cta-box {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-main--full {
+  width: 100%;
+}
+
+.btn-submit--pay {
+  background: #2e7d32;
+  /* Green for pay */
+  margin-top: 12px;
+}
+
+.btn-submit--pay:hover:not(:disabled) {
+  background: #1b5e20;
 }
 
 
@@ -1557,6 +1645,19 @@ section.page {
 
   .bk-section {
     padding: 100px 24px 60px;
+  }
+
+  .priehat-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .priehat-card {
+    padding: 32px 24px;
+  }
+
+  .priehat-price {
+    font-size: 32px;
   }
 
   .site-footer {

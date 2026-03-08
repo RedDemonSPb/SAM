@@ -344,6 +344,7 @@
     const datesBlock = document.getElementById('bkDatesBlock');
     const priceBlock = document.getElementById('bkPrice');
     const submitBtn = document.getElementById('bkSubmit');
+    const payBtn = document.getElementById('bkPay');
     if (start && !end) {
       datesBlock.style.display = 'block';
       document.getElementById('bkDatesValue').textContent = bkFmtDate(start) + ' → ...';
@@ -353,6 +354,7 @@
       submitBtn.style.background = 'rgba(255,255,255,0.05)';
       submitBtn.style.color = 'rgba(255,255,255,0.2)';
       submitBtn.style.cursor = 'not-allowed';
+      if (payBtn) payBtn.style.display = 'none';
     } else if (start && end) {
       const n = Math.round((end - start) / 86400000);
       const total = n * 7000;
@@ -367,6 +369,7 @@
       submitBtn.style.background = '#C17B2F';
       submitBtn.style.color = 'white';
       submitBtn.style.cursor = 'pointer';
+      if (payBtn) payBtn.style.display = 'block';
     } else {
       datesBlock.style.display = 'none';
       priceBlock.style.display = 'none';
@@ -378,6 +381,7 @@
       submitBtn.style.background = 'rgba(255,255,255,0.05)';
       submitBtn.style.color = 'rgba(255,255,255,0.2)';
       submitBtn.style.cursor = 'not-allowed';
+      if (payBtn) payBtn.style.display = 'none';
     }
   }
 
@@ -418,7 +422,7 @@
     bkRender();
   });
 
-  window.bkSubmitBooking = function bkSubmitBooking() {
+  window.bkSubmitBooking = function bkSubmitBooking(isPay = false) {
     if (!GOOGLE_SCRIPT_URL) {
       alert("К сожалению, бронирование временно недоступно (не настроен URL интеграции). Напишите нам в Telegram.");
       return;
@@ -434,15 +438,17 @@
     const comment = document.getElementById('bkComment').value;
 
     const submitBtn = document.getElementById('bkSubmit');
+    const payBtn = document.getElementById('bkPay');
     const errorEl = document.getElementById('bkError');
     if (errorEl) errorEl.style.display = 'none';
 
     // Меняем состояние кнопки
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'ОТПРАВКА...';
-      submitBtn.style.background = 'rgba(193, 123, 47, 0.5)';
-      submitBtn.style.cursor = 'wait';
+    const activeBtn = isPay ? payBtn : submitBtn;
+    if (activeBtn) {
+      activeBtn.disabled = true;
+      activeBtn.textContent = 'ОТПРАВКА...';
+      activeBtn.style.opacity = '0.5';
+      activeBtn.style.cursor = 'wait';
     }
 
     const formData = new FormData();
@@ -453,7 +459,7 @@
     formData.append('nights', n);
     formData.append('guests', guests);
     formData.append('price', bkFmtPrice(n * 7000) + ' ₽');
-    formData.append('comment', comment);
+    formData.append('comment', comment + (isPay ? ' (ЗАПРОС ОПЛАТЫ)' : ''));
 
     fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',

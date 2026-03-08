@@ -345,44 +345,75 @@
 
 
 
-    <!-- ===== СТРАНИЦА 5: ПРИЕХАТЬ ===== -->
     <section class="page" id="priehat">
       <div class="priehat-inner">
-        <div class="fade-in delay-1">
-          <h3 class="priehat-heading">СТОИМОСТЬ</h3>
-          <p class="text-muted text-body">7,000 рублей за ночь. Двое. Домик, баня, удочки, САП, дрова — всё включено.
-            Минимум две ночи.</p>
-        </div>
-        <div class="fade-in delay-2">
-          <h3 class="priehat-heading">КАК ДОБРАТЬСЯ</h3>
-          <p class="text-muted text-body priehat-directions">
-            4 часа от Петербурга по трассе А-121.<br />
-            Координаты: <span class="coordinates coordinates--inline" onclick="copyCoords(this)"
-              title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</span><br />
-            Последние километры — грунтовая дорога. Проедет любая машина.
-          </p>
-          <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank" rel="noopener noreferrer"
-            class="btn-map">
-            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 -960 960 960"
-              fill="currentColor">
-              <path
-                d="M480-480q33 0 56.5-23.5T560-560q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 33 23.5 56.5T480-480Zm0 294q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
-            </svg>
-            ОТКРЫТЬ В ЯНДЕКС.КАРТАХ
-          </a>
-        </div>
-        <div class="fade-in delay-3">
-          <h3 class="priehat-heading">КОНТАКТЫ</h3>
-          <p class="text-muted text-body">
-            <a href="mailto:info@samcamp.ru" class="link-arrow">info@samcamp.ru</a>
-          </p>
-        </div>
-        <div class="fade-in delay-4 priehat-cta">
-          <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
-            class="btn-main btn-main--tg">
-            НАПИСАТЬ В TELEGRAM →
-          </a>
-          <p class="text-micro">Отвечаем в течение часа.</p>
+        <div class="priehat-grid">
+          <!-- Card 1: Стоимость -->
+          <div class="priehat-card fade-in delay-1">
+            <h3 class="priehat-card-heading">СТОИМОСТЬ</h3>
+            <div class="priehat-price">7 000 ₽ <span class="text-micro">/ ночь</span></div>
+            <ul class="priehat-list">
+              <li><span class="icon-check">✓</span>Домик на двоих</li>
+              <li><span class="icon-check">✓</span>Дровяная баня</li>
+              <li><span class="icon-check">✓</span>SUP-борды и удочки</li>
+              <li><span class="icon-check">✓</span>Дрова и мангал</li>
+            </ul>
+            <p class="text-muted text-small">Минимум две ночи. Всё включено в стоимость.</p>
+            <button class="btn-pay"
+              onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">ОПЛАТИТЬ →</button>
+          </div>
+
+          <!-- Card 2: Как добраться -->
+          <div class="priehat-card fade-in delay-2">
+            <h3 class="priehat-card-heading">КАК ДОБРАТЬСЯ</h3>
+            <div class="priehat-info-item">
+              <svg class="priehat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <div>
+                <p class="text-muted">4 часа от Петербурга по А-121</p>
+                <span class="coordinates coordinates--inline" onclick="copyCoords(this)"
+                  title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E</span>
+              </div>
+            </div>
+            <div class="priehat-info-item">
+              <svg class="priehat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+              <p class="text-muted">Последние километры — грунтовка. Проедет любая машина.</p>
+            </div>
+            <a href="https://yandex.ru/maps/?rtext=~61.481800,30.217900" target="_blank" rel="noopener noreferrer"
+              class="btn-map btn-map--card">
+              ОТКРЫТЬ КАРТЫ
+            </a>
+          </div>
+
+          <!-- Card 3: Контакты -->
+          <div class="priehat-card fade-in delay-3">
+            <h3 class="priehat-card-heading">КОНТАКТЫ</h3>
+            <div class="priehat-info-item">
+              <svg class="priehat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <a href="mailto:info@samcamp.ru" class="link-arrow">info@samcamp.ru</a>
+            </div>
+            <div class="priehat-info-item">
+              <svg class="priehat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+              </svg>
+              <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
+                class="link-arrow">Написать в Telegram</a>
+            </div>
+            <div class="priehat-cta-box">
+              <p class="text-micro">Отвечаем в течение часа</p>
+              <a href="https://t.me/Maksimenko_Dmitry" target="_blank" rel="noopener noreferrer"
+                class="btn-main btn-main--tg btn-main--full">
+                TELEGRAM →
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -479,6 +510,12 @@
               <button id="bkSubmit" disabled onclick="bkSubmitBooking()" class="btn-submit">
                 ОТПРАВИТЬ ЗАЯВКУ
               </button>
+
+              <button id="bkPay" style="display:none;" class="btn-submit btn-submit--pay"
+                onclick="bkSubmitBooking(true)">
+                ОПЛАТИТЬ ЗАЕЗД
+              </button>
+
               <div id="bkError" class="bk-error-msg">
                 Не удалось отправить заявку. Попробуйте позже или напишите нам в <a
                   href="https://t.me/Maksimenko_Dmitry" target="_blank">Telegram</a>.

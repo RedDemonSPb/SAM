@@ -81,6 +81,7 @@ section.page {
   line-height: 1;
   letter-spacing: -3px;
   margin-bottom: 32px;
+  text-transform: none;
 }
 
 .section-header {
@@ -1013,7 +1014,7 @@ section.page {
   font-weight: 700;
   letter-spacing: 4px;
   color: #C17B2F;
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 24px;
 }
 
@@ -1225,6 +1226,7 @@ section.page {
   margin-bottom: 48px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: 40px;
+  text-transform: none;
 }
 
 .bk-info-row {

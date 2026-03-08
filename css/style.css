@@ -445,22 +445,23 @@ section.page {
   animation: heroIn 0.8s ease 1.2s forwards;
 }
 
-.hero-btn {
+.hero-decision-block {
   opacity: 0;
   transform: translateY(20px);
   animation: heroIn 0.8s ease 1.5s forwards;
-}
-
-.hero-btn--spaced {
-  margin-top: 40px;
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .hero-price {
-  margin-top: 16px;
-  font-size: 14px;
-  letter-spacing: 3px;
-  color: rgba(193, 123, 47, 0.7);
-  text-transform: none;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #C17B2F;
+  margin-bottom: 4px;
 }
 
 @keyframes heroIn {
@@ -485,11 +486,36 @@ section.page {
   align-items: flex-end;
 }
 
-.hero-location {
+.hero-brand-location {
   color: rgba(255, 255, 255, 0.2);
   font-size: 10px;
   letter-spacing: 4px;
   text-transform: uppercase;
+}
+
+.hero-coords-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hero-coords-block:hover {
+  transform: translateX(4px);
+}
+
+.hero-coords-block:hover .coordinates {
+  color: #C17B2F;
+}
+
+.hero-location-tag {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  margin-top: -2px;
 }
 
 .coordinates {

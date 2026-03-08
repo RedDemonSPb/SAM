@@ -516,7 +516,7 @@
               </div>
 
               <button id="bkSubmit" disabled onclick="bkSubmitBooking()" class="btn-submit">
-                ОТПРАВИТЬ ЗАЯВКУ
+                ЗАБРОНИРОВАТЬ ДАТЫ
               </button>
 
               <button id="bkPay" style="display:none;" class="btn-submit btn-submit--pay"
@@ -529,7 +529,7 @@
                   href="https://t.me/Maksimenko_Dmitry" target="_blank">Telegram</a>.
               </div>
 
-              <p class="text-micro text-center">Ответим в течение часа</p>
+              <p class="text-micro text-center">Подтверждение бронирования в течение часа</p>
             </div>
 
             <!-- Успех -->
@@ -559,9 +559,18 @@
   </main>
 
   <div class="sticky-cta" id="stickyCta">
-    <button class="btn-submit" onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
-      ЗАБРОНИРОВАТЬ
-    </button>
+    <div class="sticky-cta-inner">
+      <div class="sticky-cta-left">
+        <span class="sticky-cta-price">7 000 ₽ <small>/ ночь</small></span>
+      </div>
+      <div class="sticky-cta-right">
+        <button class="btn-submit btn-submit--sticky"
+          onclick="document.getElementById('bronirovat').scrollIntoView({behavior:'smooth'})">
+          ПРОВЕРИТЬ ДАТЫ
+        </button>
+        <p class="sticky-cta-trust">Ответим в течение часа</p>
+      </div>
+    </div>
   </div>
 
   <script src="js/main.js?v=1.4" defer></script>

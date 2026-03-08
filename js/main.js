@@ -496,7 +496,7 @@
         console.error('Ошибка отправки:', error);
         if (errorEl) errorEl.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
+        submitBtn.textContent = 'ЗАБРОНИРОВАТЬ ДАТЫ';
         submitBtn.style.background = '#C17B2F';
         submitBtn.style.cursor = 'pointer';
       });

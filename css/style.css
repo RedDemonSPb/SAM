@@ -44,9 +44,9 @@ body {
 
 .text-micro {
   font-size: 12px;
-  letter-spacing: 4px;
+  letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
+  text-transform: none;
   opacity: 0.8;
 }
 

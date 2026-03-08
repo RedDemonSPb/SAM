@@ -84,7 +84,7 @@
   <!-- /Yandex.Metrika counter -->
 
   <!-- Загрузка -->
-  <div class="page-loader" style="display:none" id="pageLoader" style="display:none">
+  <div class="page-loader" id="pageLoader" style="display:none">
     <div class="loader-text">САМ</div>
   </div>
   <script>
@@ -103,7 +103,9 @@
 
   <!-- Mobile overlay menu -->
   <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" onclick="closeMobile()" aria-label="Закрыть меню">✕</button>
     <a href="#mesto" onclick="closeMobile()">МЕСТО</a>
+    <a href="#ustrojstvo" onclick="closeMobile()">КАК УСТРОЕНО</a>
     <a href="#domik" onclick="closeMobile()">СПАТЬ</a>
     <a href="#chto-delat" onclick="closeMobile()">ЧТО ЗДЕСЬ</a>
     <a href="#priehat" onclick="closeMobile()">ПРИЕХАТЬ</a>
@@ -117,6 +119,7 @@
     </a>
     <nav class="nav-links">
       <a href="#mesto" class="nav-link">МЕСТО</a>
+      <a href="#ustrojstvo" class="nav-link">КАК УСТРОЕНО</a>
       <a href="#domik" class="nav-link">СПАТЬ</a>
       <a href="#chto-delat" class="nav-link">ЧТО ЗДЕСЬ</a>
       <a href="#priehat" class="nav-link">ПРИЕХАТЬ</a>
@@ -156,7 +159,7 @@
       </div>
       <div class="hero-footer">
         <div class="hero-coords-block" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">
-          <p class="coordinates">61.4818° N, 30.2179° E</p>
+          <p class="coordinates">61.4818° N, 30.2179° E <span class="coords-hint">скопировать</span></p>
           <p class="hero-location-tag">Ладожское озеро • Карелия</p>
         </div>
         <p class="hero-brand-location">Экспедиция SAM CAMP</p>
@@ -490,6 +493,10 @@
                 <select id="bkGuests" class="form-select">
                   <option value="1">1 человек</option>
                   <option value="2" selected>2 человека</option>
+                  <option value="3">3 человека</option>
+                  <option value="4">4 человека</option>
+                  <option value="5">5 человек</option>
+                  <option value="6">6 человек</option>
                 </select>
               </div>
 

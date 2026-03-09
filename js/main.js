@@ -85,6 +85,7 @@
     start: null,
     end: null,
     picking: 'start',
+    hover: null,
     bookedDates: [], // Храним загруженные занятые даты
     isSwiping: false
   };
@@ -178,17 +179,25 @@
           cell.style.color = '#C17B2F'; cell.style.fontWeight = '700';
         }
         cell.addEventListener('mouseover', function () {
-          if (!this.style.background || this.style.background === 'rgba(193, 123, 47, 0.15)') {
-            this.style.background = 'rgba(193,123,47,0.2)'; this.style.color = '#C17B2F';
+          if (bkState.picking === 'end' && bkState.start) {
+            bkState.hover = date;
+            bkApplyHoverRange();
+          } else {
+            if (!this.style.background || this.style.background === 'rgba(193, 123, 47, 0.15)') {
+              this.style.background = 'rgba(193,123,47,0.2)'; this.style.color = '#C17B2F';
+            }
           }
         });
-        // Оптимизация: убираем лишний рендер на mouseout
         cell.addEventListener('mouseout', function () {
-          if (this.style.background === 'rgba(193, 123, 47, 0.2)') {
-            this.style.background = '';
-            this.style.color = '';
-            // Восстанавливаем стили если это текущий диапазон
-            bkUpdateCellHighlight(this, date);
+          if (bkState.picking === 'end' && bkState.start) {
+            bkState.hover = null;
+            bkApplyHoverRange();
+          } else {
+            if (this.style.background === 'rgba(193, 123, 47, 0.2)') {
+              this.style.background = '';
+              this.style.color = '';
+              bkUpdateCellHighlight(this, date);
+            }
           }
         });
         cell.addEventListener('click', () => bkSelectDate(date));
@@ -303,6 +312,51 @@
 
       grid.dataset.touchInited = 'true';
     }
+  }
+
+  function bkApplyHoverRange() {
+    const cells = document.querySelectorAll('#bkGrid [data-date]');
+    cells.forEach(cell => {
+      const cellDate = new Date(parseInt(cell.getAttribute('data-date')));
+      cellDate.setHours(0, 0, 0, 0);
+      const isStart = bkState.start && cellDate.getTime() === bkState.start.getTime();
+      const isEnd = bkState.end && cellDate.getTime() === bkState.end.getTime();
+      const inRange = bkState.start && bkState.end && cellDate > bkState.start && cellDate < bkState.end;
+
+      if (isStart || isEnd) {
+        cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+        return;
+      }
+      if (inRange) {
+        cell.style.background = 'rgba(193,123,47,0.15)'; cell.style.color = ''; cell.style.fontWeight = '';
+        return;
+      }
+
+      if (bkState.hover && bkState.start && bkState.picking === 'end') {
+        const hoverDate = bkState.hover;
+        if (hoverDate > bkState.start) {
+          if (cellDate.getTime() === hoverDate.getTime()) {
+            cell.style.background = 'rgba(193,123,47,0.5)'; cell.style.color = 'white'; cell.style.fontWeight = '600';
+            return;
+          }
+          if (cellDate > bkState.start && cellDate < hoverDate) {
+            cell.style.background = 'rgba(193,123,47,0.15)'; cell.style.color = ''; cell.style.fontWeight = '';
+            return;
+          }
+        }
+      }
+
+      // Сброс если не попадает ни в один случай
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      const isPast = cellDate < today;
+      const isBooked = isDateBooked(cellDate);
+      if (!isPast && !isBooked) {
+        const isToday = cellDate.getTime() === today.getTime();
+        cell.style.background = '';
+        cell.style.color = isToday ? '#C17B2F' : '';
+        cell.style.fontWeight = isToday ? '700' : '';
+      }
+    });
   }
 
   function getCellFromTouch(touch) {

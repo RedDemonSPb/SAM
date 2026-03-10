@@ -327,13 +327,13 @@
       if (payBtn) payBtn.style.display = 'none';
     } else if (start && end) {
       const n = Math.round((end - start) / 86400000);
-      const total = n * 7000;
+      const total = n * 12000;
       datesBlock.style.display = 'block';
       document.getElementById('bkDatesValue').textContent = `${bkFmtDate(start)} → ${bkFmtDate(end)}`;
       document.getElementById('bkNightsValue').textContent = `${n} ${bkNightWord(n)}`;
       priceBlock.style.display = 'block';
       document.getElementById('bkNightsLbl').textContent = `${n} ${bkNightWord(n)}`;
-      document.getElementById('bkNightsVal').textContent = bkFmtPrice(n * 7000) + ' ₽';
+      document.getElementById('bkNightsVal').textContent = bkFmtPrice(n * 12000) + ' ₽';
       document.getElementById('bkTotal').textContent = bkFmtPrice(total) + ' ₽';
       submitBtn.disabled = false;
       submitBtn.style.background = '#C17B2F';
@@ -428,7 +428,7 @@
     formData.append('end', bkFmtDate(end));
     formData.append('nights', n);
     formData.append('guests', guests);
-    formData.append('price', bkFmtPrice(n * 7000) + ' ₽');
+    formData.append('price', bkFmtPrice(n * 12000) + ' ₽');
     formData.append('comment', comment + (isPay ? ' (ЗАПРОС ОПЛАТЫ)' : ''));
 
     fetch(GOOGLE_SCRIPT_URL, {

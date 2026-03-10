@@ -1435,14 +1435,18 @@ section.page {
 .stepper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 0;
   gap: 24px;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
 .stepper-btn {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #C17B2F;
   color: white;
   width: 44px;
   height: 44px;
@@ -1450,7 +1454,7 @@ section.page {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 22px;
   font-family: 'Space Grotesk', sans-serif;
   transition: all 0.3s ease;
   padding: 0;
@@ -1470,7 +1474,7 @@ section.page {
 }
 
 .stepper-value {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
   min-width: 24px;
   text-align: center;

@@ -1438,10 +1438,14 @@ section.page {
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 8px 0;
-  gap: 24px;
   width: 100%;
   margin-top: 8px;
   margin-bottom: 16px;
+}
+
+.stepper-controls {
+  display: flex;
+  gap: 64px;
 }
 
 .stepper-btn {
@@ -1474,10 +1478,9 @@ section.page {
 }
 
 .stepper-value {
-  font-size: 22px;
+  font-size: 28px;
+  color: #fff;
   font-weight: 500;
-  min-width: 24px;
-  text-align: center;
 }
 
 /* Цена */

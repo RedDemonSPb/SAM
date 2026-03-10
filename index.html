@@ -171,7 +171,9 @@
       <div class="mesto-photo">
         <div class="mesto-photo-bg" id="mestoBg"></div>
         <div class="mesto-coords">
-          <p class="coordinates" onclick="copyCoords(this)" title="Нажмите, чтобы скопировать">61.4818° N, 30.2179° E
+          <p class="coordinates" onclick="copyCoords(this)" title="Открыть Яндекс Карты">
+            <a href="https://yandex.ru/maps/?pt=30.2179,61.4818&z=15&l=map" target="_blank" rel="noopener noreferrer"
+              style="text-decoration: none; color: inherit;">61.4818° N, 30.2179° E</a>
           </p>
         </div>
       </div>
@@ -184,7 +186,7 @@
           300 км по трассе А-121.<br />
           Ладога здесь без горизонта.<br />
           Скала отвесная. Тропа есть.<br />
-          Вид с вершины — на всю жизнь.
+          Вид с вершины — сам увидишь.
         </p>
         <div class="fade-in delay-3">
           <div class="map-wrapper">
@@ -499,15 +501,13 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="bkGuests">Количество гостей</label>
-                <select id="bkGuests" class="form-select">
-                  <option value="1">1 человек</option>
-                  <option value="2" selected>2 человека</option>
-                  <option value="3">3 человека</option>
-                  <option value="4">4 человека</option>
-                  <option value="5">5 человек</option>
-                  <option value="6">6 человек</option>
-                </select>
+                <label class="form-label">Количество гостей</label>
+                <div class="stepper">
+                  <button type="button" class="stepper-btn" id="guestDec" aria-label="Уменьшить">−</button>
+                  <span class="stepper-value" id="guestCount">2</span>
+                  <button type="button" class="stepper-btn" id="guestInc" aria-label="Увеличить">+</button>
+                  <input type="hidden" id="bkGuests" name="guests" value="2">
+                </div>
               </div>
 
               <div class="form-group">

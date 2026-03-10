@@ -364,18 +364,24 @@
     const nameInput = document.getElementById('bkName');
     const phoneInput = document.getElementById('bkPhone');
     const commentInput = document.getElementById('bkComment');
-    const guestsSelect = document.getElementById('bkGuests');
+    const guestsInput = document.getElementById('bkGuests');
 
     if (nameInput) {
       nameInput.value = '';
-      nameInput.style.borderColor = ''; // Сброс подсветки ошибки
+      nameInput.style.borderColor = ''; // Сброс подсвета ошибки
     }
     if (phoneInput) {
       phoneInput.value = '';
-      phoneInput.style.borderColor = ''; // Сброс подсветки ошибки
+      phoneInput.style.borderColor = ''; // Сброс подсвета ошибки
     }
     if (commentInput) commentInput.value = '';
-    if (guestsSelect) guestsSelect.value = '2'; // Возвращаем количество гостей по умолчанию
+
+    // Сброс степпера
+    if (typeof updateStepper === 'function') {
+      updateStepper(2);
+    } else if (guestsInput) {
+      guestsInput.value = '2';
+    }
 
     bkRender();
     bkUpdateUI();
@@ -504,6 +510,36 @@
     });
   }, { threshold: 0.1 });
   fadeElements.forEach(el => fadeObserver.observe(el));
+
+  // === STEPPER LOGIC ===
+  const guestCountEl = document.getElementById('guestCount');
+  const guestDecBtn = document.getElementById('guestDec');
+  const guestIncBtn = document.getElementById('guestInc');
+  const guestHiddenInput = document.getElementById('bkGuests');
+
+  function updateStepper(val) {
+    if (!guestCountEl || !guestHiddenInput) return;
+    guestCountEl.textContent = val;
+    guestHiddenInput.value = val;
+    if (guestDecBtn) guestDecBtn.disabled = val <= 1;
+    if (guestIncBtn) guestIncBtn.disabled = val >= 6;
+  }
+  window.updateStepper = updateStepper; // Make it accessible to bkClearDates if needed
+
+  if (guestDecBtn && guestIncBtn) {
+    guestDecBtn.addEventListener('click', () => {
+      let val = parseInt(guestHiddenInput.value) || 2;
+      if (val > 1) updateStepper(val - 1);
+    });
+
+    guestIncBtn.addEventListener('click', () => {
+      let val = parseInt(guestHiddenInput.value) || 2;
+      if (val < 6) updateStepper(val + 1);
+    });
+
+    // Initialize
+    updateStepper(2);
+  }
 
   // === HAMBURGER MENU ===
   const burgerBtn = document.getElementById('burgerBtn');

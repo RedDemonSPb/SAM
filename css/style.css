@@ -1431,6 +1431,51 @@ section.page {
   cursor: pointer;
 }
 
+/* Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 0;
+  gap: 24px;
+}
+
+.stepper-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  transition: all 0.3s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.stepper-btn:hover:not(:disabled) {
+  border-color: #C17B2F;
+  color: #C17B2F;
+  background: rgba(193, 123, 47, 0.05);
+}
+
+.stepper-btn:disabled {
+  opacity: 0.15;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.stepper-value {
+  font-size: 18px;
+  font-weight: 500;
+  min-width: 24px;
+  text-align: center;
+}
+
 /* Цена */
 .bk-price-block {
   display: none;

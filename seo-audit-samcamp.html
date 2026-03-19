@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO Audit — samcamp.ru</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: rgba(255,255,255,0.03);
+    --bg-card-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.15);
+    --text: #e8e8ed;
+    --text-secondary: #8b8b9e;
+    --text-muted: #5a5a6e;
+    --accent: #6366f1;
+    --accent-glow: rgba(99,102,241,0.3);
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.12);
+    --green-border: rgba(34,197,94,0.25);
+    --yellow: #eab308;
+    --yellow-bg: rgba(234,179,8,0.12);
+    --yellow-border: rgba(234,179,8,0.25);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.12);
+    --red-border: rgba(239,68,68,0.25);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.12);
+    --orange: #f97316;
+    --orange-bg: rgba(249,115,22,0.12);
+    --orange-border: rgba(249,115,22,0.25);
+    --purple: #a78bfa;
+    --purple-bg: rgba(167,139,250,0.08);
+    --purple-border: rgba(167,139,250,0.15);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+  }
+
+  ::selection { background: var(--accent); color: white; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(59,130,246,0.03) 0%, transparent 50%);
+    z-index: -1;
+    animation: ambientDrift 20s ease-in-out infinite;
+  }
+  @keyframes ambientDrift {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-2%, 1%); }
+    66% { transform: translate(1%, -1%); }
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  .header { padding: 40px 0 0; text-align: center; }
+  .header-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 100px; font-size: 12px; font-weight: 500;
+    color: var(--text-secondary); text-transform: uppercase;
+    letter-spacing: 1.5px; margin-bottom: 20px;
+  }
+  .header-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px; font-weight: 700; line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, #a5a5c0 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .header .subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; }
+
+  .score-section {
+    display: flex; align-items: center; gap: 48px;
+    margin-bottom: 40px; padding: 40px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); backdrop-filter: blur(20px);
+  }
+  .score-circle-wrap { position: relative; flex-shrink: 0; }
+  .score-circle {
+    width: 180px; height: 180px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; position: relative;
+  }
+  .score-circle svg {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; transform: rotate(-90deg);
+  }
+  .score-circle svg circle { fill: none; stroke-width: 6; stroke-linecap: round; }
+  .score-circle svg .bg-ring { stroke: rgba(255,255,255,0.06); }
+  .score-circle svg .progress-ring {
+    stroke: var(--yellow); stroke-dasharray: 502; stroke-dashoffset: 126;
+    filter: drop-shadow(0 0 6px rgba(234,179,8,0.4));
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+  .score-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 56px; font-weight: 700;
+    line-height: 1; color: white; position: relative; z-index: 1;
+  }
+  .score-grade {
+    font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600;
+    color: var(--yellow); text-transform: uppercase; letter-spacing: 1px;
+    position: relative; z-index: 1; margin-top: 2px;
+  }
+  .score-label { font-size: 13px; color: var(--text-secondary); position: relative; z-index: 1; margin-top: 4px; }
+  .score-details { flex: 1; }
+  .score-details h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 600; margin-bottom: 8px;
+  }
+  .score-details p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+
+  .sub-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .sub-score {
+    padding: 14px 16px; background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+  }
+  .sub-score-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
+  .sub-score-value { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
+  .sub-score-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.06); margin-top: 8px; overflow: hidden; }
+  .sub-score-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease-out; }
+
+  .tabs {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .tabs-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  }
+  .tabs-inner::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    padding: 16px 20px; font-family: 'Inter', sans-serif; font-size: 14px;
+    font-weight: 500; color: var(--text-muted); background: none; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text-secondary); }
+  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+  .tab-btn .tab-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 20px; height: 20px; padding: 0 6px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 100px; font-size: 11px; font-weight: 600;
+    margin-left: 6px; color: var(--text-secondary);
+  }
+  .tab-btn.active .tab-count { background: var(--accent); border-color: var(--accent); color: white; }
+
+  .tab-content { display: none; padding: 40px 0 80px; }
+  .tab-content.active { display: block; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 40px; }
+  .stat-card {
+    padding: 24px; background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); text-align: center; transition: border-color 0.2s;
+  }
+  .stat-card:hover { border-color: var(--border-hover); }
+  .stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .stat-label { font-size: 12px; color: var(--text-secondary); }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; margin-bottom: 16px; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border-hover); }
+  .card-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+  .section-subtitle { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; margin-top: 1px;
+  }
+  .check-icon.pass { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .check-icon.fail { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .check-icon.warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .check-text { font-size: 14px; color: var(--text); flex: 1; }
+  .check-sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; font-family: 'JetBrains Mono', monospace; }
+
+  .badge {
+    display: inline-flex; align-items: center; padding: 3px 10px;
+    border-radius: 100px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+  .badge-yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-border); }
+
+  .action-item {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 24px; margin-bottom: 12px;
+    display: flex; gap: 20px; align-items: flex-start; transition: border-color 0.2s;
+  }
+  .action-item:hover { border-color: var(--border-hover); }
+  .action-item.critical { border-left: 3px solid var(--red); }
+  .action-item.high { border-left: 3px solid var(--orange); }
+  .action-item.medium { border-left: 3px solid var(--yellow); }
+  .action-item.low { border-left: 3px solid var(--text-muted); }
+  .action-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700;
+    color: var(--accent); flex-shrink: 0; width: 36px; text-align: center; opacity: 0.5;
+  }
+  .action-content { flex: 1; }
+  .action-title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .action-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+  .action-impact { margin-top: 8px; font-size: 13px; font-weight: 500; }
+  .action-impact.high { color: var(--red); }
+  .action-impact.medium { color: var(--yellow); }
+  .action-impact.low { color: var(--text-muted); }
+
+  .page-table { width: 100%; border-collapse: collapse; }
+  .page-table th {
+    text-align: left; padding: 12px 16px; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted);
+    border-bottom: 1px solid var(--border); font-weight: 600;
+  }
+  .page-table td {
+    padding: 12px 16px; font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: top;
+  }
+  .page-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .page-url { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); }
+
+  .lsi-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .lsi-tag {
+    padding: 6px 14px; border-radius: 100px; font-size: 13px;
+    font-family: 'JetBrains Mono', monospace; transition: all 0.2s;
+  }
+  .lsi-tag.found { background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); }
+  .lsi-tag.missing { background: var(--red-bg); border: 1px solid var(--red-border); color: var(--red); opacity: 0.8; }
+  .lsi-tag.partial { background: var(--yellow-bg); border: 1px solid var(--yellow-border); color: var(--yellow); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { font-size: 13px; color: var(--text-secondary); flex-shrink: 0; margin-right: 16px; }
+  .info-val { font-size: 13px; color: var(--text); text-align: right; font-family: 'JetBrains Mono', monospace; }
+
+  .alert-box {
+    padding: 16px 20px; border-radius: var(--radius-sm); margin-bottom: 16px;
+    display: flex; align-items: flex-start; gap: 12px; font-size: 14px;
+  }
+  .alert-box.critical { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #fca5a5; }
+  .alert-box.warning { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.2); color: #fde68a; }
+  .alert-box.info { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); color: #93c5fd; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    background: rgba(255,255,255,0.06); padding: 2px 8px; border-radius: 4px; color: var(--purple);
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .header h1 { font-size: 28px; }
+    .score-section { flex-direction: column; text-align: center; padding: 24px; gap: 24px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .sub-scores { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <div class="header-badge"><span class="dot"></span> Site-Wide SEO Audit</div>
+    <h1>samcamp.ru</h1>
+    <p class="subtitle">Глэмпинг САМ CAMP, Карелия — Аудит 1 страницы · 19 марта 2026</p>
+  </div>
+</div>
+
+<!-- SCORE OVERVIEW -->
+<div class="container" style="padding-top: 32px; padding-bottom: 0;">
+  <div class="score-section">
+    <div class="score-circle-wrap">
+      <div class="score-circle">
+        <svg viewBox="0 0 160 160">
+          <circle class="bg-ring" cx="80" cy="80" r="74"/>
+          <circle class="progress-ring" cx="80" cy="80" r="74"/>
+        </svg>
+        <span class="score-number">75</span>
+        <span class="score-grade">Grade B</span>
+        <span class="score-label">Overall Health</span>
+      </div>
+    </div>
+    <div class="score-details">
+      <h2>Хорошая основа — критичный контент</h2>
+      <p>Технически сайт сделан правильно: есть Schema.org, Open Graph, sitemap, canonical, WebP-изображения. Но главные SEO-проблемы — в контенте: H1 не содержит ни одного ключевого слова, текста на странице ~350 слов (конкуренты — 1500+), а одностраничная архитектура физически не позволяет охватить более одного поискового кластера. Именно поэтому сайт плохо индексируется — Google не понимает, под какой запрос его показывать.</p>
+      <div class="sub-scores">
+        <div class="sub-score">
+          <div class="sub-score-label">Technical</div>
+          <div class="sub-score-value" style="color: var(--green)">75</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:75%; background: var(--green)"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Content</div>
+          <div class="sub-score-value" style="color: var(--orange)">45</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:45%; background: var(--orange)"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Architecture</div>
+          <div class="sub-score-value" style="color: var(--yellow)">70</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:70%; background: var(--yellow)"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Cross-Page</div>
+          <div class="sub-score-value" style="color: var(--yellow)">65</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:65%; background: var(--yellow)"></div></div>
+        </div>
+        <div class="sub-score">
+          <div class="sub-score-label">Social & Schema</div>
+          <div class="sub-score-value" style="color: var(--green)">100</div>
+          <div class="sub-score-bar"><div class="sub-score-bar-fill" style="width:100%; background: var(--green)"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('executive')">Резюме</button>
+    <button class="tab-btn" onclick="switchTab('pages')">Страница <span class="tab-count">1</span></button>
+    <button class="tab-btn" onclick="switchTab('sitewide')">Проблемы <span class="tab-count">10</span></button>
+    <button class="tab-btn" onclick="switchTab('technical')">Техническое SEO</button>
+    <button class="tab-btn" onclick="switchTab('content')">Контент & Ключевые слова</button>
+    <button class="tab-btn" onclick="switchTab('linking')">Внутренние ссылки</button>
+    <button class="tab-btn" onclick="switchTab('actions')">План действий</button>
+  </div>
+</div>
+
+<!-- ==================== TAB 1: РЕЗЮМЕ ==================== -->
+<div id="tab-executive" class="tab-content active">
+<div class="container">
+
+  <div class="section-title">Резюме аудита</div>
+  <div class="section-subtitle">samcamp.ru — Глэмпинг на Ладоге, Карелия</div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value">1</div>
+      <div class="stat-label">Страниц проанализировано</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--red)">3</div>
+      <div class="stat-label">Критических проблемы</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange)">4</div>
+      <div class="stat-label">Высокий приоритет</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--yellow)">3</div>
+      <div class="stat-label">Предупреждений</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">~350</div>
+      <div class="stat-label">Слов на странице</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green)">100%</div>
+      <div class="stat-label">Schema покрытие</div>
+    </div>
+  </div>
+
+  <div class="alert-box critical">
+    <span class="alert-icon">🔴</span>
+    <div><strong>Главная причина плохой индексации:</strong> H1 заголовок «Вспомни как это – делать всё самому» не содержит ни одного поискового запроса. Google не понимает тему страницы. Это нужно исправить в первую очередь.</div>
+  </div>
+
+  <div class="alert-box warning">
+    <span class="alert-icon">⚠️</span>
+    <div><strong>Архитектурное ограничение:</strong> Одностраничный сайт (SPA) может занимать только одну позицию в поиске. Конкуренты с многостраничными сайтами занимают 5-20 позиций по разным запросам одновременно. Для роста трафика нужны отдельные страницы или блог.</div>
+  </div>
+
+  <div class="alert-box info">
+    <span class="alert-icon">ℹ️</span>
+    <div><strong>Хорошая новость:</strong> Технический фундамент сайта выполнен грамотно. Schema.org, OG-теги, sitemap, robots.txt, WebP-изображения — всё на месте. Основные проблемы решаются правкой контента, а не кодом.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">🎯 Рекомендуемые ключевые слова</div>
+    <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">На основе анализа контента сайта для ниши «глэмпинг Карелия / Ладога»:</p>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Первичные</p>
+        <div class="lsi-cloud">
+          <span class="lsi-tag found">глэмпинг Карелия</span>
+          <span class="lsi-tag found">глэмпинг Ладога</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:10px;">Вторичные</p>
+        <div class="lsi-cloud">
+          <span class="lsi-tag partial">аренда домика Карелия</span>
+          <span class="lsi-tag partial">глэмпинг Лахденпохья</span>
+          <span class="lsi-tag partial">база отдыха Ладожское озеро</span>
+          <span class="lsi-tag partial">отдых на Ладоге</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom: 16px;">📊 ТОП-3 действия для быстрого роста</div>
+    <div class="checklist-item">
+      <div class="check-icon fail">1</div>
+      <div class="check-text">
+        <strong>Переписать H1 с ключевым словом</strong>
+        <div class="check-sub">«Вспомни как это – делать всё самому» → «Глэмпинг в Карелии на Ладоге — база САМ CAMP» (сохранить слоган как подзаголовок)</div>
+      </div>
+      <span class="badge badge-red">КРИТИЧНО</span>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">2</div>
+      <div class="check-text">
+        <strong>Добавить текстовый контент: минимум 600-800 слов</strong>
+        <div class="check-sub">Описание места, активностей, условий — каждая секция должна иметь 100-150 слов с LSI-ключами</div>
+      </div>
+      <span class="badge badge-red">КРИТИЧНО</span>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">3</div>
+      <div class="check-text">
+        <strong>Зарегистрировать сайт в Google Search Console и Яндекс.Вебмастер</strong>
+        <div class="check-sub">Явно подать sitemap на индексацию — robots.txt и sitemap правильные, но нужно явное подтверждение</div>
+      </div>
+      <span class="badge badge-red">КРИТИЧНО</span>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 2: СТРАНИЦА ==================== -->
+<div id="tab-pages" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Анализ страницы</div>
+  <div class="section-subtitle">index.html → https://samcamp.ru/</div>
+
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title" style="margin-bottom:16px; font-size:16px; font-family:'JetBrains Mono',monospace; color:var(--accent)">https://samcamp.ru/</div>
+
+    <div class="grid-2">
+      <div>
+        <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">META-ДАННЫЕ</p>
+        <div class="info-row">
+          <span class="info-key">Title</span>
+          <span class="info-val" style="color:var(--yellow)">52 символа ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Meta description</span>
+          <span class="info-val" style="color:var(--yellow)">121 символ ⚠️</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Canonical</span>
+          <span class="info-val" style="color:var(--green)">Присутствует ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Lang</span>
+          <span class="info-val" style="color:var(--green)">ru ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Robots</span>
+          <span class="info-val" style="color:var(--green)">index, follow ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">OG:title / image</span>
+          <span class="info-val" style="color:var(--green)">Присутствует ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Twitter Card</span>
+          <span class="info-val" style="color:var(--green)">summary_large_image ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Schema.org</span>
+          <span class="info-val" style="color:var(--green)">LodgingBusiness ✓</span>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">КОНТЕНТ</p>
+        <div class="info-row">
+          <span class="info-key">Слов на странице</span>
+          <span class="info-val" style="color:var(--red)">~350 ✗</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">H1 (количество)</span>
+          <span class="info-val" style="color:var(--green)">1 ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">H1 (содержит ключ)</span>
+          <span class="info-val" style="color:var(--red)">НЕТ ✗</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">H2 (количество)</span>
+          <span class="info-val">5</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">H3 (количество)</span>
+          <span class="info-val">12</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Изображений</span>
+          <span class="info-val" style="color:var(--green)">8 (все с alt) ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Формат изображений</span>
+          <span class="info-val" style="color:var(--green)">WebP ✓</span>
+        </div>
+        <div class="info-row">
+          <span class="info-key">Lazy loading</span>
+          <span class="info-val" style="color:var(--green)">Да ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Заголовочная структура</div>
+    <div class="checklist-item">
+      <div class="check-icon fail">H1</div>
+      <div class="check-text">
+        «Вспомни как это – делать всё самому.»
+        <div class="check-sub" style="color:var(--red)">❌ Нет ключевых слов. Google не может определить тему страницы по H1.</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon warn">H2</div>
+      <div class="check-text">
+        Место / Как устроено / Спать / Что здесь / Вспомнить
+        <div class="check-sub" style="color:var(--yellow)">⚠️ Ни один H2 не содержит поискового запроса. «Место» и «Спать» никто не ищет.</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon warn">H3</div>
+      <div class="check-text">
+        Сон / Огонь / Быт / Горы / РЫБАЛКА / СКАЛА / БАНЯ / ЛЕС / САП / Стоимость / Как добраться / Контакты
+        <div class="check-sub" style="color:var(--yellow)">⚠️ «Рыбалка на Ладоге», «Дровяная баня», «Скалолазание Карелия» — упущены варианты с ключами.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Title и Meta Description</div>
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">ТЕКУЩИЙ TITLE (52 символа — в норме):</p>
+      <code>Активный отдых в Карелии — база САМ CAMP на Ладоге</code>
+    </div>
+    <div class="alert-box warning" style="margin-bottom:16px;">
+      <span class="alert-icon">💡</span>
+      <div>Рекомендуемый title: <code>Глэмпинг в Карелии у Ладоги — САМ CAMP | от 12 000 ₽/ночь</code> (57 символов). Добавить цену — кликабельность повышается на 15-20%.</div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">ТЕКУЩИЙ META DESCRIPTION (121 символ — нужно 150-160):</p>
+      <code>Глэмпинг САМ — отдых в Карелии у Ладожского озера. Рыбалка, баня, скалы, SUP. 12 000 ₽/ночь. Забронируйте прямо сейчас.</code>
+    </div>
+    <div class="alert-box info">
+      <span class="alert-icon">💡</span>
+      <div>Рекомендуемый: <code>Глэмпинг в Карелии на берегу Ладожского озера. Дровяная баня, рыбалка, скалы, SUP — всё включено. 4 часа от Петербурга. Минимум 2 ночи. Бронируйте онлайн.</code> (158 символов)</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 3: ПРОБЛЕМЫ ==================== -->
+<div id="tab-sitewide" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Все найденные проблемы</div>
+  <div class="section-subtitle">Отсортировано по приоритету</div>
+
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:12px;">🔴 КРИТИЧНО</p>
+
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>H1 не содержит ключевых слов</strong>
+      <div class="check-sub">Текущий: «Вспомни как это – делать всё самому.» — это бренд-слоган, не поисковый запрос. Google использует H1 как главный сигнал темы страницы.</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>Крайне тонкий контент: ~350 слов</strong>
+      <div class="check-sub">Конкуренты в нише «глэмпинг Карелия» имеют 1500-3000 слов. Google считает страницы с менее чем 500 словами «тонким контентом» и снижает их в выдаче.</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>Сайт не добавлен в Google Search Console / Яндекс.Вебмастер</strong>
+      <div class="check-sub">Без верификации в GSC Google не получает явного сигнала индексировать сайт. Sitemap правильный, но нужна явная подача на индексацию.</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+
+  <div class="divider" style="margin:20px 0;"></div>
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px;">🟠 ВЫСОКИЙ ПРИОРИТЕТ</p>
+
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>Одностраничная архитектура ограничивает SEO-охват</strong>
+      <div class="check-sub">Один URL — один шанс ранжироваться. Нет отдельных страниц под запросы «аренда домика Карелия», «что делать у Ладоги», «глэмпинг с баней» и т.д.</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>H2 заголовки не содержат ключевых слов</strong>
+      <div class="check-sub">«Место», «Спать», «Что здесь» — Generic названия разделов. Должны быть: «Глэмпинг у Ладожского озера», «Размещение в Карелии», «Активный отдых на природе».</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>Нет FAQ-секции со структурированными данными</strong>
+      <div class="check-sub">Запросы «как добраться», «сколько стоит», «что включено» — часто появляются как featured snippets. FAQPage Schema позволяет занять место в нулевой позиции.</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon fail">✗</div>
+    <div class="check-text">
+      <strong>Schema.org не использует весь потенциал</strong>
+      <div class="check-sub">Тип LodgingBusiness хорош, но не хватает: amenityFeature (список удобств), makesOffer (с ценой), starRating или aggregateRating, checkinTime/checkoutTime, numberOfRooms.</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+
+  <div class="divider" style="margin:20px 0;"></div>
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:12px;">🟡 СРЕДНИЙ ПРИОРИТЕТ</p>
+
+  <div class="checklist-item">
+    <div class="check-icon warn">⚠</div>
+    <div class="check-text">
+      <strong>Meta description короткий: 121 символ (норма 150-160)</strong>
+      <div class="check-sub">Теряется ~25 символов убедительного текста. Google может сгенерировать свой description из контента страницы, что хуже.</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon warn">⚠</div>
+    <div class="check-text">
+      <strong>Нет отзывов и UGC-контента</strong>
+      <div class="check-sub">Нет блока отзывов с Review Schema. Для бронирования отдыха социальные доказательства — ключевой фактор доверия и сигнал для Google.</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+  <div class="checklist-item">
+    <div class="check-icon warn">⚠</div>
+    <div class="check-text">
+      <strong>Meta keywords тег устарел</strong>
+      <div class="check-sub"><code>&lt;meta name="keywords" content="глэмпинг, Карелия..."&gt;</code> — Google игнорирует с 2009 года. Яндекс — с 2021. Можно убрать.</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+
+  <div class="divider" style="margin:20px 0;"></div>
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:12px;">⚪ НИЗКИЙ ПРИОРИТЕТ</p>
+
+  <div class="checklist-item">
+    <div class="check-icon pass">✓</div>
+    <div class="check-text" style="color:var(--text-muted)">
+      <strong>Нет Breadcrumb навигации</strong>
+      <div class="check-sub">Для одностраничного сайта некритично, но при расширении до многостраничного — важно добавить.</div>
+    </div>
+    <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);border:1px solid var(--border)">НИЗКИЙ</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 4: ТЕХНИЧЕСКОЕ ==================== -->
+<div id="tab-technical" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Техническое SEO</div>
+  <div class="section-subtitle">Инфраструктура, robots.txt, sitemap, теги</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px;">robots.txt</div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">Файл существует и корректен</div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">Все роботы разрешены (<code>Disallow:</code> пустой)</div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">Ссылка на sitemap указана: <code>https://samcamp.ru/sitemap.xml</code></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">CSS и JS файлы не заблокированы</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px;">sitemap.xml</div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">Файл существует, валидный XML</div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">Содержит 1 URL: <code>https://samcamp.ru/</code></div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">lastmod: 2026-03-06 (актуально)</div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-icon pass">✓</div>
+        <div class="check-text">priority: 1.0, changefreq: monthly</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Теги и метаданные страницы</div>
+    <div class="grid-2">
+      <div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">Canonical тег присутствует: <code>https://samcamp.ru/</code></div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">Viewport meta: <code>width=device-width, initial-scale=1.0</code></div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">lang="ru" на html-элементе</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">robots: index, follow</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">preconnect к fonts.googleapis.com и fonts.gstatic.com</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">Яндекс.Метрика подключена (ID: 107136989)</div>
+        </div>
+      </div>
+      <div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">Favicon.ico и SVG-favicon</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">theme-color: #080808 (PWA-метатег)</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">JS загружается с атрибутом <code>defer</code></div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon pass">✓</div>
+          <div class="check-text">CSS версионирован: <code>?v=1.4</code></div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon warn">⚠</div>
+          <div class="check-text">Нет Google Analytics (только Яндекс.Метрика)</div>
+        </div>
+        <div class="checklist-item">
+          <div class="check-icon warn">⚠</div>
+          <div class="check-text">Заголовки безопасности сервера не проверены (локальный файл)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Изображения</div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">Все изображения используют формат WebP (современный формат)</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">Все изображения имеют атрибут alt с описательным текстом</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">Все изображения используют <code>loading="lazy"</code></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon warn">⚠</div>
+      <div class="check-text">
+        Alt-тексты могут быть улучшены с ключевыми словами
+        <div class="check-sub">«Дикий Дом снаружи» → «Глэмпинг-домик снаружи, Карелия» | «Баня у озера» → «Дровяная баня у Ладожского озера, глэмпинг»</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Schema.org (JSON-LD)</div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">Тип: <code>LodgingBusiness</code> — правильный выбор</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">Есть name, description, url, telephone, image, address, geo, priceRange</div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-text">
+        Нет <code>amenityFeature</code> — список удобств (баня, SUP, рыбалка, завтрак)
+        <div class="check-sub">Google использует это для rich snippets в поиске по отелям/глэмпингу</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-text">
+        Нет <code>makesOffer</code> / <code>priceSpecification</code>
+        <div class="check-sub">Цена 12 000 ₽ есть в priceRange (текстом), но структурированное Offer помогает показать цену в поиске</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-text">
+        Нет <code>aggregateRating</code> или <code>Review</code>
+        <div class="check-sub">Звёзды и рейтинг в поисковой выдаче — самый заметный rich snippet для туризма</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-text">
+        Нет <code>checkinTime</code>, <code>checkoutTime</code>, <code>numberOfRooms</code>
+        <div class="check-sub">Полезные поля для тематики аренды жилья</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 5: КОНТЕНТ ==================== -->
+<div id="tab-content" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Контент и ключевые слова</div>
+  <div class="section-subtitle">Семантическое покрытие, LSI-ключи, рекомендуемая стратегия</div>
+
+  <div class="alert-box critical" style="margin-bottom:24px;">
+    <span class="alert-icon">🔴</span>
+    <div><strong>Проблема контентной глубины:</strong> На сайте ~350 слов видимого текста. Топ-10 конкурентов по запросу «глэмпинг Карелия» имеют 1200-3500 слов. Google оценивает «полноту» страницы — чем тоньше контент, тем ниже позиция. Текущий стиль («Топите сами. Рядом Ладога.») красив, но для SEO нужны развёрнутые описания.</div>
+  </div>
+
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title" style="margin-bottom:16px;">LSI-ключевые слова — наличие на сайте</div>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">
+      🟢 Найдено на сайте &nbsp; 🔴 Отсутствует (упущена семантика) &nbsp; 🟡 Частично
+    </p>
+
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Локационные термины</p>
+      <div class="lsi-cloud">
+        <span class="lsi-tag found">Карелия</span>
+        <span class="lsi-tag found">Ладожское озеро</span>
+        <span class="lsi-tag found">Лахденпохья</span>
+        <span class="lsi-tag found">Змеиная скала</span>
+        <span class="lsi-tag found">4 часа от Петербурга</span>
+        <span class="lsi-tag found">А-121</span>
+        <span class="lsi-tag missing">Выборгский район</span>
+        <span class="lsi-tag missing">Северная Ладога</span>
+        <span class="lsi-tag missing">Карельский перешеек</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Активности</p>
+      <div class="lsi-cloud">
+        <span class="lsi-tag found">рыбалка</span>
+        <span class="lsi-tag found">баня</span>
+        <span class="lsi-tag found">скала</span>
+        <span class="lsi-tag found">лес</span>
+        <span class="lsi-tag found">SUP</span>
+        <span class="lsi-tag found">грибы</span>
+        <span class="lsi-tag missing">байдарка</span>
+        <span class="lsi-tag missing">каяк</span>
+        <span class="lsi-tag missing">пешие прогулки</span>
+        <span class="lsi-tag missing">скалолазание</span>
+        <span class="lsi-tag missing">купание</span>
+        <span class="lsi-tag missing">закат</span>
+        <span class="lsi-tag missing">фотосессия</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Условия проживания</p>
+      <div class="lsi-cloud">
+        <span class="lsi-tag found">домик</span>
+        <span class="lsi-tag found">кровать</span>
+        <span class="lsi-tag found">отопление</span>
+        <span class="lsi-tag found">постельное</span>
+        <span class="lsi-tag found">завтрак</span>
+        <span class="lsi-tag missing">электричество</span>
+        <span class="lsi-tag missing">Wi-Fi</span>
+        <span class="lsi-tag missing">туалет</span>
+        <span class="lsi-tag missing">кухня</span>
+        <span class="lsi-tag missing">гриль</span>
+        <span class="lsi-tag missing">парковка</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Ценовые и коммерческие термины</p>
+      <div class="lsi-cloud">
+        <span class="lsi-tag found">12 000 ₽ / ночь</span>
+        <span class="lsi-tag found">всё включено</span>
+        <span class="lsi-tag found">минимум 2 ночи</span>
+        <span class="lsi-tag found">бронирование</span>
+        <span class="lsi-tag missing">стоимость аренды</span>
+        <span class="lsi-tag missing">цена за домик</span>
+        <span class="lsi-tag missing">забронировать онлайн</span>
+        <span class="lsi-tag missing">предоплата</span>
+        <span class="lsi-tag missing">отмена брони</span>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Тематические LSI (нишевые)</p>
+      <div class="lsi-cloud">
+        <span class="lsi-tag found">глэмпинг</span>
+        <span class="lsi-tag missing">загородный отдых</span>
+        <span class="lsi-tag missing">экотуризм</span>
+        <span class="lsi-tag missing">дикая природа</span>
+        <span class="lsi-tag missing">отдых с детьми</span>
+        <span class="lsi-tag missing">отдых для двоих</span>
+        <span class="lsi-tag missing">романтический отдых</span>
+        <span class="lsi-tag missing">отдых без интернета</span>
+        <span class="lsi-tag missing">цифровой детокс</span>
+        <span class="lsi-tag missing">сезон май-октябрь</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">💡 Рекомендуемые добавления контента</div>
+
+    <div style="margin-bottom:20px; padding:16px; background:rgba(99,102,241,0.05); border:1px solid rgba(99,102,241,0.15); border-radius:var(--radius-sm);">
+      <p style="font-weight:600;margin-bottom:8px;">1. FAQ-блок (высокий приоритет)</p>
+      <p style="font-size:14px;color:var(--text-secondary);">Добавьте секцию «Вопросы и ответы» с 6-8 вопросами. Это позволяет занять Featured Snippets и People Also Ask. Вопросы: «Как добраться до глэмпинга?», «Что включено в стоимость?», «Можно ли с собаками?», «Есть ли Wi-Fi?», «Как далеко от Петербурга?», «Сколько стоит баня?»</p>
+    </div>
+
+    <div style="margin-bottom:20px; padding:16px; background:rgba(99,102,241,0.05); border:1px solid rgba(99,102,241,0.15); border-radius:var(--radius-sm);">
+      <p style="font-weight:600;margin-bottom:8px;">2. Расширение описания активностей</p>
+      <p style="font-size:14px;color:var(--text-secondary);">Каждый раздел (рыбалка, баня, скала) должен иметь 100-150 слов с LSI-ключами. Текущий текст: «Удочки у воды. Ладога не обещает улов» — красиво, но для SEO нужно: «Рыбалка на Ладожском озере — рядом с домиком есть удочки, наживка и лодочный причал. Ловят окуня, судака, щуку...»</p>
+    </div>
+
+    <div style="padding:16px; background:rgba(99,102,241,0.05); border:1px solid rgba(99,102,241,0.15); border-radius:var(--radius-sm);">
+      <p style="font-weight:600;margin-bottom:8px;">3. Блок «Что взять с собой / Чего не брать»</p>
+      <p style="font-size:14px;color:var(--text-secondary);">Практичный контент, который ищут перед поездкой. Охватывает запросы «что взять в глэмпинг», «что нужно на Ладогу» и добавляет 150-200 слов LSI-насыщенного текста.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 6: ВНУТРЕННИЕ ССЫЛКИ ==================== -->
+<div id="tab-linking" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Внутренние ссылки</div>
+  <div class="section-subtitle">Структура навигации одностраничного сайта</div>
+
+  <div class="alert-box info" style="margin-bottom:24px;">
+    <span class="alert-icon">ℹ️</span>
+    <div>Сайт одностраничный — все «внутренние ссылки» это якорные ссылки в пределах одного URL. Для Google это не настоящая внутренняя перелинковка между страницами.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Навигационные якорные ссылки</div>
+    <table class="page-table">
+      <thead>
+        <tr>
+          <th>Анкор</th>
+          <th>Якорь</th>
+          <th>Встречается</th>
+          <th>Ключевое слово</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>МЕСТО</td>
+          <td><span class="page-url">#mesto</span></td>
+          <td>3×</td>
+          <td><span class="badge badge-red">НЕТ</span></td>
+        </tr>
+        <tr>
+          <td>КАК УСТРОЕНО</td>
+          <td><span class="page-url">#ustrojstvo</span></td>
+          <td>2×</td>
+          <td><span class="badge badge-red">НЕТ</span></td>
+        </tr>
+        <tr>
+          <td>СПАТЬ</td>
+          <td><span class="page-url">#domik</span></td>
+          <td>2×</td>
+          <td><span class="badge badge-red">НЕТ</span></td>
+        </tr>
+        <tr>
+          <td>ЧТО ЗДЕСЬ</td>
+          <td><span class="page-url">#chto-delat</span></td>
+          <td>2×</td>
+          <td><span class="badge badge-red">НЕТ</span></td>
+        </tr>
+        <tr>
+          <td>ПРИЕХАТЬ</td>
+          <td><span class="page-url">#priehat</span></td>
+          <td>2×</td>
+          <td><span class="badge badge-red">НЕТ</span></td>
+        </tr>
+        <tr>
+          <td>БРОНИРОВАТЬ</td>
+          <td><span class="page-url">#bronirovat</span></td>
+          <td>3×</td>
+          <td><span class="badge badge-yellow">ЧАСТИЧНО</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title" style="margin-bottom:16px;">Внешние ссылки</div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">
+        Яндекс.Карты — 2 ссылки с <code>rel="noopener noreferrer"</code>
+        <div class="check-sub">Хорошо: ссылки на карты укрепляют локальный SEO-сигнал</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">
+        Telegram (@samcamp_ru) — 3 ссылки с <code>rel="noopener noreferrer"</code>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon pass">✓</div>
+      <div class="check-text">
+        mailto: info@samcamp.ru и tel: +7 950 047 44 55
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon fail">✗</div>
+      <div class="check-text">
+        Нет ссылок на авторитетные источники (РЖД расписание, Tripadvisor, Яндекс.Путешествия)
+        <div class="check-sub">1-2 исходящие ссылки на авторитетные сайты повышают доверие Google к странице</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== TAB 7: ПЛАН ДЕЙСТВИЙ ==================== -->
+<div id="tab-actions" class="tab-content">
+<div class="container">
+
+  <div class="section-title">Приоритизированный план действий</div>
+  <div class="section-subtitle">Отсортировано по импакту. Начните с пунктов 1-3.</div>
+
+  <div class="action-item critical">
+    <div class="action-number">1</div>
+    <div class="action-content">
+      <div class="action-title">Переписать H1 — добавить ключевое слово</div>
+      <div class="action-desc">
+        <strong>Было:</strong> «Вспомни как это – делать всё самому.»<br>
+        <strong>Стало:</strong> «Глэмпинг в Карелии у Ладожского озера — база САМ CAMP»<br>
+        <strong>Слоган оставить как подзаголовок:</strong> «Вспомни как это — делать всё самому.»<br><br>
+        Изменить в файле <code>index.html</code>, строка ~145: тег <code>&lt;h1 class="hero-title"&gt;</code>
+      </div>
+      <div class="action-impact high">🔴 Критичный импакт — влияет напрямую на индексацию</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+
+  <div class="action-item critical">
+    <div class="action-number">2</div>
+    <div class="action-content">
+      <div class="action-title">Зарегистрировать сайт в поисковых системах</div>
+      <div class="action-desc">
+        1. Google Search Console: <code>search.google.com/search-console</code> → добавить сайт → подать sitemap <code>https://samcamp.ru/sitemap.xml</code><br>
+        2. Яндекс.Вебмастер: <code>webmaster.yandex.ru</code> → добавить сайт → подать sitemap<br>
+        3. Запросить индексацию главной страницы вручную (кнопка «Проверить URL» в GSC)<br><br>
+        Это гарантированно даст сигнал к индексации и покажет все технические ошибки.
+      </div>
+      <div class="action-impact high">🔴 Критичный импакт — прямой путь к решению проблемы «плохой индексации»</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+
+  <div class="action-item critical">
+    <div class="action-number">3</div>
+    <div class="action-content">
+      <div class="action-title">Добавить текстовый контент: минимум 600 слов</div>
+      <div class="action-desc">
+        Расширить каждую секцию до 80-120 слов (сейчас 20-30). Приоритет на ключевые слова:<br><br>
+        • <strong>Место:</strong> «Глэмпинг расположен в Карелии, у подножия Змеиной скалы на берегу Ладожского озера...»<br>
+        • <strong>Рыбалка:</strong> «Рыбалка на Ладожском озере — у домика есть удочки и снасти. Ловят окуня, судака, щуку...»<br>
+        • <strong>Баня:</strong> «Дровяная баня у самого берега Ладоги — истопите сами, вода из озера...»<br>
+        • <strong>Как добраться:</strong> «300 км по трассе А-121 «Сортавала» из Санкт-Петербурга, 4 часа...»
+      </div>
+      <div class="action-impact high">🔴 Критичный импакт — Google депрайоритизирует тонкий контент</div>
+    </div>
+    <span class="badge badge-red">КРИТИЧНО</span>
+  </div>
+
+  <div class="action-item high">
+    <div class="action-number">4</div>
+    <div class="action-content">
+      <div class="action-title">Переписать H2-заголовки разделов с ключевыми словами</div>
+      <div class="action-desc">
+        • «Место» → «Глэмпинг у Ладожского озера, Карелия»<br>
+        • «Как устроено» → «Что включено в аренду глэмпинга»<br>
+        • «Спать» → «Размещение: домик у скалы»<br>
+        • «Что здесь» → «Активности и отдых на природе»<br>
+        • Секцию «Как добраться» — оставить (уже хорошо)
+      </div>
+      <div class="action-impact high">🟠 Высокий импакт — H2 — второй по важности сигнал темы</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+
+  <div class="action-item high">
+    <div class="action-number">5</div>
+    <div class="action-content">
+      <div class="action-title">Добавить FAQ-блок со Schema FAQPage</div>
+      <div class="action-desc">
+        Добавить перед футером секцию с 6-8 вопросами и ответами. Подключить Schema.org FAQPage в JSON-LD.<br><br>
+        Вопросы: «Как далеко от Петербурга?» / «Что включено в стоимость 12 000 ₽?» / «Минимальный срок аренды?» / «Можно с детьми и домашними животными?» / «Есть ли Wi-Fi?» / «Как добраться без машины?»<br><br>
+        FAQ позволяет занять блок «People Also Ask» в Google — бесплатный трафик.
+      </div>
+      <div class="action-impact high">🟠 Высокий импакт — возможность нулевой позиции в поиске</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+
+  <div class="action-item high">
+    <div class="action-number">6</div>
+    <div class="action-content">
+      <div class="action-title">Улучшить meta description до 150-160 символов</div>
+      <div class="action-desc">
+        <strong>Текущий (121 символ):</strong> «Глэмпинг САМ — отдых в Карелии у Ладожского озера. Рыбалка, баня, скалы, SUP. 12 000 ₽/ночь. Забронируйте прямо сейчас.»<br><br>
+        <strong>Рекомендуемый (158 символов):</strong> «Глэмпинг в Карелии на берегу Ладожского озера. Дровяная баня, рыбалка, скалы, SUP — всё включено. 4 часа от Петербурга. Минимум 2 ночи от 12 000 ₽. Бронируйте онлайн.»
+      </div>
+      <div class="action-impact medium">🟡 Средний импакт — повышает CTR из поисковой выдачи</div>
+    </div>
+    <span class="badge badge-orange">ВЫСОКИЙ</span>
+  </div>
+
+  <div class="action-item medium">
+    <div class="action-number">7</div>
+    <div class="action-content">
+      <div class="action-title">Обновить alt-тексты изображений с ключевыми словами</div>
+      <div class="action-desc">
+        • <code>alt="Дикий Дом снаружи"</code> → <code>alt="Глэмпинг-домик в Карелии снаружи, вид на лес"</code><br>
+        • <code>alt="Баня у озера"</code> → <code>alt="Дровяная баня у Ладожского озера, глэмпинг Карелия"</code><br>
+        • <code>alt="Рыбалка на Ладоге"</code> → уже хорошо ✓<br>
+        • <code>alt="Змеиная скала"</code> → <code>alt="Змеиная скала у Ладоги, скалолазание в Карелии"</code><br>
+        • <code>alt="SUP на Ладоге"</code> → уже хорошо ✓
+      </div>
+      <div class="action-impact medium">🟡 Средний импакт — Google Картинки + дополнительные сигналы</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+
+  <div class="action-item medium">
+    <div class="action-number">8</div>
+    <div class="action-content">
+      <div class="action-title">Расширить Schema.org LodgingBusiness</div>
+      <div class="action-desc">
+        Добавить в JSON-LD блок:
+        <ul style="margin:8px 0 0 16px;font-size:13px;color:var(--text-secondary);line-height:2;">
+          <li><code>"checkinTime": "09:00"</code>, <code>"checkoutTime": "21:00"</code></li>
+          <li><code>"numberOfRooms": 1</code></li>
+          <li><code>"amenityFeature": [{"@type":"LocationFeatureSpecification","name":"Дровяная баня","value":true}, ...]</code></li>
+          <li><code>"makesOffer": {"@type":"Offer","price":"12000","priceCurrency":"RUB","description":"Домик на двоих с завтраком"}</code></li>
+        </ul>
+      </div>
+      <div class="action-impact medium">🟡 Средний импакт — rich snippets в поисковой выдаче</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+
+  <div class="action-item medium">
+    <div class="action-number">9</div>
+    <div class="action-content">
+      <div class="action-title">Добавить блок отзывов с Review Schema</div>
+      <div class="action-desc">
+        Разместить 3-5 реальных отзывов гостей на сайте. Подключить <code>Review</code> или <code>AggregateRating</code> Schema. Звёзды в поисковой выдаче повышают CTR на 20-30%. Даже без Google-верификации Schema помогает Яндексу показывать рейтинг.
+      </div>
+      <div class="action-impact medium">🟡 Средний импакт — доверие + CTR</div>
+    </div>
+    <span class="badge badge-yellow">СРЕДНИЙ</span>
+  </div>
+
+  <div class="action-item low">
+    <div class="action-number">10</div>
+    <div class="action-content">
+      <div class="action-title">Долгосрочно: создать блог или отдельные страницы</div>
+      <div class="action-desc">
+        Одностраничный сайт физически ограничен в SEO-охвате. Для роста органического трафика:<br><br>
+        • Страница «Глэмпинг Карелия — что это?» (информационный трафик)<br>
+        • Страница «Как добраться до Лахденпохья» (навигационный трафик)<br>
+        • Статья «Рыбалка на Ладожском озере — что и где ловят» (блог)<br>
+        • Страница «Отзывы гостей» (доверие + трафик)<br><br>
+        Каждая страница — дополнительная точка входа из поиска.
+      </div>
+      <div class="action-impact low">⚪ Долгосрочный импакт — фундамент роста на 6-12 месяцев</div>
+    </div>
+    <span class="badge" style="background:rgba(255,255,255,0.04);color:var(--text-muted);border:1px solid var(--border)">НИЗКИЙ</span>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.closest('.tab-btn').classList.add('active');
+}
+</script>
+
+</body>
+</html>

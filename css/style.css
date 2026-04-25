@@ -12,10 +12,21 @@ html {
 body {
   background-color: #080808;
   color: #f8f7f5;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   overflow-x: hidden;
   width: 100%;
   position: relative;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 
 /* ===== УТИЛИТЫ ===== */
@@ -82,6 +93,7 @@ section.page {
   letter-spacing: -3px;
   margin-bottom: 32px;
   text-transform: none;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .section-header {
@@ -93,6 +105,7 @@ section.page {
   font-weight: 700;
   letter-spacing: -1px;
   text-transform: uppercase;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .section-title--light {
@@ -137,6 +150,7 @@ section.page {
   color: white;
   text-decoration: none;
   text-transform: uppercase;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .nav-logo-img {
@@ -248,7 +262,7 @@ section.page {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
@@ -268,7 +282,7 @@ section.page {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 3px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   position: relative;
   overflow: hidden;
   transition: background 0.3s ease, transform 0.2s ease;
@@ -315,7 +329,7 @@ section.page {
   background: #C17B2F;
   color: white;
   border: none;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 3px;
@@ -388,6 +402,17 @@ section.page {
   transition-delay: 0.5s;
 }
 
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 /* ===== СТРАНИЦА 1: ГЛАВНАЯ ===== */
 #glavnaya {
   display: flex;
@@ -401,15 +426,20 @@ section.page {
   background-image: url('../img/hero.webp');
   background-size: cover;
   background-position: center;
-  filter: grayscale(1);
-  opacity: 0.6;
+  filter: grayscale(0.25) sepia(0.3) brightness(0.65);
   will-change: transform;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, black, rgba(0, 0, 0, 0.4), transparent);
+  background: linear-gradient(
+    105deg,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.5) 40%,
+    rgba(0,0,0,0.15) 70%,
+    transparent 100%
+  );
 }
 
 .hero-content {
@@ -435,6 +465,7 @@ section.page {
   opacity: 0;
   transform: translateY(40px);
   animation: heroIn 1s ease 0.3s forwards;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .hero-line {
@@ -638,8 +669,13 @@ section.page {
   background-image: url('../img/ladoga.webp');
   background-size: cover;
   background-position: center;
-  filter: grayscale(1) contrast(1.2) brightness(0.5);
+  filter: grayscale(0.3) sepia(0.2) brightness(0.5) contrast(1.1);
   will-change: transform;
+  transition: filter 0.8s ease;
+}
+
+.mesto-photo:hover .mesto-photo-bg {
+  filter: grayscale(0) sepia(0.1) brightness(0.6);
 }
 
 .mesto-coords {
@@ -793,13 +829,15 @@ section.page {
 
 .card {
   padding: 24px;
-  border: 1px solid transparent;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
 }
 
 .card:hover {
-  border-color: rgba(193, 123, 47, 0.2);
-  transform: translateY(-6px);
+  border-color: rgba(193, 123, 47, 0.3);
+  transform: translateY(-8px);
+  background: rgba(193, 123, 47, 0.04);
 }
 
 .card-icon {
@@ -888,13 +926,13 @@ section.page {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: grayscale(1);
-  transition: transform 0.6s ease, filter 0.4s ease;
+  filter: grayscale(0.3) sepia(0.25) brightness(0.75);
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
 
 .domik-photo:hover .domik-img {
   transform: scale(1.05);
-  filter: grayscale(0.5);
+  filter: grayscale(0) sepia(0.1) brightness(0.85);
 }
 
 /* ===== СТРАНИЦА 4: ЧТО ДЕЛАТЬ ===== */
@@ -939,13 +977,13 @@ section.page {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(1);
-  transition: transform 0.6s ease, filter 0.4s ease;
+  filter: grayscale(0.3) sepia(0.25) brightness(0.75);
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
 
 .photo-card:hover .photo-img {
   transform: scale(1.05);
-  filter: grayscale(0.5);
+  filter: grayscale(0) sepia(0.1) brightness(0.85);
 }
 
 .photo-overlay {
@@ -1317,7 +1355,7 @@ section.page {
   justify-content: center;
   cursor: pointer;
   font-size: 14px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   transition: border-color 0.3s ease, background 0.3s ease;
 }
 
@@ -1410,7 +1448,7 @@ section.page {
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   font-size: 16px;
   font-weight: 300;
   padding: 12px 0;
@@ -1445,7 +1483,7 @@ section.page {
 
 .stepper-controls {
   display: flex;
-  gap: 64px;
+  gap: 24px;
 }
 
 .stepper-btn {
@@ -1459,7 +1497,7 @@ section.page {
   justify-content: center;
   cursor: pointer;
   font-size: 22px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Onest', sans-serif;
   transition: all 0.3s ease;
   padding: 0;
   line-height: 1;
@@ -1917,6 +1955,19 @@ section.page {
     padding: 16px 24px;
     width: 100%;
     margin-bottom: 8px;
+  }
+
+  .stepper {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .stepper-controls {
+    gap: 12px;
+  }
+
+  .bk-section {
+    overflow-x: hidden;
   }
 }
 

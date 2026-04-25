@@ -97,15 +97,13 @@ section.page {
 
 .section-title {
   font-size: clamp(32px, 5vw, 64px);
-  font-weight: 700;
-  letter-spacing: -1px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
   text-transform: uppercase;
   font-family: 'Unbounded', sans-serif;
 }
 
-.section-title--light {
-  font-weight: 300;
-}
 
 /* ===== НАВИГАЦИЯ ===== */
 .nav-fixed {
@@ -687,6 +685,10 @@ section.page {
   flex-direction: column;
   justify-content: center;
   padding: 120px 80px 60px;
+}
+
+.mesto-content .section-heading {
+  font-size: clamp(40px, 5vw, 72px);
 }
 
 .map-wrapper {

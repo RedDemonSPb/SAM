@@ -149,7 +149,7 @@
     const days = new Date(year, month + 1, 0).getDate();
     for (let i = 0; i < firstDay; i++) {
       const e = document.createElement('div');
-      e.style.cssText = 'aspect-ratio:1;';
+      e.className = 'cal-cell';
       grid.appendChild(e);
     }
     for (let d = 1; d <= days; d++) {
@@ -157,35 +157,31 @@
       const cell = document.createElement('div');
       cell.textContent = d;
       cell.setAttribute('data-date', date.getTime());
-      cell.style.cssText = 'aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:13px; cursor:pointer; position:relative; user-select:none; transition:background 0.2s, color 0.2s;';
+      cell.className = 'cal-cell';
+
       const isPast = date < today;
       const isBooked = isDateBooked(date);
 
       if (isPast || isBooked) {
-        cell.style.color = 'rgba(255,255,255,0.15)';
-        cell.style.cursor = 'not-allowed';
-        if (isBooked) {
-          // Можно заштриховать или визуально выделить занятые даты
-          cell.style.background = 'repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.03) 5px, rgba(255,255,255,0.03) 10px)';
-        }
+        cell.classList.add('cal-cell--past');
+        if (isBooked) cell.classList.add('cal-cell--booked');
       } else {
+        // Apply selection state via CSS classes
         if (start && date.getTime() === start.getTime()) {
-          cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+          cell.classList.add('cal-cell--selected');
         } else if (end && date.getTime() === end.getTime()) {
-          cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+          cell.classList.add('cal-cell--selected');
         } else if (start && end && date > start && date < end) {
-          cell.style.background = 'rgba(193,123,47,0.15)';
+          cell.classList.add('cal-cell--range');
         } else if (date.getTime() === today.getTime()) {
-          cell.style.color = '#C17B2F'; cell.style.fontWeight = '700';
+          cell.classList.add('cal-cell--today');
         }
         cell.addEventListener('mouseover', function () {
           if (bkState.picking === 'end' && bkState.start) {
             bkState.hover = date;
             bkApplyHoverRange();
-          } else {
-            if (!this.style.background || this.style.background === 'rgba(193, 123, 47, 0.15)') {
-              this.style.background = 'rgba(193,123,47,0.2)'; this.style.color = '#C17B2F';
-            }
+          } else if (!this.classList.contains('cal-cell--selected')) {
+            this.classList.add('cal-cell--hover');
           }
         });
         cell.addEventListener('mouseout', function () {
@@ -193,11 +189,7 @@
             bkState.hover = null;
             bkApplyHoverRange();
           } else {
-            if (this.style.background === 'rgba(193, 123, 47, 0.2)') {
-              this.style.background = '';
-              this.style.color = '';
-              bkUpdateCellHighlight(this, date);
-            }
+            this.classList.remove('cal-cell--hover');
           }
         });
         cell.addEventListener('click', () => bkSelectDate(date));
@@ -211,12 +203,10 @@
       }
       grid.appendChild(cell);
     }
-
-
   }
 
   function bkApplyHoverRange() {
-    const cells = document.querySelectorAll('#bkGrid [data-date]');
+    const cells = document.querySelectorAll('#bkGrid .cal-cell[data-date]');
     cells.forEach(cell => {
       const cellDate = new Date(parseInt(cell.getAttribute('data-date')));
       cellDate.setHours(0, 0, 0, 0);
@@ -224,12 +214,15 @@
       const isEnd = bkState.end && cellDate.getTime() === bkState.end.getTime();
       const inRange = bkState.start && bkState.end && cellDate > bkState.start && cellDate < bkState.end;
 
+      // Clear all state classes first
+      cell.classList.remove('cal-cell--selected', 'cal-cell--range', 'cal-cell--hover', 'cal-cell--hover-end', 'cal-cell--today');
+
       if (isStart || isEnd) {
-        cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
+        cell.classList.add('cal-cell--selected');
         return;
       }
       if (inRange) {
-        cell.style.background = 'rgba(193,123,47,0.15)'; cell.style.color = ''; cell.style.fontWeight = '';
+        cell.classList.add('cal-cell--range');
         return;
       }
 
@@ -237,25 +230,22 @@
         const hoverDate = bkState.hover;
         if (hoverDate > bkState.start) {
           if (cellDate.getTime() === hoverDate.getTime()) {
-            cell.style.background = 'rgba(193,123,47,0.5)'; cell.style.color = 'white'; cell.style.fontWeight = '600';
+            cell.classList.add('cal-cell--hover-end');
             return;
           }
           if (cellDate > bkState.start && cellDate < hoverDate) {
-            cell.style.background = 'rgba(193,123,47,0.15)'; cell.style.color = ''; cell.style.fontWeight = '';
+            cell.classList.add('cal-cell--range');
             return;
           }
         }
       }
 
-      // Сброс если не попадает ни в один случай
+      // Restore today highlight if applicable
       const today = new Date(); today.setHours(0, 0, 0, 0);
       const isPast = cellDate < today;
       const isBooked = isDateBooked(cellDate);
-      if (!isPast && !isBooked) {
-        const isToday = cellDate.getTime() === today.getTime();
-        cell.style.background = '';
-        cell.style.color = isToday ? '#C17B2F' : '';
-        cell.style.fontWeight = isToday ? '700' : '';
+      if (!isPast && !isBooked && cellDate.getTime() === today.getTime()) {
+        cell.classList.add('cal-cell--today');
       }
     });
   }
@@ -457,7 +447,7 @@
         console.error('Ошибка отправки:', error);
         if (errorEl) errorEl.style.display = 'block';
         submitBtn.disabled = false;
-        submitBtn.textContent = 'ЗАБРОНИРОВАТЬ ДАТЫ';
+        submitBtn.textContent = 'ВСПОМНИТЬ';
         submitBtn.style.background = '#C17B2F';
         submitBtn.style.cursor = 'pointer';
       });
@@ -467,25 +457,7 @@
     return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
   }
 
-  function bkUpdateCellHighlight(cell, date) {
-    const { start, end } = bkState;
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-
-    // Reset styles to default
-    cell.style.background = '';
-    cell.style.color = '';
-    cell.style.fontWeight = '';
-
-    if (start && date.getTime() === start.getTime()) {
-      cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
-    } else if (end && date.getTime() === end.getTime()) {
-      cell.style.background = '#C17B2F'; cell.style.color = 'white'; cell.style.fontWeight = '700';
-    } else if (start && end && date > start && date < end) {
-      cell.style.background = 'rgba(193,123,47,0.15)';
-    } else if (date.getTime() === today.getTime()) {
-      cell.style.color = '#C17B2F'; cell.style.fontWeight = '700';
-    }
-  }
+  // bkUpdateCellHighlight removed — CSS classes handle all cell states now
   function bkFmtPrice(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
   function bkNightWord(n) {
     if (n >= 11 && n <= 14) return 'ночей';

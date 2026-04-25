@@ -43,12 +43,7 @@ body::after {
   margin-bottom: 48px;
 }
 
-.text-small {
-  color: #A1A1AA;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.6;
-}
+/* .text-small merged into .text-muted — use .text-muted everywhere */
 
 .text-card {
   color: #A1A1AA;
@@ -1062,6 +1057,7 @@ section.page {
   font-weight: 900;
   margin-bottom: 24px;
   letter-spacing: -1px;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .priehat-list {
@@ -1266,6 +1262,7 @@ section.page {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: 40px;
   text-transform: none;
+  font-family: 'Unbounded', sans-serif;
 }
 
 .bk-info-row {
@@ -1326,13 +1323,60 @@ section.page {
 
 .cal-grid div {
   min-height: 48px;
-  /* Larger tap targets for mobile */
   transition: background 0.2s, color 0.2s, transform 0.1s;
   -webkit-tap-highlight-color: transparent;
 }
 
 .cal-grid div:active:not(:empty) {
   transform: scale(0.95);
+}
+
+/* Calendar cell states — replaces inline styles */
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.cal-cell--past,
+.cal-cell--booked {
+  color: rgba(255, 255, 255, 0.15);
+  cursor: not-allowed;
+}
+
+.cal-cell--booked {
+  background: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 255, 255, 0.03) 5px, rgba(255, 255, 255, 0.03) 10px);
+}
+
+.cal-cell--today {
+  color: #C17B2F;
+  font-weight: 700;
+}
+
+.cal-cell--selected {
+  background: #C17B2F;
+  color: white;
+  font-weight: 700;
+}
+
+.cal-cell--range {
+  background: rgba(193, 123, 47, 0.15);
+}
+
+.cal-cell--hover {
+  background: rgba(193, 123, 47, 0.2);
+  color: #C17B2F;
+}
+
+.cal-cell--hover-end {
+  background: rgba(193, 123, 47, 0.5);
+  color: white;
+  font-weight: 600;
 }
 
 .cal-note {
@@ -1861,7 +1905,7 @@ section.page {
   }
 
   .cards-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
   }
 
 
@@ -1889,8 +1933,8 @@ section.page {
   }
 
   .activities-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 24px !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
   }
 
   .activities-grid>.card-item:last-child:nth-child(3n - 1) {
@@ -1906,12 +1950,12 @@ section.page {
 
 
   .bk-info-row {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
   .bk-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .bk-section {
@@ -1973,23 +2017,21 @@ section.page {
 
 @media (max-width: 480px) {
   .cards-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .domik-gallery {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .activities-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr;
   }
 
   .hero-title {
     letter-spacing: -1px;
   }
-}
 
-@media (max-width: 480px) {
   .bk-info-row {
     grid-template-columns: 1fr;
     gap: 0.5rem;
@@ -2007,7 +2049,7 @@ section.page {
 
 @media (max-width: 600px) {
   .bk-info-row {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr 1fr;
     font-size: 0.85rem;
   }
 

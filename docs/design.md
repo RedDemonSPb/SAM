@@ -31,7 +31,10 @@
 
 ## Шрифт
 
-**Space Grotesk** (Google Fonts CDN)  
+**Unbounded** — заголовки (Google Fonts CDN)  
+Начертания: 300, 700, 900
+
+**Onest** — основной текст (Google Fonts CDN)  
 Начертания: 300, 400, 500, 600, 700
 
 | Класс | Размер | Вес | Буквы | Применение |
@@ -42,7 +45,7 @@
 | `.nav-link` | 11px | 300 | uppercase, ls 2px | Ссылки навигации |
 | `.text-muted` | 16px | 400 | — | Основной текст контента |
 | `.text-micro` | 12px | — | ls 0.02em | Вспомогательный текст |
-| `hero-title` | `clamp(48px, 10vw, 120px)` | 900 | — | Заголовок героя |
+| `hero-title` | `clamp(36px, 7vw, 88px)` | 900 | — | Заголовок героя |
 
 ---
 
@@ -90,7 +93,7 @@ Active: scale(0.98)
 
 **Обработка фотографий:**
 ```css
-filter: grayscale(1) opacity(0.6)
+filter: grayscale(0.3) sepia(0.25) brightness(0.75)
 ```
 Намеренное обесцвечивание — создаёт документальную серьёзность.
 
@@ -165,7 +168,7 @@ filter: grayscale(1) opacity(0.6)
 
 CSS-файл версионируется query-строкой в `index.html`:
 ```html
-<link rel="stylesheet" href="css/style.css?v=1.4" />
+<link rel="stylesheet" href="css/style.css?v=1.8" />
 ```
 При каждом изменении CSS инкрементировать minor-версию.
 
